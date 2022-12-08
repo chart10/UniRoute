@@ -96,6 +96,7 @@ User Stories:
 ## 2.2 Assumptions and Dependencies
 
 - UniRoute requires other services to function properly. This includes the google maps API, MARTA API, and school transport API.
+- MARTA API is undergoing a change in December 2022 that may alter the way we need to implement it into our design.
 
 # 3. System Features and Requirements
 
