@@ -7,7 +7,7 @@
 | Create/design user database                                            | Eric Rivas     | P1       |                                 |                             |
 | Design user profile, ability to add preferences                        | Christian Hart | P1       |                                 |                             | 
 | Design process for user input (e.g. Favorite destinations)             | Chandler Dugan | P2       | 5                               | Dependent on the user profile and unerlying functionality of the app                            |
-| Design real time alert tracker using weather, MARTA API                | Chandler Dugan | P2       | 3-7                             | Must find best system to implement. Marta has some real time alerts for itself, but definitly want weather and things outside of it                          |
+| Design real time alert tracker using weather, MARTA API                | Chandler Dugan | P2       | 3-7                             | Must find best system to implement. Marta has some real time alerts for itself, but definitly want weather and things outside of it.                          |
 | Implement logic for "Route Query" based on user schedule               | Eric Rivas     | P2       |                                 |                             |
 | Design route schedule output display                                   | Chandler Dugan | P2       | 9                               | Dependent on the user profiles. |
 | Design process for user input                                          | Christian Hart | P2       |                                 |                             |
