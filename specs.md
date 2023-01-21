@@ -2,11 +2,11 @@
 
 ## 1.1 Purpose
 
-- The purpose of UniRoute is to provide an simple one-stop app to generate routes based on public transit, given starting point, destination, and arrival time.
+- The purpose of UniRoute is to provide an simple, one-stop app to generate routes based on public transit, given user's starting point, destination, and preferred arrival time.
 
 ## 1.2 Intended Audience
 
-- For this document, our intended audience is for us and our instructor.
+- For this document, our intended audience is for us, the designers, and our instructors.
 
 ## 1.3 Intended Use
 
@@ -14,7 +14,7 @@
 
 ## 1.4 Scope
 
-- UniRoute is intended for college students attending big city Universities to get to and from class in a quick and efficient fashion without having to deal with the uncertainty of public transport. Users will be able to put in a destination and find the quickest route utilizing both city public transport (i.e bus, train, etc) and school transport systems. To make the process more streamlined and unique, one may input their weekly class schedule and destinations to have a route set up for you every day of the week and give precise times to leave based on traffic and other possible delays.
+- UniRoute is intended for college students attending big city universities to get to and from class in a quick and efficient fashion without having to deal with the uncertainty of public transport. Users will be able to put in a destination and find the quickest route utilizing both city public transport (i.e bus, train, etc) and school transport systems. To make the process more streamlined and unique, one may input their weekly class schedule and destinations to have a route set up for you every day of the week and give precise times to leave based on traffic and other possible delays.
 
 ## 1.5 Definitions and Acronyms
 
