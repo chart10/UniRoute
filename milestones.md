@@ -2,7 +2,7 @@
 
 ## Minimum Viable Product
 
-In order for a user to get the most basic an essential functionality out of UniRoute they need to be able to perform 4 main tasks.
+In order for a user to get the most basic and essential functionality out of UniRoute they need to be able to perform 4 main tasks.
 
 1. From the main page, the user should be able to enter their starting and destination addresses into a form and plan a route based on that input which will display on an interactive map along side step-by-step directions.
 2. They should be able to create an account within the app and login any time.
@@ -21,20 +21,17 @@ To accomplish this UniRoute will need the following features:
 
 In order for us to feel comfortable inviting users to try our app we will need to implement the following features:
 
-- The user should be able to create a "schedule" of starting points and destinations. From the front page the user can click a button to qucikly generate a route based on the user's schedule for that day.
+- The user should be able to create a "schedule" of starting points and destinations. From the front page the user can click a button to quickly generate a route based on the user's schedule for that day.
 - The user's schedule can be used to quickly generate a week-long itinerary of routes.
 - The main page will have a "news ticker" style component that will display a list of dynamicly called headlines related to weather, traffic, and public transit news
 - Integrate APIs related to electronic bikes and scooters into routes so that users can optionally locate nearby vehicles during on-foot travel.
 - Create a unique display for the interactive map that is visually distinct from the default Google map
 
-What features or additional engineering work will it take to get you to a project you’d be comfortable inviting other people to use?
-Users should be able to set a week long schedule of planned routes
-
 ## Stretch Features
 
 If we have extra time we would like to implement the following features:
 
-- Broaden the scope of the app to include transit API from at least one other University (e.g. Emory, Geogia Tech).
+- Broaden the scope of the app to include transit API from at least one other University (e.g. Emory, Georgia Tech).
 - Broaden the scope of the app to include transit API from one other University in a city besides Atlanta.
 
 ## Droppable Features
