@@ -23,9 +23,9 @@ In order for us to feel comfortable inviting users to try our app we will need t
 
 - The user should be able to create a "schedule" of starting points and destinations. From the front page the user can click a button to quickly generate a route based on the user's schedule for that day.
 - The user's schedule can be used to quickly generate a week-long itinerary of routes.
-- The main page will have a "news ticker" style component that will display a list of dynamicly called headlines related to weather, traffic, and public transit news
+- The main page will have a "news ticker" style component that will display a list of dynamically called headlines related to weather, traffic, and public transit news.
 - Integrate APIs related to electronic bikes and scooters into routes so that users can optionally locate nearby vehicles during on-foot travel.
-- Create a unique display for the interactive map that is visually distinct from the default Google map
+- Create a unique display for the interactive map that is visually distinct from the default Google map.
 
 ## Stretch Features
 
