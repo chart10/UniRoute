@@ -1,7 +1,19 @@
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  // placeholder stuff
+  const [currentTime, setCurrentTime] = useState(0);
+
+  useEffect(() => {
+    // front end to backend featch command.
+    // references the /time route in api.py
+    fetch('/time').then(res => res.json()).then(data => {
+      setCurrentTime(data.time);
+    });
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +29,7 @@ function App() {
         >
           Learn React
         </a>
+        <p> The Current time is {currentTime}.</p>
       </header>
     </div>
   );
