@@ -6,7 +6,7 @@ function App() {
   // placeholder stuff
   const [currentTime, setCurrentTime] = useState(0);
 
-  useEffect(() => {
+  useState(() => {
     // front end to backend featch command.
     // references the /time route in api.py
     fetch('/time').then(res => res.json()).then(data => {
