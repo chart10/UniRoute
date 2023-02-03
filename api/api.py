@@ -82,9 +82,17 @@ def logout():
     return "PLACE HOLDER FOR LOGOUT"
 
 # Api route to grab user data
+# return type: dict of user data {FirstName: '', 
+#                                 LastName: '', 
+#                                 University: ''}
 @app.route('/profile')
 def get_profile():
-    return "PLACE HOLDER FOR PROFILE INFO"
+    profile_data={
+        'firstName': "Chandler",
+        'lastName': "Dugan",
+        'university': "GSU"
+    }
+    return profile_data
 
 # Api route to grab google routing data
 @app.route('/google')

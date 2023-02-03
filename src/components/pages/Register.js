@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 export const Register = (props) => {
     const [name, setName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [university, setUniversity] = useState('')
     const [email, setEmail] = useState('');
     const [password, setPass] = useState('');
@@ -10,15 +11,19 @@ export const Register = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email);
+        fetch('/time').then()
     }
 
     return (
         <div className="auth-form-container">
             <h2>Register</h2>
         <form className="register-form" onSubmit={handleSubmit}>
-            <label htmlFor="name">Full name</label>
-            <input value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="full Name" />
-            
+            <label htmlFor="name">First Name</label>
+            <input value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="First Name" />
+
+            <label htmlFor="lastName">Last Name</label>
+            <input value={lastName} name="lastName" onChange={(e) => setLastName(e.target.value)} id="lastName" placeholder="Last Name"/>
+
             <label htmlFor="university">University</label>
             <input value={university} name="university" onChange={(e) => setUniversity(e.target.value)} id="university" placeholder="University" />
 
