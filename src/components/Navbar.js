@@ -39,6 +39,13 @@ function Navbar(){
                         <CgProfile className="navbar-icon" onClick={closeMobileMenu}/>
                     </NavLink>
                 </li>
+                <li className="nav-profiel">
+                    <NavLink to='/Profile' className={({ isActive }) => "nav-links" + (isActive ? " activated" : "")}>
+                        Your Profile
+                        <CgProfile className="navbar-icon" onClick={closeMobileMenu}/>
+                    </NavLink>
+
+                </li>
 
             </ul>
             

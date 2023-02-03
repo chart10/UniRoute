@@ -5,8 +5,9 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Route, Link, Outlet,} from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Login from './components/pages/Login'
+import Login from './components/pages/Login';
 import Getroute from "./components/pages/Getroute";
+import Profile from "./components/pages/Profile";
 
 
 const AppLayout = () =>{
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Getroute/>,
       },
+      {
+        path: "/profile",
+        element: <Profile />
+      }
     ]
   },
   

@@ -22,7 +22,7 @@ mysql = MySQL(app)
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
-@app.route('/add_user', methods=['POST'])
+@app.route('/signup', methods=['POST'])
 def add_user():
     # 1) Create a cursor
     cursor = mysql.connection.cursor()
@@ -40,14 +40,13 @@ def add_user():
     # 5) Close the cursor
     cursor.close()
     return 'successfully added user to database'
-    
+
+#PLACEHOLDER ROUTE
 @app.route('/time')
 def get_current_time():
     return {'time': time.time()}
 
 # Api route for logging in users
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     # Output message if something goes wrong
@@ -78,33 +77,32 @@ def login():
     return render_template('index.html', msg=msg)
 
 # Api route for loggin out users
-
-
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     return "PLACE HOLDER FOR LOGOUT"
 
 # Api route to grab user data
-
-
+# return type: dict of user data {FirstName: '', 
+#                                 LastName: '', 
+#                                 University: ''}
 @app.route('/profile')
 def get_profile():
-    return "PLACE HOLDER FOR PROFILE INFO"
+    profile_data={
+        'firstName': "Chandler",
+        'lastName': "Dugan",
+        'university': "GSU"
+    }
+    return profile_data
 
 # Api route to grab google routing data
-
-
 @app.route('/google')
 def get_google_route():
     return "PLACE HOLDER FOR GOOGLE ROUTE API DATA"
 
 # Api route to grab marta train data
-
-
 @app.route('/marta')
 def get_marta_data():
     return "PLACE HOLDER FOR MARTA TRAIN DATA"
-
 
 @app.route('/schedule')
 def get_schedule():
