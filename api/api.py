@@ -16,7 +16,7 @@ mysql = MySQL(app)
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
-@app.route('/add_user', methods=['POST'])
+@app.route('/signup', methods=['POST'])
 def add_user():
     # 1) Create a cursor
     cursor = mysql.connection.cursor()

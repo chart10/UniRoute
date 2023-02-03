@@ -7,7 +7,7 @@ function App() {
   const [currentTime, setCurrentTime] = useState(0);
 
   useState(() => {
-    // front end to backend featch command.
+    // front end to backend fetch command.
     // references the /time route in api.py
     fetch('/time').then(res => res.json()).then(data => {
       setCurrentTime(data.time);
