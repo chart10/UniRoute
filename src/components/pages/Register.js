@@ -1,27 +1,51 @@
 import React, { useState } from 'react'
-import Register from './apiRegister.js'
+import apiRegister from './apiRegister.js'
+import '../../App.css'
+import axios from 'axios'
 
-export const Form = (props) => {
+// Component: Registration
+// Contains the forms needed to create a new user account
+
+// Set up the useState variables for registration input forms
+export const RegisterForm = (props) => {
   const [username, setUserName] = useState('')
-  const [password, setPass] = useState('')
+  const [password, setPassword] = useState('')
   const [university, setUniversity] = useState('')
   const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
 
-  const insertArticle = () => {
+  // Call apiRegister.js with user's form data
+  const sendRegistration = () => {
     apiRegister
-      .Register({ username, password, university, email, firstName, lastName })
-      .then((response) => props.insertedArticle(response))
+      .Register({
+        username: username,
+        password: password,
+        university: university,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+      })
+
       .catch((error) => console.log('error', error))
   }
 
+  // Once the form is submitted, this fuction will run
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(email)
-    fetch('/time').then()
+    sendRegistration() // Calls the api
+    console.log('successfully submitted to backend')
+    // Clear form data after successful submission
+    setUserName('')
+    setPassword('')
+    setEmail('')
+    setUniversity('')
+    setFirstName('')
+    setLastName('')
+    // TODO: Send user to their profile page
   }
 
+  // Return JSX forms
   return (
     <div className='auth-form-container'>
       <h2>Register</h2>
@@ -38,7 +62,7 @@ export const Form = (props) => {
         <label htmlFor='password'>Password</label>
         <input
           value={password}
-          onChange={(e) => setPass(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           type='password'
           placeholder='********'
           id='password'
@@ -81,8 +105,10 @@ export const Form = (props) => {
           id='lastName'
           placeholder='Last Name'
         />
+
         <button type='submit'>Submit Registration</button>
       </form>
+
       <button className='link-btn' onClick={() => props.onFormSwitch('login')}>
         Already have an account? Login here.
       </button>

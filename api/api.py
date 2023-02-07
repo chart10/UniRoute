@@ -22,18 +22,19 @@ mysql = MySQL(app)
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
-@app.route('/signup', methods=['POST'])
+@app.route('/signup', methods=['GET','POST'])
 def add_user():
     # 1) Create a cursor
     cursor = mysql.connection.cursor()
     # 2) Declare variables for input values, if needed
     
-    username = request.json["username", None]
-    password = request.json["password", None]
-    email = request.json["email", None]
-    university = request.json["univerity", None]
-    firstName = request.json["firstName", None]
-    lastName = request.json["lastName", None]
+    # Use input json to populate these variables
+    username = request.json["username"]
+    password = request.json["password"]
+    email = request.json["email"]
+    university = request.json["university"]
+    firstName = request.json["firstName"]
+    lastName = request.json["lastName"]
     # newAccount = Account(
     #         username=username,
     #         password=password,
@@ -44,7 +45,7 @@ def add_user():
 
 
     # 3) Use cursor.execute() to run a line of MySQL code
-    cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s)''',
+    cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s)''',
                    (username,password,email,university,firstName,lastName))
     # 4) Commit the change to the MySQL database
     mysql.connection.commit()

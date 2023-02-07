@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
-import { Register } from './components/pages/Register'
+import { RegisterForm } from './components/pages/Register'
 import Login from './components/pages/Login'
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
       {currentForm === 'login' ? (
         <Login onFormSwitch={toggleForm} />
       ) : (
-        <Register onFormSwitch={toggleForm} />
+        <RegisterForm onFormSwitch={toggleForm} />
       )}
     </div>
   )
