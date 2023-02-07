@@ -27,14 +27,25 @@ def add_user():
     # 1) Create a cursor
     cursor = mysql.connection.cursor()
     # 2) Declare variables for input values, if needed
-    username = request.json.get("username", None)
-    password = request.json.get("password", None)
-    university = request.json.get("univerity", None)
-    firstName = request.json.get("firstName", None)
-    lastName = request.json.get("lastName", None)
+    
+    username = request.json["username", None]
+    password = request.json["password", None]
+    email = request.json["email", None]
+    university = request.json["univerity", None]
+    firstName = request.json["firstName", None]
+    lastName = request.json["lastName", None]
+    # newAccount = Account(
+    #         username=username,
+    #         password=password,
+    #         university=university,
+    #         firstName=firstName,
+    #         lastName=lastName
+    # )
+
+
     # 3) Use cursor.execute() to run a line of MySQL code
     cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s)''',
-                   (username,password,university,firstName,lastName))
+                   (username,password,email,university,firstName,lastName))
     # 4) Commit the change to the MySQL database
     mysql.connection.commit()
     # 5) Close the cursor
