@@ -1,15 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
 
 export const Login = (props) => {
     /** Initial email and password will be empty*/
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPass] = useState('');
+    const [user, setUser] = useState();
   /** */
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         /** To prevent if the page gets reloaded not lose our state*/
         e.preventDefault();
-        console.log(email,password);
+        const user = { email: username, password };
+        // send the username and password to the server
+        const response = await axios.post (
+            "/login",
+            user
+        );
+        // set the state of the user
+        setUser(response.data);
+        localStorage.setItem('user', response.data);
+        console.log(response.data);
+    };
+
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("user");
+        if (loggedInUser) {
+            const foundUser = JSON.parse(loggedInUser);
+            setUser(foundUser);
+        }
+    }, []);
+    
+    if (user) {
+        return <div>{user.name} is logged in</div>
     }
   
     return (
@@ -17,7 +39,7 @@ export const Login = (props) => {
             <h2>Login</h2>
             <form className="login-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">email</label>
-                <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
+                <input value={username} onChange={(e) => setUsername(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
                 <label htmlFor="password">password</label>
                 <input value={password} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                 <button type="submit">Log In</button>
