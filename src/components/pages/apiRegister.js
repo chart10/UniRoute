@@ -10,8 +10,8 @@ export default class apiRegister {
       },
       body: JSON.stringify(body),
     })
-      .then(console.log(body))
       .then((response) => response.json())
+      .then(console.log('Sent to backend:', body))
       .catch((error) => console.log(error))
   }
 }

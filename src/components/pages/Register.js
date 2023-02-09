@@ -3,10 +3,10 @@ import apiRegister from './apiRegister.js'
 import '../../App.css'
 import axios from 'axios'
 
-// Component: Registration
-// Contains the forms needed to create a new user account
+/** Component: Registration
+ * Contains the forms needed to create a new user account */
 
-// Set up the useState variables for registration input forms
+// Set up the hooks for registration input forms
 export const RegisterForm = (props) => {
   const [username, setUserName] = useState('')
   const [password, setPassword] = useState('')
@@ -15,25 +15,18 @@ export const RegisterForm = (props) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
 
-  // Call apiRegister.js with user's form data
-  const sendRegistration = () => {
-    apiRegister
-      .Register({
-        username: username,
-        password: password,
-        university: university,
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-      })
-
-      .catch((error) => console.log('error', error))
-  }
-
   // Once the form is submitted, this fuction will run
   const handleSubmit = (e) => {
     e.preventDefault()
-    sendRegistration() // Calls the api
+    // Calls the fetch function from apiRegister.js
+    apiRegister.Register({
+      username: username,
+      password: password,
+      university: university,
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+    })
     console.log('successfully submitted to backend')
     // Clear form data after successful submission
     setUserName('')
