@@ -35,18 +35,17 @@ def add_user():
     university = request.json["university"]
     firstName = request.json["firstName"]
     lastName = request.json["lastName"]
-    # newAccount = Account(
-    #         username=username,
-    #         password=password,
-    #         university=university,
-    #         firstName=firstName,
-    #         lastName=lastName
-    # )
 
+    # Check if username is already in the database
+    cursor.execute('SELECT username FROM users WHERE username = %s', [username])
+    user = cursor.fetchone()
+    if user:
+        return 'There is already an account with that username.'
 
     # 3) Use cursor.execute() to run a line of MySQL code
+
     cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s)''',
-                   (username,password,email,university,firstName,lastName))
+                (username,password,university,firstName,lastName,email))
     # 4) Commit the change to the MySQL database
     mysql.connection.commit()
     # 5) Close the cursor
