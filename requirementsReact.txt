@@ -1,0 +1,5 @@
+react
+react-icons
+react-router-dom
+axios
+google-map-react

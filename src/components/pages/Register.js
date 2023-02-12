@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import apiRegister from './apiRegister.js'
+import apiRegisterCall from './apiRegisterCall.js'
 import '../../App.css'
 import axios from 'axios'
 
@@ -19,7 +19,7 @@ export const RegisterForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     // Calls the fetch function from apiRegister.js
-    apiRegister.Register({
+    apiRegisterCall.Register({
       username: username,
       password: password,
       university: university,
