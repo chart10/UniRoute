@@ -8,7 +8,9 @@ app = Flask(__name__)
 from flask import Flask, request, jsonify
 from dotenv import find_dotenv, load_dotenv
 import os
+import logging
 from flask_mysqldb import MySQL # Connects MySQL to Flask
+
 
 app = Flask(__name__)
 
@@ -19,6 +21,19 @@ app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
 app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
 mysql = MySQL(app)
 
+# LOGGING CONFIGURATION
+log = logging.getLogger("writing-logger")
+#logging.basicConfig(level=os.environ.get)()
+log.setLevel(logging.INFO)
+fh = logging.FileHandler("./mylog.log")
+formatting = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatting)
+log.addHandler(fh)
+
+@app.route('/')
+def index():
+    log.info("Hello, world!")    
+    return "logging Hello World"
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
@@ -26,8 +41,8 @@ mysql = MySQL(app)
 def add_user():
     # 1) Create a cursor
     cursor = mysql.connection.cursor()
-    # 2) Declare variables for input values, if needed
     
+    # 2) Declare variables for input values, if needed
     # Use input json to populate these variables
     username = request.json["username"]
     password = request.json["password"]

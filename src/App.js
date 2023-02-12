@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import { RegisterForm } from './components/pages/Register'
 import Login from './components/pages/Login'
+import Map from './components/Map'
 
 function App() {
   const [currentForm, setCurrentForm] = useState('login')
@@ -18,6 +19,7 @@ function App() {
       ) : (
         <RegisterForm onFormSwitch={toggleForm} />
       )}
+      <Map />
     </div>
   )
 }

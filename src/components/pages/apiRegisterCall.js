@@ -1,7 +1,7 @@
 // Component: Registration API
 // This funtion passes user data into the 'users' table of the DB
 
-export default class apiRegister {
+export default class apiRegisterCall {
   static Register(body) {
     return fetch('/signup', {
       method: 'POST',
