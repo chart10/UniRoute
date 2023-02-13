@@ -3,12 +3,52 @@ import axios from "axios";
 
 export const Login = (props) => {
     /** Initial email and password will be empty*/
-    const [username, setUsername] = useState('');
-    const [password, setPass] = useState('');
-    const [user, setUser] = useState();
-  /** */
+    //const [username, setUsername] = useState('');
+    //const [password, setPass] = useState('');
+    //const [user, setUser] = useState();
+
+    const {loginForm, setloginForm} = useState({
+        username: "",
+        password: ""
+    });
+
+    function logMeIn(event) {
+        axios({
+            method: "POST",
+            url: "/token",
+            data:{
+                username: loginForm.username,
+                password: loginForm.password
+            }
+        })
+        .then((response) => {
+            props.setToken(response.data.access_token)
+        }).catch((error) => {
+            if (error.response) {
+                console.log(error.response);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            }
+        })
+
+        setloginForm(({
+            username: "",
+            password: ""
+        }))
+
+        event.preventDefault();
+    };
+
+    function handleChange(event) {
+        const {value, name} = event.target;
+        setloginForm(prevNote => ({
+            ...prevNote, [name]: value})
+        )}
+    }
+
+  /**
     const handleSubmit = async (e) => {
-        /** To prevent if the page gets reloaded not lose our state*/
+        /** To prevent if the page gets reloaded not lose our state
         e.preventDefault();
         const user = { email: username, password };
         // send the username and password to the server
@@ -21,7 +61,6 @@ export const Login = (props) => {
         localStorage.setItem('user', response.data);
         console.log(response.data);
     };
-
     useEffect(() => {
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
@@ -33,6 +72,10 @@ export const Login = (props) => {
     if (user) {
         return <div>{user.name} is logged in</div>
     }
+  */ 
+
+  
+    
   
     return (
         <div className="auth-form-container">

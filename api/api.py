@@ -48,11 +48,6 @@ def add_user():
     cursor.close()
     return 'successfully added user to database'
 
-#PLACEHOLDER ROUTE
-@app.route('/time')
-def get_current_time():
-    return {'time': time.time()}
-
 # Api route for logging in users
 '''
 @app.route('/login', methods=['GET', 'POST'])

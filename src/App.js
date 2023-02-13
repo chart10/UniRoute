@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Register } from './components/pages/Register';
 import Login from './components/pages/Login';
+import useToken from './components/UseToken';
 
 function App() {
   const [currentForm, setCurrentForm] = useState('login');
@@ -9,8 +10,6 @@ function App() {
   const toggleForm = (formName) => {
     setCurrentForm(formName);
   }
-  // placeholder stuff
-  const [currentTime, setCurrentTime] = useState(0);
 
   useState(() => {
     // front end to backend fetch command.
@@ -23,7 +22,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p> The Current time is {currentTime}.</p>
       </header>
       {
         currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />

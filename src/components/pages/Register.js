@@ -11,7 +11,6 @@ export const Register = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email);
-        fetch('/time').then()
     }
 
     return (
