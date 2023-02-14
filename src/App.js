@@ -11,14 +11,6 @@ function App() {
     setCurrentForm(formName);
   }
 
-  useState(() => {
-    // front end to backend fetch command.
-    // references the /time route in api.py
-    fetch('/time').then(res => res.json()).then(data => {
-      setCurrentTime(data.time);
-    });
-  }, []);
-
   return (
     <div className="App">
       <header className="App-header">
