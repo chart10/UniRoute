@@ -3,22 +3,16 @@ import './App.css'
 import { RegisterForm } from './components/pages/Register'
 import Login from './components/pages/Login'
 import Map from './components/Map'
+import useToken from './components/UseToken';
 
 function App() {
-  const [currentForm, setCurrentForm] = useState('login')
-
-  const toggleForm = (formName) => {
-    setCurrentForm(formName)
-  }
-
+  const { token, removeToken, setToken } = useToken();
   return (
     <div className='App'>
       <header className='App-header'></header>
-      {currentForm === 'login' ? (
-        <Login onFormSwitch={toggleForm} />
-      ) : (
-        <RegisterForm onFormSwitch={toggleForm} />
-      )}
+      {
+
+      }
       <Map />
     </div>
   )
