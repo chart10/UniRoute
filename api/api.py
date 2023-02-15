@@ -1,6 +1,9 @@
 import time
-
+import json 
 from flask import Flask
+from datetime import datetime, timedelta, timezone
+from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, \
+                               unset_jwt_cookies,jwt_required,JWTManager
 
 app = Flask(__name__)
 
@@ -13,6 +16,10 @@ from flask_mysqldb import MySQL # Connects MySQL to Flask
 
 
 app = Flask(__name__)
+
+# TOKEN CONFIG
+app.config["JWT_SECRET_KEY"] = "please-change-me"
+jwt = JWTManager(app)
 
 # DATABASE CONFIGURATION
 app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
@@ -37,7 +44,7 @@ def index():
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
-@app.route('/signup', methods=['GET','POST'])
+@app.route('/register', methods=['POST'])
 def add_user():
     # 1) Create a cursor
     cursor = mysql.connection.cursor()
@@ -67,52 +74,56 @@ def add_user():
     cursor.close()
     return 'successfully added user to database'
 
-#PLACEHOLDER ROUTE
-@app.route('/time')
-def get_current_time():
-    return {'time': time.time()}
+# Api route for logging in users and creating token
+@app.route('/token', methods=["POST"])
+def create_token():
+    # request json of username and pass from front end
+    username = request.json.get("username", None)
+    password = request.json.get("password", None)
+    # if the user name and pass are not in db, return wrong username and pass 
+    if username != "test: grab from db" or password != "test: grab from db":
+        return {"msg": "Wrong username or password"}, 401
+    
+    # create accesstoken if succsesful
+    access_token = create_access_token(identity=username)
+    response = {"access_token": access_token}
+    return response
 
-# Api route for logging in users
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    # Output message if something goes wrong
-    msg = ''
-    # Check if "username" and "password" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        # Create variables for easy access
-        username = request.form['username']
-        password = request.form['password']
-        # Check if account exists using MySQL
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute(
-            'SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password,))
-        # Fetch one record and return result
-        account = cursor.fetchone()
-        # If account exists in accounts table in out database
-        if account:
-            # Create session data, we can access this data in other routes
-            session['loggedin'] = True
-            session['id'] = account['id']
-            session['username'] = account['username']
-            # Redirect to home page
-            return 'Logged in successfully!'
-        else:
-            # Account doesnt exist or username/password incorrect
-            msg = 'Incorrect username/password!'
-    # Show the login form with message (if any)
-    return render_template('index.html', msg=msg)
+# this refreshes the jwt authentication so it does not randomly log you out
+@app.after_request
+def refresh_expiring_jwts(response):
+    try: 
+        exp_timestamp = get_jwt()["expt"]
+        now = datetime.nw(timezone.utc)
+        target_timestamp = datetime.timestamp(now + timedelta(minutes=30))
+        if target_timestamp > exp_timestamp:
+            access_token = create_access_token(identity=get_jwt_identity())
+            data = response.get_json()
+            if type(data) is dict:
+                data["access_token"] = access_token
+                response.data = json.dumps(data)
+            return response
+    except (RuntimeError, KeyError):
+        # case where there is not a valid JWT. Just return the original response
+        return response
 
 # Api route for loggin out users
-@app.route('/logout', methods=['GET', 'POST'])
+@app.route('/logout', methods=['POST'])
 def logout():
-    return "PLACE HOLDER FOR LOGOUT"
+    response = jsonify({"msg": "logout successful"})
+    unset_jwt_cookies(response)
+    return response
 
 # Api route to grab user data
+# jwt_required() means that you must be logged in (authenticated) to access it
 # return type: dict of user data {FirstName: '', 
 #                                 LastName: '', 
 #                                 University: ''}
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'POST'])
+@jwt_required()
 def get_profile():
+    # dummy data
+    # will need to replace this data wiht a db query
     profile_data={
         'firstName': "Chandler",
         'lastName': "Dugan",
@@ -123,6 +134,7 @@ def get_profile():
 # Api route to grab google routing data
 @app.route('/google')
 def get_google_route():
+    # Will call foogle routes from a handler file 
     return "PLACE HOLDER FOR GOOGLE ROUTE API DATA"
 
 # Api route to grab marta train data
