@@ -48,49 +48,22 @@ def add_user():
     cursor.close()
     return 'successfully added user to database'
 
-# Api route for logging in users
-'''
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    # Output message if something goes wrong
-    msg = ''
-    # Check if "username" and "password" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        # Create variables for easy access
-        username = request.form['username']
-        password = request.form['password']
-        # Check if account exists using MySQL
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute(
-            'SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password,))
-        # Fetch one record and return result
-        account = cursor.fetchone()
-        # If account exists in accounts table in out database
-        if account:
-            # Create session data, we can access this data in other routes
-            session['loggedin'] = True
-            session['id'] = account['id']
-            session['username'] = account['username']
-            # Redirect to home page
-            return 'Logged in successfully!'
-        else:
-            # Account doesnt exist or username/password incorrect
-            msg = 'Incorrect username/password!'
-    # Show the login form with message (if any)
-    return render_template('index.html', msg=msg)
-'''
-
+# Api route for logging in users and creating token
 @app.route('/token', methods=["POST"])
 def create_token():
+    # request json of username and pass from front end
     username = request.json.get("username", None)
-    password = request.json.get("passwrod", None)
+    password = request.json.get("password", None)
+    # if the user name and pass are not in db, return wrong username and pass 
     if username != "test: grab from db" or password != "test: grab from db":
         return {"msg": "Wrong username or password"}, 401
     
+    # create accesstoken if succsesful
     access_token = create_access_token(identity=username)
     response = {"access_token": access_token}
     return response
 
+# this refreshes the jwt authentication so it does not randomly log you out
 @app.after_request
 def refresh_expiring_jwts(response):
     try: 
@@ -116,6 +89,7 @@ def logout():
     return response
 
 # Api route to grab user data
+# jwt_required() means that you must be logged in (authenticated) to access it
 # return type: dict of user data {FirstName: '', 
 #                                 LastName: '', 
 #                                 University: ''}

@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
 
-export const Login = (props) => {
-    /** Initial email and password will be empty*/
-    const [username, setUsername] = useState('');
-    const [password, setPass] = useState('');
-    const [user, setUser] = useState();
-
-    const {loginForm, setloginForm} = useState({
+function Login(props) {
+    // create React hook for login data, and act of logging in
+    const [loginForm, setloginForm] = useState({
         username: "",
         password: ""
-    });
+    })
 
+    // Login function that uses axios to speak to backend
     function logMeIn(event) {
         axios({
             method: "POST",
@@ -25,68 +22,51 @@ export const Login = (props) => {
             props.setToken(response.data.access_token)
         }).catch((error) => {
             if (error.response) {
-                console.log(error.response);
-                console.log(error.response.status);
-                console.log(error.response.headers);
+                console.log(error.response)
+                console.log(error.response.status)
+                console.log(error.response.headers)
             }
         })
 
+        // uses react hook to set the login data
         setloginForm(({
             username: "",
-            password: ""
-        }))
+            password: ""}))
 
         event.preventDefault();
-    };
+    }
 
+    // handles the chanages to the login form when typing
     function handleChange(event) {
-        const {value, name} = event.target;
+        const {value, name} = event.target
         setloginForm(prevNote => ({
             ...prevNote, [name]: value})
         )}
 
-        return (
-            <div className="auth-form-container">
-                <h2>Login</h2>
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <label htmlFor="email">email</label>
-                    <input value={username} onChange={(e) => setUsername(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
-                    <label htmlFor="password">password</label>
-                    <input value={password} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
-                    <button onClick={logMeIn}>Log In</button>
-                </form>
-                {/**If user doesn't have an account it directs them to register here */}
-                <button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</button>
-            </div>
-        )
-    }
+    // returns login form html
+    return (
+        <div>
+            <h2>Login</h2>
+                <form className="login">
+                    <input onChange={handleChange}
+                        type = "username"
+                        text={loginForm.username}
+                        name="username"
+                        placeholder='Username'
+                        value={loginForm.username} 
+                    />
+                    <input onChange={handleChange}
+                        type="password"
+                        text={loginForm.password}
+                        name="password"
+                        placeholder='Password'
+                        value={loginForm.password} 
+                    />
 
-  /**
-    const handleSubmit = async (e) => {
-        /** To prevent if the page gets reloaded not lose our state
-        e.preventDefault();
-        const user = { email: username, password };
-        // send the username and password to the server
-        const response = await axios.post (
-            "/login",
-            user
+                    <button onClick={logMeIn}>Submit</button>
+                </form>
+        </div>
         );
-        // set the state of the user
-        setUser(response.data);
-        localStorage.setItem('user', response.data);
-        console.log(response.data);
-    };
-    useEffect(() => {
-        const loggedInUser = localStorage.getItem("user");
-        if (loggedInUser) {
-            const foundUser = JSON.parse(loggedInUser);
-            setUser(foundUser);
-        }
-    }, []);
-    
-    if (user) {
-        return <div>{user.name} is logged in</div>
-    }
-  */ 
+}
 
 export default Login;
