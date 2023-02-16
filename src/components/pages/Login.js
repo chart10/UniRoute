@@ -16,10 +16,9 @@ function Login(props) {
             data:{
                 username: loginForm.username,
                 password: loginForm.password
-            }
-        })
-        .then((response) => {
-            props.setToken(response.data.access_token)
+            }    
+        }).then((response) => {
+            localStorage.setItem('token',response.data.access_token)
         }).catch((error) => {
             if (error.response) {
                 console.log(error.response)
@@ -27,12 +26,12 @@ function Login(props) {
                 console.log(error.response.headers)
             }
         })
-
         // uses react hook to set the login data
         setloginForm(({
             username: "",
             password: ""}))
 
+        
         event.preventDefault();
     }
 
@@ -46,6 +45,7 @@ function Login(props) {
     // returns login form html
     return (
         <div>
+            
             <h2>Login</h2>
                 <form className="login">
                     <input onChange={handleChange}
@@ -62,7 +62,6 @@ function Login(props) {
                         placeholder='Password'
                         value={loginForm.password} 
                     />
-
                     <button onClick={logMeIn}>Submit</button>
                 </form>
         </div>

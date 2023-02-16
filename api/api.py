@@ -81,12 +81,12 @@ def create_token():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
     # if the user name and pass are not in db, return wrong username and pass 
-    if username != "test: grab from db" or password != "test: grab from db":
+    if username != "test" or password != "test":
         return {"msg": "Wrong username or password"}, 401
     
     # create accesstoken if succsesful
     access_token = create_access_token(identity=username)
-    response = {"access_token": access_token}
+    response = {"access_token":access_token}
     return response
 
 # this refreshes the jwt authentication so it does not randomly log you out
@@ -94,7 +94,7 @@ def create_token():
 def refresh_expiring_jwts(response):
     try: 
         exp_timestamp = get_jwt()["expt"]
-        now = datetime.nw(timezone.utc)
+        now = datetime.now(timezone.utc)
         target_timestamp = datetime.timestamp(now + timedelta(minutes=30))
         if target_timestamp > exp_timestamp:
             access_token = create_access_token(identity=get_jwt_identity())

@@ -8,9 +8,11 @@ import Navbar from "./components/Navbar";
 import Login from './components/pages/Login';
 import Getroute from "./components/pages/Getroute";
 import Profile from "./components/pages/Profile";
+import useToken from './components/UseToken';
 
 
-const AppLayout = () =>{
+
+const AppLayout = () => {
   return(
     <>
     <Navbar/>
