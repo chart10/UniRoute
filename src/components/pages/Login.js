@@ -35,6 +35,19 @@ function Login(props) {
         event.preventDefault();
     }
 
+    function logMeOut() {
+        axios({
+            method: "POST",
+            url: "/logout"
+        }).then((response) => {
+            localStorage.removeItem('token')
+        }).catch((error) => {
+            console.log(error.response)
+            console.log(error.response.status)
+            console.log(error.response.headers)
+        })
+    }
+
     // handles the chanages to the login form when typing
     function handleChange(event) {
         const {value, name} = event.target
@@ -45,7 +58,6 @@ function Login(props) {
     // returns login form html
     return (
         <div>
-            
             <h2>Login</h2>
                 <form className="login">
                     <input onChange={handleChange}
@@ -64,6 +76,8 @@ function Login(props) {
                     />
                     <button onClick={logMeIn}>Submit</button>
                 </form>
+            <h2>Logout</h2>
+                <button onClick={logMeOut}>Logout</button>
         </div>
         );
 }
