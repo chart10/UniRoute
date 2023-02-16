@@ -3,16 +3,20 @@ import axios from 'axios';
 
 // We need to fetch db data in flask
 // and show on screen
-function Profile(props) {
+function Profile() {
     const [profileData, setProfileData] = useState(null)
+    // function that is called to grab data from server
     function getData() {
+        // axios is used to send the https request
         axios({
             method: "GET",
             url:"/profile",
             headers: {
+                // checks if user is authorized to get data
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         }).then((response) => {
+            // get the response data (user data) ad sets its
             const res = response.data
             setProfileData(({
                 firstName: res.firstName,

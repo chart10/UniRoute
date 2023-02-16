@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from "axios";
 
-function Login(props) {
+function Login() {
     // create React hook for login data, and act of logging in
     const [loginForm, setloginForm] = useState({
         username: "",
@@ -18,7 +18,8 @@ function Login(props) {
                 password: loginForm.password
             }    
         }).then((response) => {
-            localStorage.setItem('token',response.data.access_token)
+            // adds the login token authentication to the local storage
+            localStorage.setItem('token', response.data.access_token)
         }).catch((error) => {
             if (error.response) {
                 console.log(error.response)
@@ -35,11 +36,14 @@ function Login(props) {
         event.preventDefault();
     }
 
+    // Logout function
     function logMeOut() {
+        // uses axios post request to logout on server side
         axios({
             method: "POST",
             url: "/logout"
         }).then((response) => {
+            // remove auth token so user cannot access data anymore
             localStorage.removeItem('token')
         }).catch((error) => {
             console.log(error.response)
