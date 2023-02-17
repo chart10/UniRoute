@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Map.css'
 import GoogleMapReact from 'google-map-react'
 
 /** Component: Google Interactive Map
  * This is the interactive map that will display route query results */
 
+
 const Map = () => {
   const API_KEY = process.env.REACT_APP_MAPS_API_KEY
+  
 
   // The location for the center of the map
   const atlanta = {
