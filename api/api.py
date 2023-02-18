@@ -13,6 +13,7 @@ from dotenv import find_dotenv, load_dotenv
 import os
 import logging
 from flask_mysqldb import MySQL # Connects MySQL to Flask
+import googleroutes
 
 
 app = Flask(__name__)
@@ -39,8 +40,8 @@ log.addHandler(fh)
 
 @app.route('/')
 def index():
-    log.info("Hello, world!")    
-    return "logging Hello World"
+    
+    return googleroutes.foo()
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
