@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Login from './components/pages/Login';
 import Getroute from "./components/pages/Getroute";
 import Profile from "./components/pages/Profile";
+import Register from './components/pages/Register';
 
 const AppLayout = () => {
   return(
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />
+      },
+      {
+        path: "/register",
+        element: <Register />
       }
     ]
   },
