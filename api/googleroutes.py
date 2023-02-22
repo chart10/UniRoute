@@ -22,11 +22,12 @@ api_key = os.getenv('REACT_APP_MAPS_API_KEY')
 
 def get_route():
     mode = '&mode=' + 'transit'
+    key = '&key=' + api_key
     # origin = 'origin=' + params.origin
     # destination = '&destination=' + params.destination
 
-    gmaps = googlemaps.Client(key=api_key)
-    directions_result = gmaps.directions('Athens,GA','Atlanta,GA', mode='transit')
+    # gmaps = googlemaps.Client(key=api_key)
+    # directions_result = gmaps.directions('Athens,GA','Atlanta,GA', mode='transit')
 
     # response = jsonify(directions_result)
     # routes = response['routes']
@@ -44,18 +45,18 @@ def get_route():
     #         points = step['polyline']['points']
     #         step['path'] = googlemaps.convert.decode_polyline(points)
     
-    return jsonify(directions_result)
+    # return jsonify(directions_result)
 
     # return jsonify(directions_result)
 
-    # base_url = "https://maps.googleapis.com/maps/api/directions/json?origin=Norcross&destination=Atlanta"+mode+api_key
+    base_url = "https://maps.googleapis.com/maps/api/directions/json?origin=Norcross&destination=Atlanta"+mode+key
 
-    # payload = {}
-    # headers = {}
+    payload = {}
+    headers = {}
 
-    # response = requests.request("GET", base_url, headers=headers, data=payload)
+    response = requests.request("GET", base_url, headers=headers, data=payload)
 
-    # return response
+    return response.text
 
 # OUTPUT JSON
 # The route information will be received as a JSON
