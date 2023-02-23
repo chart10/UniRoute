@@ -1,34 +1,27 @@
-import time
 import json 
-from flask import Flask
+from flask import Flask, request, jsonify
 from datetime import datetime, timedelta, timezone
 from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, \
                                unset_jwt_cookies,jwt_required,JWTManager
-
-app = Flask(__name__)
-
-
-from flask import Flask, request, jsonify
-from dotenv import find_dotenv, load_dotenv
+from flask_mysqldb import MySQL # Connects MySQL to Flask
+from googleroutes import get_route
 import os
 import logging
-from flask_mysqldb import MySQL # Connects MySQL to Flask
-
 
 app = Flask(__name__)
 
-# TOKEN CONFIG
+## TOKEN CONFIG
 app.config["JWT_SECRET_KEY"] = "please-change-me"
 jwt = JWTManager(app)
 
-# DATABASE CONFIGURATION
+## DATABASE CONFIGURATION
 app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
 app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')
 app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
 app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
 mysql = MySQL(app)
 
-# LOGGING CONFIGURATION
+## LOGGING CONFIGURATION
 log = logging.getLogger("writing-logger")
 #logging.basicConfig(level=os.environ.get)()
 log.setLevel(logging.INFO)
@@ -39,16 +32,17 @@ log.addHandler(fh)
 
 @app.route('/')
 def index():
-    log.info("Hello, world!")    
-    return "logging Hello World"
+    
+    return get_route()
+
+## ACCOUNT / SESSION MANAGEMENT
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
-@app.route('/register', methods=['POST'])
+@app.route('/signup', methods=['POST'])
 def add_user():
     # 1) Create a cursor
     cursor = mysql.connection.cursor()
-    
     # 2) Declare variables for input values, if needed
     # Use input json to populate these variables
     username = request.json["username"]
@@ -57,15 +51,12 @@ def add_user():
     university = request.json["university"]
     firstName = request.json["firstName"]
     lastName = request.json["lastName"]
-
     # Check if username is already in the database
     cursor.execute('SELECT username FROM users WHERE username = %s', [username])
     user = cursor.fetchone()
     if user:
         return 'There is already an account with that username.'
-
     # 3) Use cursor.execute() to run a line of MySQL code
-
     cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s)''',
                 (username,password,university,firstName,lastName,email))
     # 4) Commit the change to the MySQL database
@@ -83,12 +74,10 @@ def create_token():
     # if the user name and pass are not in db, return wrong username and pass 
     if username != "test" or password != "test":
         return {"msg": "Wrong username or password"}, 401
-    
     # create accesstoken if succsesful
     access_token = create_access_token(identity=username)
     response = {"access_token":access_token}
     return response
-
 # this refreshes the jwt authentication so it does not randomly log you out
 @app.after_request
 def refresh_expiring_jwts(response):
@@ -131,11 +120,14 @@ def get_profile():
     }
     return profile_data
 
+## ROUTING MANAGEMENT
+
 # Api route to grab google routing data
-@app.route('/google')
+@app.route('/get_route',methods=['GET', 'POST'])
 def get_google_route():
-    # Will call foogle routes from a handler file 
-    return "PLACE HOLDER FOR GOOGLE ROUTE API DATA"
+    # Will call google routes from a handler file 
+    # print(get_route().text)
+    return get_route()
 
 # Api route to grab marta train data
 @app.route('/marta')
