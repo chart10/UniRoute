@@ -26,29 +26,6 @@ def get_route():
     # origin = 'origin=' + params.origin
     # destination = '&destination=' + params.destination
 
-    # gmaps = googlemaps.Client(key=api_key)
-    # directions_result = gmaps.directions('Athens,GA','Atlanta,GA', mode='transit')
-
-    # response = jsonify(directions_result)
-    # routes = response['routes']
-    # for route in routes:
-    #     route_bounds = route['bounds']
-    #     route_bounds['south'] = route_bounds['southwest']['lat']
-    #     route_bounds['west'] = route_bounds['southwest']['lng']
-    #     route_bounds['north'] = route_bounds['northeast']['lat']
-    #     route_bounds['east'] = route_bounds['northeast']['lng']
-
-    # legs = route['legs']
-    # for leg in legs:
-    #     steps = leg['steps']
-    #     for step in steps:
-    #         points = step['polyline']['points']
-    #         step['path'] = googlemaps.convert.decode_polyline(points)
-    
-    # return jsonify(directions_result)
-
-    # return jsonify(directions_result)
-
     base_url = "https://maps.googleapis.com/maps/api/directions/json?origin=Norcross&destination=Atlanta"+mode+key
 
     payload = {}

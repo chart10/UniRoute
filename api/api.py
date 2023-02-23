@@ -10,7 +10,6 @@ import logging
 
 app = Flask(__name__)
 
-
 ## TOKEN CONFIG
 app.config["JWT_SECRET_KEY"] = "please-change-me"
 jwt = JWTManager(app)
@@ -34,7 +33,7 @@ log.addHandler(fh)
 @app.route('/')
 def index():
     
-    return googleroutes.foo()
+    return get_route()
 
 ## ACCOUNT / SESSION MANAGEMENT
 

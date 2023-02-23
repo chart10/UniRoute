@@ -7,7 +7,6 @@ import {
   LoadScript,
 } from '@react-google-maps/api';
 import { useOutletContext } from 'react-router-dom';
-import directionResult from '../directionsResult.json';
 
 /** Component: Google Interactive Map
  * This is the interactive map that will display route query results */
@@ -39,47 +38,21 @@ const Map = (props) => {
   };
   // The zoom level of the map
   const zoomLevel = 12;
-  // pass api results into direcitonsResult
 
-  // let count = useRef(0);
-  // const directionsCallback = (res) => {
-  //   if (res !== null && count.current < 2) {
-  //     fetch('/get_route')
-  //       .then((res) => res.json())
-  //       .then((data) => setDirections(data))
-  //       .then(() => (count.current += 1));
-  //   } else {
-  //     count.current = 0;
-  //     console.log('res: ', res);
-  //   }
-
-  // if (res !== null && count.current < 2) {
-  //   if (res.status === 'OK') {
-  //     count.current += 1;
-  //     setDirections(res);
-  //   }
-  // } else {
-  //   count.current = 0;
-  //   console.log('res: ', res);
-  // }
-  // };
-
+  /*  This function calls the backend /get_out and returns the directions as a json
+      NOTE: This generates a route using the Flask backend
+   */
   // useEffect(() => {
-  //   if (directionsRenderer !== null && directions !== null) {
-  //     const panel = document.getElementById('panel');
-  //     directionsRenderer.setPanel(panel);
-  //     // console.log(directionsRenderer.panel);
-  //   }
-  // }, [directionsRenderer, directions]);
+  //   fetch('/get_route').then((res) => {
+  //     res.json().then((data) => {
+  //       setDirections(data);
+  //     });
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    fetch('/get_route').then((res) => {
-      res.json().then((data) => {
-        setDirections(data);
-      });
-    });
-  }, []);
-
+  /*  This function alters the backend /get_route response into a format
+      that is readable by the DirectionsRenderer in the Map
+  */
   const transformDirections = (directions) => {
     // Make a deep copy of the directions, so we don't mutate the original
     var directionsCopy = JSON.parse(JSON.stringify(directions));
@@ -97,7 +70,6 @@ const Map = (props) => {
         south: oldBounds.southwest.lat,
       };
     }
-
     // Recursively rename travel_mode to travelMode
     let fixTravelMode = (obj) => {
       if (obj.travel_mode) {
@@ -111,7 +83,6 @@ const Map = (props) => {
       }
     };
     fixTravelMode(directionsCopy);
-
     // Add request here
     // TODO: Make this not hardcoded
     directionsCopy.request = {
@@ -127,8 +98,23 @@ const Map = (props) => {
     return directionsCopy;
   };
 
-  //const directionsResult = DirectionsService
-  // Return JSX: map display, location pins commented out
+  /*  This function allows the DirectionsService to make an API call to Google and 
+      return a directionsResult object
+      NOTE: This generates a route WITHOUT USING FLASK BACKEND
+   */
+  let count = useRef(0);
+  const directionsCallback = (res) => {
+    if (res !== null && count.current < 2) {
+      if (res.status === 'OK') {
+        count.current += 1;
+        setDirections(res);
+      } else {
+        count.current = 0;
+        console.log('res: ', res);
+      }
+    }
+  };
+  // Return JSX: map display
   return (
     <LoadScript googleMapsApiKey={API_KEY}>
       <GoogleMap
@@ -137,25 +123,25 @@ const Map = (props) => {
         center={atlanta}
         zoom={zoomLevel}
       >
-        {/* <div id='panel' style={panelStyle}></div> */}
-        {directions !== null && (
-          <DirectionsRenderer
-            directions={transformDirections(directions)}
-            // directions={directionResult}
-            // options={{ panel: '#panel' }}
-            // onLoad={(directionsRenderer) =>
-            //   setDirectionsRenderer(directionsRenderer)
-            // }
-          />
-        )}
-        {/* <DirectionsService
+        <DirectionsService
           options={{
             destination: 'Atlanta, GA',
-            origin: 'decatur, GA',
+            origin: 'Norcross, GA',
             travelMode: 'TRANSIT',
           }}
           callback={(e) => directionsCallback(e)}
-        /> */}
+        />
+        {/* <div id='panel' style={panelStyle}></div> */}
+        {directions !== null && (
+          <DirectionsRenderer
+            directions={directions}
+            // directions={directionResult}
+            // options={{ panel: '#panel' }}
+            onLoad={(directionsRenderer) =>
+              setDirectionsRenderer(directionsRenderer)
+            }
+          />
+        )}
       </GoogleMap>
     </LoadScript>
   );
