@@ -104,7 +104,7 @@ const Map = (props) => {
    */
   let count = useRef(0);
   const directionsCallback = (res) => {
-    if (res !== null && count.current < 2) {
+    if (res !== null && count.current < 1) {
       if (res.status === 'OK') {
         count.current += 1;
         setDirections(res);
@@ -135,7 +135,7 @@ const Map = (props) => {
         {directions !== null && (
           <DirectionsRenderer
             directions={directions}
-            // directions={directionResult}
+            //directions={transformDirections(directions)}
             // options={{ panel: '#panel' }}
             onLoad={(directionsRenderer) =>
               setDirectionsRenderer(directionsRenderer)

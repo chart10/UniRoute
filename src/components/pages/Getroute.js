@@ -34,7 +34,7 @@ function Getroute() {
   };
 
   return (
-    <div className='panel'>
+    <div className='routeForms'>
       <input type='text' id='from' placeholder='origin'></input>
       <input type='text' id='dest' placeholder='destination'></input>
       <input type='button' value='Get Route' onClick={apiGetrouteCall}></input>
