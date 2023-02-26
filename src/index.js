@@ -12,16 +12,30 @@ import {
 } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Login from './components/pages/Login';
-import Getroute from './components/pages/Getroute';
+import GetRoute from './components/pages/GetRoute';
 import Profile from './components/pages/Profile';
 
 const AppLayout = () => {
-  const [directions, setDirections] = useState({});
+  const [directions, setDirections] = useState(null);
+  const [directionsRequest, setDirectionsRequest] = useState(null);
+
   return (
     <>
       <Navbar />
-      <Outlet context={{ directions, setDirections }} />
-      <App route={directions} />
+      <Outlet
+        context={[
+          // directions,
+          // setDirections,
+          directionsRequest,
+          setDirectionsRequest,
+        ]}
+      />
+      <App
+        directions={directions}
+        setDirections={setDirections}
+        directionsRequest={directionsRequest}
+        setDirectionsRequest={setDirectionsRequest}
+      />
     </>
   );
 };
@@ -37,7 +51,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/',
-        element: <Getroute />,
+        element: <GetRoute />,
       },
       {
         path: '/profile',

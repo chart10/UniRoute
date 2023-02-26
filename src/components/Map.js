@@ -14,8 +14,6 @@ import { useOutletContext } from 'react-router-dom';
 const Map = (props) => {
   const API_KEY = process.env.REACT_APP_MAPS_API_KEY;
 
-  //const { setDirections } = useOutletContext();
-  const [directions, setDirections] = useState(null);
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
 
   const containerStyle = {
@@ -24,10 +22,13 @@ const Map = (props) => {
   };
 
   const panelStyle = {
-    height: '90vh',
+    height: '75%',
     width: '30%',
-    float: 'left',
     overflow: 'scroll',
+    backgroundColor: 'white',
+    position: 'relative',
+    marginLeft: '50px',
+    marginTop: '100px',
   };
 
   // The location for the center of the map
@@ -102,18 +103,32 @@ const Map = (props) => {
       return a directionsResult object
       NOTE: This generates a route WITHOUT USING FLASK BACKEND
    */
+
+  const limit = 1;
   let count = useRef(0);
   const directionsCallback = (res) => {
-    if (res !== null && count.current < 1) {
+    if (res !== null && count.current < limit) {
       if (res.status === 'OK') {
         count.current += 1;
-        setDirections(res);
+        props.setDirections(res);
       } else {
         count.current = 0;
         console.log('res: ', res);
       }
+      console.log('Inside Directions Callback');
     }
   };
+  console.log({
+    directionsRequest: props.directionsRequest,
+    directions: props.directions,
+    count,
+  });
+
+  useEffect(() => {
+    console.log('direction request changed');
+    count.current = 0;
+  }, [props.directionsRequest]);
+
   // Return JSX: map display
   return (
     <LoadScript googleMapsApiKey={API_KEY}>
@@ -123,24 +138,25 @@ const Map = (props) => {
         center={atlanta}
         zoom={zoomLevel}
       >
-        <DirectionsService
-          options={{
-            destination: 'Atlanta, GA',
-            origin: 'Norcross, GA',
-            travelMode: 'TRANSIT',
-          }}
-          callback={(e) => directionsCallback(e)}
-        />
-        {/* <div id='panel' style={panelStyle}></div> */}
-        {directions !== null && (
-          <DirectionsRenderer
-            directions={directions}
-            //directions={transformDirections(directions)}
-            // options={{ panel: '#panel' }}
-            onLoad={(directionsRenderer) =>
-              setDirectionsRenderer(directionsRenderer)
-            }
+        {props.directionsRequest && (
+          <DirectionsService
+            options={props.directionsRequest}
+            callback={(e) => directionsCallback(e)}
           />
+        )}
+
+        {props.directions !== null && (
+          <>
+            <div id='panel' style={panelStyle}></div>
+            <DirectionsRenderer
+              directions={props.directions}
+              //directions={transformDirections(directions)}
+              panel={document.getElementById('panel')}
+              // onLoad={(directionsRenderer) =>
+              //   setDirectionsRenderer(directionsRenderer)
+              // }
+            />
+          </>
         )}
       </GoogleMap>
     </LoadScript>
