@@ -7,6 +7,10 @@
 venv
 .env
 
+#packages
+package-lock.json
+package.json
+
 .env
 # testing
 /coverage

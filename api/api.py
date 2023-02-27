@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, timezone
 from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, \
                                unset_jwt_cookies,jwt_required,JWTManager
 from flask_mysqldb import MySQL # Connects MySQL to Flask
+import MySQLdb.cursors
 from googleroutes import get_route
 import os
 import logging
@@ -58,7 +59,7 @@ def add_user():
         return 'There is already an account with that username.'
     # 3) Use cursor.execute() to run a line of MySQL code
     cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s)''',
-                (username,password,university,firstName,lastName,email))
+                (username,password,email,university,firstName,lastName))
     # 4) Commit the change to the MySQL database
     mysql.connection.commit()
     # 5) Close the cursor
@@ -71,8 +72,16 @@ def create_token():
     # request json of username and pass from front end
     username = request.json.get("username", None)
     password = request.json.get("password", None)
+
+    # create mysql cursor to execute
+    # DictCursor allows you to select colum  via user['column_name']
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password,))
+    user = cursor.fetchone()
+    
     # if the user name and pass are not in db, return wrong username and pass 
-    if username != "test" or password != "test":
+    if user['username'] != username or user['password'] != password:
         return {"msg": "Wrong username or password"}, 401
     # create accesstoken if succsesful
     access_token = create_access_token(identity=username)
@@ -111,12 +120,23 @@ def logout():
 @app.route('/profile', methods=['GET', 'POST'])
 @jwt_required()
 def get_profile():
-    # dummy data
-    # will need to replace this data wiht a db query
+    # Grabs the identity of jwt auth token
+    # current_user = username of user
+    current_user = get_jwt_identity()
+
+    # create mysql cursor
+    # the DictCursor makes it possible to select the colums like user['firstName']
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    
+    # select user whree the username is equal to current_suer
+    cursor.execute('SELECT * FROM users WHERE username = %s', (current_user,))
+    user = cursor.fetchone()
+
+    # set profile data
     profile_data={
-        'firstName': "Chandler",
-        'lastName': "Dugan",
-        'university': "GSU"
+        'firstName': user['firstName'],
+        'lastName': user['lastName'],
+        'university': user['university']
     }
     return profile_data
 

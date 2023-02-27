@@ -108,3 +108,5 @@ export const RegisterForm = (props) => {
     </div>
   )
 }
+
+export default RegisterForm;

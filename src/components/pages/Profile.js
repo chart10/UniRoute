@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import useToken from '../UseToken';
 
 // We need to fetch db data in flask
 // and show on screen
 function Profile() {
     const [profileData, setProfileData] = useState(null)
+    const { token, removetoken, setToken } = useToken();
     // function that is called to grab data from server
     function getData() {
         // axios is used to send the https request
@@ -18,17 +20,12 @@ function Profile() {
         }).then((response) => {
             // get the response data (user data) ad sets its
             const res = response.data
+            // checks if the session needs to be refreshed
+            res.access_token && setToken(res.access_token)
             setProfileData(({
                 firstName: res.firstName,
                 lastName: res.lastName,
                 university: res.university}))
-            /*
-            if (res.localStorage.getItem('token') === undefined) {
-                
-            } else {
-                res.localStorage.getItem('token') && localStorage.setItem('token', res.localStorage.getItem('token'))
-            }
-            */ 
         }).catch((error) => {
             if (error.response) {
                 console.log(error.response)
