@@ -21,7 +21,6 @@ function Login(props) {
             }    
         }).then((response) => {
             // adds the login token authentication to the local storage
-            //localStorage.setItem('token', response.data.access_token)
             setToken(response.data.access_token)
         }).catch((error) => {
             if (error.response) {
@@ -39,7 +38,7 @@ function Login(props) {
         event.preventDefault();
     }
 
-    // Logout function
+    // Logout function CHANGE LOCATION PLEASE
     function logMeOut() {
         // uses axios post request to logout on server side
         axios({

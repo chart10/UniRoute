@@ -12,6 +12,7 @@ from dotenv import find_dotenv, load_dotenv
 import os
 import logging
 from flask_mysqldb import MySQL # Connects MySQL to Flask
+import MySQLdb.cursors
 
 
 app = Flask(__name__)
@@ -79,8 +80,12 @@ def create_token():
     # request json of username and pass from front end
     username = request.json.get("username", None)
     password = request.json.get("password", None)
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password,))
+    user = cursor.fetchone()
     # if the user name and pass are not in db, return wrong username and pass 
-    if username != "test" or password != "test":
+    if user['username'] != username or user['password'] != password:
         return {"msg": "Wrong username or password"}, 401
     
     # create accesstoken if succsesful
@@ -123,6 +128,7 @@ def logout():
 def get_profile():
     # dummy data
     # will need to replace this data wiht a db query
+    print(get_jwt_identity())
     profile_data={
         'firstName': "Chandler",
         'lastName': "Dugan",
