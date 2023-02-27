@@ -67,7 +67,7 @@ def add_user():
     # 3) Use cursor.execute() to run a line of MySQL code
 
     cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s)''',
-                (username,password,university,firstName,lastName,email))
+                (username,password,email,university,firstName,lastName))
     # 4) Commit the change to the MySQL database
     mysql.connection.commit()
     # 5) Close the cursor
@@ -126,13 +126,16 @@ def logout():
 @app.route('/profile', methods=['GET', 'POST'])
 @jwt_required()
 def get_profile():
-    # dummy data
-    # will need to replace this data wiht a db query
-    print(get_jwt_identity())
+    current_user = get_jwt_identity()
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM users WHERE username = %s', (current_user,))
+    user = cursor.fetchone()
+
     profile_data={
-        'firstName': "Chandler",
-        'lastName': "Dugan",
-        'university': "GSU"
+        'firstName': user['firstName'],
+        'lastName': user['lastName'],
+        'university': user['university']
     }
     return profile_data
 
