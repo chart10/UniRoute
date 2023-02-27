@@ -1,52 +1,72 @@
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import React from "react";
-import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider, Route, Link, Outlet,} from "react-router-dom";
-import Navbar from "./components/Navbar";
+import React, { useState, useEffect } from 'react';
+import { createRoot } from 'react-dom/client';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+  Outlet,
+} from 'react-router-dom';
+import Navbar from './components/Navbar';
 import Login from './components/pages/Login';
-import Getroute from "./components/pages/Getroute";
-import Profile from "./components/pages/Profile";
+import GetRoute from './components/pages/GetRoute';
+import Profile from './components/pages/Profile';
 import Register from './components/pages/Register';
 
 const AppLayout = () => {
-  return(
+  const [directions, setDirections] = useState(null);
+  const [directionsRequest, setDirectionsRequest] = useState(null);
+
+  return (
     <>
-    <Navbar/>
-    <Outlet />
-    <App />
+      <Navbar />
+      <Outlet
+        context={[
+          // directions,
+          // setDirections,
+          directionsRequest,
+          setDirectionsRequest,
+        ]}
+      />
+      <App
+        directions={directions}
+        setDirections={setDirections}
+        directionsRequest={directionsRequest}
+        setDirectionsRequest={setDirectionsRequest}
+      />
     </>
-  )
-}
+  );
+};
 /**Routes for the navbar that gives the path and element */
 const router = createBrowserRouter([
   {
     /** This allows the navbar to cover everything in the navbar*/
     element: <AppLayout />,
-    children:[
+    children: [
       {
-        path: "/login",
-        element: <Login />
+        path: '/login',
+        element: <Login />,
       },
       {
-        path: "/",
-        element: <Getroute/>,
+        path: '/',
+        element: <GetRoute />,
       },
       {
         path: "/profile",
         element: <Profile />
       },
       {
-        path: "/register",
-        element: <Register />
-      }
-    ]
+        path: '/profile',
+        element: <Profile />,
+      },
+    ],
   },
-  
 ]);
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById('root')).render(
   <RouterProvider router={router} />
 );
 
