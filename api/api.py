@@ -81,9 +81,13 @@ def create_token():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
 
+    # create mysql cursor to execute
+    # DictCursor allows you to select colum  via user['column_name']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
     cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password,))
     user = cursor.fetchone()
+    
     # if the user name and pass are not in db, return wrong username and pass 
     if user['username'] != username or user['password'] != password:
         return {"msg": "Wrong username or password"}, 401
@@ -126,12 +130,19 @@ def logout():
 @app.route('/profile', methods=['GET', 'POST'])
 @jwt_required()
 def get_profile():
+    # Grabs the identity of jwt auth token
+    # current_user = username of user
     current_user = get_jwt_identity()
 
+    # create mysql cursor
+    # the DictCursor makes it possible to select the colums like user['firstName']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    
+    # select user whree the username is equal to current_suer
     cursor.execute('SELECT * FROM users WHERE username = %s', (current_user,))
     user = cursor.fetchone()
 
+    # set profile data
     profile_data={
         'firstName': user['firstName'],
         'lastName': user['lastName'],
