@@ -28,7 +28,7 @@ CREATE TABLE users (
 CREATE TABLE addresses (
 	username varchar(30) NOT NULL,
     addressID int UNIQUE AUTO_INCREMENT NOT NULL,
-    location varchar(40) NOT NULL,
+    address varchar(40) NOT NULL,
     addressType varchar(15),
     PRIMARY KEY (username, addressID),
     FOREIGN KEY (username) REFERENCES users(username)

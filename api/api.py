@@ -172,7 +172,7 @@ def get_address():
     cursor.execute('SELECT address FROM addresses WHERE username = %s', (current_user,))
     address_result = cursor.fetchall()
 
-    return address_result
+    return address_result[0][0]
 
 
 ## ROUTING MANAGEMENT
