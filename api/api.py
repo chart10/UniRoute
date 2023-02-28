@@ -151,15 +151,11 @@ def save_address():
     cursor = mysql.connection.cursor()
 
     # request json from front end and store in variables
-    street = request.json["street"]
-    apartment = request.json["apartment"]
-    city = request.json["city"]
-    state = request.json["state"]
-    postal_code = request.json["postalCode"]
+    addres_to_save = request.json['address']
 
     # insert varables in to columns in mysql db
-    cursor.execute('INSERT INTO addresses VALUES(%s,%s,%s,%s,%s,%s)',
-                   (current_user,street,apartment,city,state,postal_code))
+    cursor.execute('INSERT INTO addresses VALUES(%s,%s)',
+                   (current_user,addres_to_save))
     # commit the changes
     cursor.connection.commit()
     # close the cursor
@@ -172,8 +168,8 @@ def save_address():
 @jwt_required()
 def get_address():
     current_user = get_jwt_identity()
-    cursor = mysql.connection.cursor(dictionary=True)
-    cursor.execute('SELECT * FROM addresses WHERE username = %s', (current_user,))
+    cursor = mysql.connection.cursor()
+    cursor.execute('SELECT address FROM addresses WHERE username = %s', (current_user,))
     address_result = cursor.fetchall()
 
     return address_result

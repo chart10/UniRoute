@@ -36,29 +36,6 @@ function Profile() {
         })
     }
 
-    function saveAddress(){
-
-    }
-
-    function getAddress() {
-        axios({
-            method: "GET",
-            url: "/get_address",
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token')
-            }
-        }).then((response) => {
-            const res = response.data
-            setAddressData(res)
-        }).catch((error) => {
-            if (error.response) {
-                console.log(error.response)
-                console.log(error.response.status)
-                console.log(error.response.headers)
-            }
-        })
-    }
-
     return (
         <div className="Profile">
             <p>To get your profile detials: </p><button onClick={getData}>Click Me</button>
