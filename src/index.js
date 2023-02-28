@@ -19,6 +19,7 @@ import Register from './components/pages/Register';
 const AppLayout = () => {
   const [directions, setDirections] = useState(null);
   const [directionsRequest, setDirectionsRequest] = useState(null);
+  const [addressData, setAddressData] = useState(null);
 
   return (
     <>
@@ -29,6 +30,8 @@ const AppLayout = () => {
           // setDirections,
           directionsRequest,
           setDirectionsRequest,
+          addressData,
+          setAddressData,
         ]}
       />
       <App
