@@ -6,6 +6,7 @@ import useToken from '../UseToken';
 // and show on screen
 function Profile() {
     const [profileData, setProfileData] = useState(null)
+    const [addressData, setAddressData] = useState(null)
     const { token, removetoken, setToken } = useToken();
     // function that is called to grab data from server
     function getData() {
@@ -26,6 +27,29 @@ function Profile() {
                 firstName: res.firstName,
                 lastName: res.lastName,
                 university: res.university}))
+        }).catch((error) => {
+            if (error.response) {
+                console.log(error.response)
+                console.log(error.response.status)
+                console.log(error.response.headers)
+            }
+        })
+    }
+
+    function saveAddress(){
+
+    }
+
+    function getAddress() {
+        axios({
+            method: "GET",
+            url: "/get_address",
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        }).then((response) => {
+            const res = response.data
+            setAddressData(res)
         }).catch((error) => {
             if (error.response) {
                 console.log(error.response)

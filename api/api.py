@@ -167,6 +167,18 @@ def save_address():
 
     return "Successfully added address to db"
 
+# route to grab address from db
+@app.route('/get_address', mehtods=['GET', 'POST'])
+@jwt_required()
+def get_address():
+    current_user = get_jwt_identity()
+    cursor = mysql.connection.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM addresses WHERE username = %s', (current_user,))
+    address_result = cursor.fetchall()
+
+    return address_result
+
+
 ## ROUTING MANAGEMENT
 
 # Api route to grab google routing data
