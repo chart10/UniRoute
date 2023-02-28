@@ -7,7 +7,8 @@ function Login() {
         username: "",
         password: ""
     })
-
+    // create React hook for tracking the login status
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     // Login function that uses axios to speak to backend
     function logMeIn(event) {
         axios({
@@ -20,6 +21,8 @@ function Login() {
         }).then((response) => {
             // adds the login token authentication to the local storage
             localStorage.setItem('token', response.data.access_token)
+             // set isLoggedIn to true when the user is logged in
+             setIsLoggedIn(true);
         }).catch((error) => {
             if (error.response) {
                 console.log(error.response)
@@ -45,6 +48,8 @@ function Login() {
         }).then((response) => {
             // remove auth token so user cannot access data anymore
             localStorage.removeItem('token')
+            // set isLoggedIn to false when the user is logged out
+            setIsLoggedIn(false);
         }).catch((error) => {
             console.log(error.response)
             console.log(error.response.status)
@@ -59,10 +64,11 @@ function Login() {
             ...prevNote, [name]: value})
         )}
 
-    // returns login form html
-    return (
-        <div>
-            <h2>Login</h2>
+    // render the login form if the user is not logged in
+    if (!isLoggedIn) {
+        return (
+            <div>
+                <h2>Login</h2>
                 <form className="login">
                     <input onChange={handleChange}
                         type = "username"
@@ -80,10 +86,17 @@ function Login() {
                     />
                     <button onClick={logMeIn}>Submit</button>
                 </form>
-            <h2>Logout</h2>
-                <button onClick={logMeOut}>Logout</button>
-        </div>
+            </div>
         );
+    }
+
+    // render the logout button if the user is logged in
+    return (
+        <div>
+            <h2>Welcome, User!</h2>
+            <button onClick={logMeOut}>Logout</button>
+        </div>
+    );
 }
 
 export default Login;
