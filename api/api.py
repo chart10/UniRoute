@@ -40,7 +40,7 @@ def index():
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
-@app.route('/signup', methods=['POST'])
+@app.route('/register', methods=['POST'])
 def add_user():
     # 1) Create a cursor
     cursor = mysql.connection.cursor()
@@ -140,6 +140,33 @@ def get_profile():
     }
     return profile_data
 
+# route to save addresses to db
+@app.route('/save_address', methods=['POST'])
+@jwt_required()
+def save_address():
+    # Grab current user so msql knows where to store it
+    current_user = get_jwt_identity()
+
+    #initialize cursor
+    cursor = mysql.connection.cursor()
+
+    # request json from front end and store in variables
+    street = request.json["street"]
+    apartment = request.json["apartment"]
+    city = request.json["city"]
+    state = request.json["state"]
+    postal_code = request.json["postalCode"]
+
+    # insert varables in to columns in mysql db
+    cursor.execute('INSERT INTO addresses VALUES(%s,%s,%s,%s,%s,%s)',
+                   (current_user,street,apartment,city,state,postal_code))
+    # commit the changes
+    cursor.connection.commit()
+    # close the cursor
+    cursor.close()
+
+    return "Successfully added address to db"
+
 ## ROUTING MANAGEMENT
 
 # Api route to grab google routing data
@@ -148,11 +175,6 @@ def get_google_route():
     # Will call google routes from a handler file 
     # print(get_route().text)
     return get_route()
-
-# Api route to grab marta train data
-@app.route('/marta')
-def get_marta_data():
-    return "PLACE HOLDER FOR MARTA TRAIN DATA"
 
 @app.route('/schedule')
 def get_schedule():
