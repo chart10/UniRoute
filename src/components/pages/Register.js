@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import apiRegisterCall from './apiRegisterCall.js'
 import '../../App.css'
-import axios from 'axios'
 
 /** Component: Registration
  * Contains the forms needed to create a new user account */

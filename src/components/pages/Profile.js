@@ -6,6 +6,7 @@ import useToken from '../UseToken';
 // and show on screen
 function Profile() {
     const [profileData, setProfileData] = useState(null)
+    const [addressData, setAddressData] = useState(null)
     const { token, removetoken, setToken } = useToken();
     // function that is called to grab data from server
     function getData() {
