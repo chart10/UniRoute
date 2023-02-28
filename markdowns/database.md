@@ -16,9 +16,10 @@ To initialize the database, the following code must be run:
 
 ```
 CREATE DATABASE UniRouteDB;
+USE UniRouteDB;
 CREATE TABLE users (
 	username varchar(30) NOT NULL,
-    password varchar(20),
+    password varchar(20) UNIQUE,
     email varchar(30) NOT NULL,
     university varchar(30),
     firstName varchar(30),
