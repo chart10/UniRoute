@@ -154,7 +154,7 @@ def save_address():
     addres_to_save = request.json['address']
 
     # insert varables in to columns in mysql db
-    cursor.execute('INSERT INTO addresses VALUES(%s,%s)',
+    cursor.execute('INSERT INTO addresses (username, address) VALUES(%s,%s)',
                    (current_user,addres_to_save))
     # commit the changes
     cursor.connection.commit()
@@ -164,7 +164,7 @@ def save_address():
     return "Successfully added address to db"
 
 # route to grab address from db
-@app.route('/get_address', mehtods=['GET', 'POST'])
+@app.route('/get_address', methods=['GET', 'POST'])
 @jwt_required()
 def get_address():
     current_user = get_jwt_identity()
