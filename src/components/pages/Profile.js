@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import useToken from '../UseToken';
 
@@ -43,13 +43,23 @@ function Profile() {
 
   return (
     <div className='Profile'>
-      {/* <p>To get your profile detals: </p>
-      <button onClick={getData}>Click Me</button> */}
-      {profileData && (
+      {profileData ? (
         <>
           <p>First Name: {profileData.firstName}</p>
           <p>Last Name: {profileData.lastName}</p>
           <p>University: {profileData.university}</p>
+          <p>Add a location to your address book: </p>
+          <input type='text'></input>
+        </>
+      ) : (
+        <>
+          <p>It looks like you aren't signed in right now.</p>
+          <Link to='../login'>
+            <button>Login</button>
+          </Link>
+          <Link to='../register'>
+            <button>Register</button>
+          </Link>
         </>
       )}
     </div>

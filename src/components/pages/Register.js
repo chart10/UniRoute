@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import apiRegisterCall from './apiRegisterCall.js';
 import '../../App.css';
+import { Link } from 'react-router-dom';
 
 /** Component: Registration
  * Contains the forms needed to create a new user account */
@@ -97,13 +98,11 @@ export const RegisterForm = (props) => {
           id='lastName'
           placeholder='Last Name'
         />
-
         <button type='submit'>Submit Registration</button>
       </form>
-
-      <button className='link-btn' onClick={() => props.onFormSwitch('login')}>
-        Already have an account? Login here.
-      </button>
+      <Link to='../login'>
+        <button>Already have an account? Login here.</button>
+      </Link>
     </div>
   );
 };

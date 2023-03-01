@@ -6,7 +6,6 @@ import {
   GoogleMap,
   LoadScript,
 } from '@react-google-maps/api';
-import { useOutletContext } from 'react-router-dom';
 
 /** Component: Google Interactive Map
  * This is the interactive map that will display route query results */
