@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import useToken from '../UseToken';
+import AddressList from './AddressList';
 
 // We need to fetch db data in flask
 // and show on screen
 function Profile() {
   const [profileData, setProfileData] = useState(null);
   const [addressData, setAddressData] = useOutletContext();
-  const { token, removetoken, setToken } = useToken();
+  const { setToken } = useToken();
   // function that is called to grab data from server
 
   useEffect(() => {
@@ -45,11 +46,11 @@ function Profile() {
     <div className='Profile'>
       {profileData ? (
         <>
+          <h2>Welcome back, {profileData.firstName}</h2>
           <p>First Name: {profileData.firstName}</p>
           <p>Last Name: {profileData.lastName}</p>
           <p>University: {profileData.university}</p>
-          <p>Add a location to your address book: </p>
-          <input type='text'></input>
+          <AddressList addressData={addressData} />
         </>
       ) : (
         <>
