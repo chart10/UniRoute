@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Outlet, useOutletContext } from 'react-router-dom';
+import React from 'react';
 import './App.css';
 import Map from './components/Map';
 
