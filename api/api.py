@@ -171,9 +171,12 @@ def get_address():
     cursor = mysql.connection.cursor()
     cursor.execute('SELECT address FROM addresses WHERE username = %s', (current_user,))
     address_result = cursor.fetchall()
-
-    return address_result[0][0]
-
+    address_list = []
+    for address in address_result:
+        address_list.append(address[0])
+    
+    response = {'address_list': address_list}
+    return response
 
 ## ROUTING MANAGEMENT
 

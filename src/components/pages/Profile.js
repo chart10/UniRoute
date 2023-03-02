@@ -3,12 +3,14 @@ import { Link, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import useToken from '../UseToken';
 import AddressList from './AddressList';
+import './pages.css';
 
 // We need to fetch db data in flask
 // and show on screen
 function Profile() {
   const [profileData, setProfileData] = useState(null);
-  const [addressData, setAddressData] = useOutletContext();
+  const { addressData, setAddressData } = useOutletContext()[0];
+
   const { setToken } = useToken();
   // function that is called to grab data from server
 
@@ -33,6 +35,26 @@ function Profile() {
           university: res.university,
         });
       })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+    axios({
+      method: 'GET',
+      url: '/get_address',
+      headers: {
+        // checks if user is authorized to get data
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
+      .then((response) => {
+        setAddressData(response.data.address_list);
+        console.log(response.data.address_list);
+      })
+      // get the response data (user data) ad sets its
       .catch((error) => {
         if (error.response) {
           console.log(error.response);

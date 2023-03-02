@@ -7,7 +7,7 @@ import Map from '../Map';
 
 function GetRoute(props) {
   // destructuring the outlet context from index.js
-  const [directionsRequest, setDirectionsRequest] = useOutletContext();
+  const { directionsRequest, setDirectionsRequest } = useOutletContext()[0];
   const [origin, setOrigin] = useState('atlanta');
   const [destination, setDestination] = useState('norcross');
   const [travelMode, setTravelMode] = useState('TRANSIT');
@@ -57,6 +57,7 @@ function GetRoute(props) {
 
   return (
     <div className='routeForms'>
+      <h2>Find a Route</h2>
       <input
         type='text'
         id='from'

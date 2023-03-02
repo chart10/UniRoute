@@ -28,10 +28,12 @@ const AppLayout = () => {
         context={[
           // directions,
           // setDirections,
-          directionsRequest,
-          setDirectionsRequest,
-          addressData,
-          setAddressData,
+          {
+            directionsRequest,
+            setDirectionsRequest,
+            addressData,
+            setAddressData,
+          },
         ]}
       />
       <App
