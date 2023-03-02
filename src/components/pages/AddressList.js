@@ -1,9 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 
 const AddressList = (props) => {
   const [newAddress, setNewAddress] = useState('');
+  const [addressData, setAddressData] = useOutletContext();
 
   const onAddressChange = (event) => {
     setNewAddress(event.target.value);
@@ -38,10 +40,18 @@ const AddressList = (props) => {
   return (
     <section>
       <h2>Address Book</h2>
-      {props.addressData === null && (
-        <p>When you save addresses to your profile they will show up here. </p>
-      )}
       <ul className='addressList'></ul>
+      {props.addressData === null ? (
+        <p>When you save addresses to your profile they will show up here. </p>
+      ) : (
+        <ul className='addressList'>
+          {props.addressData.map((address) => (
+            <li>{address}</li>
+          ))}
+        </ul>
+      )}
+      {/* {props.addressData !== null && <></>} */}
+
       <p>Add a location to your address book: </p>
       <input
         type='text'

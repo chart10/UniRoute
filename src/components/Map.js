@@ -117,11 +117,11 @@ const Map = (props) => {
       console.log('Inside Directions Callback');
     }
   };
-  console.log({
-    directionsRequest: props.directionsRequest,
-    directions: props.directions,
-    count,
-  });
+  // console.log({
+  //   directionsRequest: props.directionsRequest,
+  //   directions: props.directions,
+  //   count,
+  // });
 
   useEffect(() => {
     console.log('direction request changed');
