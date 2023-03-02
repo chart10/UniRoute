@@ -78,31 +78,31 @@ function GetRoute(props) {
   return (
     <div className='routeForms'>
       <h2>FIND A ROUTE</h2>
-      <input
-        type='text'
-        id='from'
-        placeholder='origin'
-        value={origin}
-        onChange={onOriginChange}
-        onFocus={() => setShowDropdown(true)}
-      ></input>
-      {showDropdown && (
-        <div className="suggestions__dropdown">
-          {addressData && addressData.length > 0 ? (
-            <>
-              {addressData.map((address, index) => (
-                <div
-                  key={"suggestion_" + index}
-                  className="suggestion__item"
-                  onClick={() => setOrigin(address)}
-                />
-              ))}
-            </>
-          ) : (
-            <div className="no__suggestions">No suggestions found</div>
-          )}
-        </div>
-      )}
+      <div className='inputWrapper'>
+        <input
+          type='text'
+          id='from'
+          placeholder='origin'
+          value={origin}
+          onChange={onOriginChange}
+          onFocus={() => setShowDropdown(true)}
+        ></input>
+        {showDropdown && (
+          <div className="addressDropdown">
+            {addressData && addressData.length > 0 && (
+              <>
+                {addressData.map((address, index) => (
+                  <div
+                    key={"address_" + index}
+                    className="addressItem"
+                    onClick={() => setOrigin(address)}
+                  >{address}</div>
+                ))}
+              </>
+            )}
+          </div>
+        )}
+      </div>
       <input
         type='text'
         id='dest'
