@@ -57,7 +57,7 @@ function GetRoute(props) {
 
   return (
     <div className='routeForms'>
-      <h2>Find a Route</h2>
+      <h2>FIND A ROUTE</h2>
       <input
         type='text'
         id='from'

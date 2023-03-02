@@ -70,7 +70,7 @@ function Login(props) {
   // returns login form html
   return (
     <div>
-      <h2>Login</h2>
+      <h2>LOG IN</h2>
       <form className='login'>
         <input
           onChange={handleChange}
@@ -90,8 +90,8 @@ function Login(props) {
         />
         <button onClick={logMeIn}>Submit</button>
       </form>
-      <h2>Logout</h2>
-      <button onClick={logMeOut}>Logout</button>
+      <h2>LOG OUT</h2>
+      <button onClick={logMeOut}>Log out</button>
     </div>
   );
 }

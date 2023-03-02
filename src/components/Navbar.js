@@ -46,7 +46,7 @@ function Navbar() {
                   'nav-links' + (isActive ? ' activated' : '')
                 }
               >
-                Login
+                Log In
                 <CgProfile className='navbar-icon' onClick={closeMobileMenu} />
               </NavLink>
             </li>
