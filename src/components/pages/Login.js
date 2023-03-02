@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
   const { setToken } = useToken()
   const navigate = useNavigate()
+  const [errorMessage, setErrorMessage] = useState('');
   // create React hook for login data, and act of logging in
   const [loginForm, setloginForm] = useState({
     username: '',
@@ -30,6 +31,7 @@ function Login() {
       })
       .catch((error) => {
         if (error.response) {
+          setErrorMessage('WRONG USERNAME OR PASSWORD')
           console.log(error.response);
           console.log(error.response.status);
           console.log(error.response.headers);
@@ -76,6 +78,9 @@ function Login() {
         />
         <button onClick={logMeIn}>Submit</button>
       </form>
+      {errorMessage && (
+        <p className='error'> {errorMessage} </p>
+      )}
     </div>
   );
 }

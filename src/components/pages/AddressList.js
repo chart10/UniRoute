@@ -6,6 +6,7 @@ import axios from 'axios';
 const AddressList = (props) => {
   const [newAddress, setNewAddress] = useState('');
   const [addressData, setAddressData] = useOutletContext();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onAddressChange = (event) => {
     setNewAddress(event.target.value);
@@ -27,9 +28,11 @@ const AddressList = (props) => {
       })
         .then((response) => {
           console.log(response);
+          setErrorMessage("SUCCESSFULLY ADDED ADDRESS!!");
         })
         .catch((error) => {
           if (error.response) {
+            setErrorMessage("FAILED TO SAVE ADDRESS! TRY AGAIN.");
             console.log(error.response);
             console.log(error.response.status);
             console.log(error.response.headers);
@@ -61,6 +64,9 @@ const AddressList = (props) => {
         onChange={onAddressChange}
       ></input>
       <button onClick={onSubmitAddress}>Save</button>
+      {errorMessage && (
+        <p className='error'> {errorMessage} </p>
+      )}
     </section>
   );
 };
