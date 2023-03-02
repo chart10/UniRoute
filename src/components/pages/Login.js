@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import useToken from '../UseToken';
 
 function Login() {
+  const { removetoken, setToken } = useToken()
   // create React hook for login data, and act of logging in
   const [loginForm, setloginForm] = useState({
     username: '',
@@ -21,7 +23,8 @@ function Login() {
     })
       .then((response) => {
         // adds the login token authentication to the local storage
-        localStorage.setItem('token', response.data.access_token);
+        //localStorage.setItem('token', response.data.access_token);
+        setToken(response.data.access_token)
         // set isLoggedIn to true when the user is logged in
         setIsLoggedIn(true);
       })
@@ -50,7 +53,8 @@ function Login() {
     })
       .then((response) => {
         // remove auth token so user cannot access data anymore
-        localStorage.removeItem('token');
+        // localStorage.removeItem('token');
+        removetoken()
         // set isLoggedIn to false when the user is logged out
         setIsLoggedIn(false);
       })
