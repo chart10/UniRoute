@@ -1,3 +1,7 @@
 h2 {
   font-family: 'Rubik', sans-serif;
 }
+
+.error {
+  color: red;
+}
