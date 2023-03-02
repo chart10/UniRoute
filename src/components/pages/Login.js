@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import useToken from '../UseToken';
+import { useOutletContext } from 'react-router-dom';
 function Login(props) {
   // create React hook for login data, and act of logging in
   const [loginForm, setloginForm] = useState({
     username: '',
     password: '',
   });
+  const { isLoggedIn, setIsLoggedIn } = useOutletContext()[0];
 
   const { token, removetoken, setToken } = useToken();
 
@@ -36,8 +38,8 @@ function Login(props) {
       username: '',
       password: '',
     });
-
     event.preventDefault();
+    setIsLoggedIn(true);
   }
 
   // Logout function CHANGE LOCATION PLEASE
@@ -56,6 +58,7 @@ function Login(props) {
         console.log(error.response.status);
         console.log(error.response.headers);
       });
+    setIsLoggedIn(false);
   }
 
   // handles the chanages to the login form when typing

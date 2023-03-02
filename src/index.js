@@ -20,6 +20,7 @@ const AppLayout = () => {
   const [directions, setDirections] = useState(null);
   const [directionsRequest, setDirectionsRequest] = useState(null);
   const [addressData, setAddressData] = useState(null);
+  const [isLoggedIn, setIsLoggedin] = useState(false);
 
   return (
     <>
@@ -33,6 +34,8 @@ const AppLayout = () => {
             setDirectionsRequest,
             addressData,
             setAddressData,
+            isLoggedIn,
+            setIsLoggedin
           },
         ]}
       />

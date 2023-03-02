@@ -1,17 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import Map from '../Map';
+import './pages.css'
 // Component: Route Finder
 // Contains the forms needed to run a route query
-/*global google*/
 
 function GetRoute(props) {
   // destructuring the outlet context from index.js
-  const { directionsRequest, setDirectionsRequest } = useOutletContext()[0];
+  const { addressData, directionsRequest, setDirectionsRequest } = useOutletContext()[0];
   const [origin, setOrigin] = useState('atlanta');
   const [destination, setDestination] = useState('norcross');
   const [travelMode, setTravelMode] = useState('TRANSIT');
 
+  // Autocomplete useStates and useRefs
+  //const [ value, setValue ] = useState("");
+  const [ showDropdown, setShowDropdown ] = useState(false);
+  const wrapperRef = useRef(null);
+
+  const handleClickOutside = e => {
+    if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+      setShowDropdown(false);
+    }
+  };
+  useEffect(() => {
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+
+
+  // This is the backend API call for Google Maps
   // const apiGetrouteCall = () => {
   //   fetch('/get_route', {
   //     method: 'GET',
@@ -35,6 +55,7 @@ function GetRoute(props) {
   //   return 'sent to backend';
   // };
 
+  // Functions to control input of route information into directionsRequest
   const onOriginChange = (event) => {
     setOrigin(event.target.value);
   };
@@ -44,7 +65,6 @@ function GetRoute(props) {
   const onTravelModeChange = (event) => {
     setTravelMode(event.target.value);
   };
-
   const onSubmitDirections = () => {
     if (origin && destination) {
       setDirectionsRequest({
@@ -64,7 +84,25 @@ function GetRoute(props) {
         placeholder='origin'
         value={origin}
         onChange={onOriginChange}
+        // onFocus={() => setShowDropdown(true)}
       ></input>
+      {/* {showDropdown && (
+        <div className="address__dropdown">
+          {addressData && addressData.length > 0 ? (
+            <>
+              {addressData.map((address, index) => (
+                <div
+                  key={"address_" + index}
+                  className="address__item"
+                  onClick={() => setOrigin(address)}
+                />
+              ))}
+            </>
+          ) : (
+            <div className="no__suggestions">No suggestions found</div>
+          )}
+        </div>
+      )} */}
       <input
         type='text'
         id='dest'
