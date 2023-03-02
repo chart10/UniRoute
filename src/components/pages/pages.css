@@ -4,6 +4,7 @@ h2 {
 
 .inputWrapper {
   position: relative;
+  z-index: 1;
 }
 .inputWrapper .addressDropdown {
   position: absolute;
@@ -13,4 +14,10 @@ h2 {
   width: 100%;
   height: 100px;
   overflow-y: auto;
+  block-size: fit-content;
+}
+.addressItem {
+  background-color: white;
+  width: fit-content;
+  padding: 3px;
 }
