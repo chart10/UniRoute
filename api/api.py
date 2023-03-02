@@ -81,7 +81,7 @@ def create_token():
     user = cursor.fetchone()
     
     # if the user name and pass are not in db, return wrong username and pass 
-    if user['username'] != username or user['password'] != password:
+    if (user is None) or (user['username'] != username or user['password'] != password):
         return {"msg": "Wrong username or password"}, 401
     # create accesstoken if succsesful
     access_token = create_access_token(identity=username)
