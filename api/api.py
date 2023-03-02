@@ -80,7 +80,8 @@ def create_token():
     cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password,))
     user = cursor.fetchone()
     
-    # if the user name and pass are not in db, return wrong username and pass 
+    # if the user name and pass are not in db, return wrong username and pass
+    # case: if user comes as none ie, there are no usernames or passwords that match what you type in 
     if (user is None) or (user['username'] != username or user['password'] != password):
         return {"msg": "Wrong username or password"}, 401
     # create accesstoken if succsesful
