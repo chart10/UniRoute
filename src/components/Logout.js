@@ -16,7 +16,8 @@ const Logout = () => {
       .then((response) => {
         // remove auth token so user cannot access data anymore
         removetoken()
-        navigate('/')
+        //navigate('/')
+        window.location.reload(false);
       })
       .catch((error) => {
         console.log(error.response);
