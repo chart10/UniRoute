@@ -2,11 +2,13 @@ h2 {
   font-family: 'Rubik', sans-serif;
 }
 
-.inputWrapper {
+.fieldWrapper {
   position: relative;
   z-index: 1;
+  display: inline;
+  margin: 10px;
 }
-.inputWrapper .addressDropdown {
+.fieldWrapper .addressDropdown {
   position: absolute;
   top: 30px;
   right: 0;
@@ -15,9 +17,15 @@ h2 {
   height: 100px;
   overflow-y: auto;
   block-size: fit-content;
+  border-radius: 10px;
+
 }
 .addressItem {
   background-color: white;
   width: fit-content;
   padding: 3px;
+}
+.addressItem:hover {
+    background-color: rgb(218, 226, 251);
+
 }

@@ -44,8 +44,8 @@ const AddressList = (props) => {
         <p>When you save addresses to your profile they will show up here. </p>
       ) : (
         <ul className='addressList'>
-          {props.addressData.map((address) => (
-            <li>{address}</li>
+          {props.addressData.map((address, index) => (
+            <li key ={'address_' + index}>{address}</li>
           ))}
         </ul>
       )}

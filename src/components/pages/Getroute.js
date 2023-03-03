@@ -12,24 +12,8 @@ function GetRoute(props) {
   const [travelMode, setTravelMode] = useState('TRANSIT');
 
   // Autocomplete useStates and useRefs
-  const [ value, setValue ] = useState("");
-  const [ showDropdown, setShowDropdown ] = useState(false);
-  const wrapperRef = useRef(null);
-
-  const handleClickOutside = e => {
-    if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
-      setShowDropdown(false);
-    }
-  };
-  useEffect(() => {
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  });
-
+  const [ showOriginDropdown, setShowOriginDropdown ] = useState(false);
+  const [ showDestDropdown, setShowDestDropdown ] = useState(false);
 
   // This is the backend API call for Google Maps
   // const apiGetrouteCall = () => {
@@ -78,16 +62,17 @@ function GetRoute(props) {
   return (
     <div className='routeForms'>
       <h2>FIND A ROUTE</h2>
-      <div className='inputWrapper'>
+      <div className='fieldWrapper'>
         <input
           type='text'
           id='from'
           placeholder='origin'
           value={origin}
           onChange={onOriginChange}
-          onFocus={() => setShowDropdown(true)}
+          onFocus={() => setShowOriginDropdown(true)}
+          //onBlur={() => {setTimeout(() => setShowOriginDropdown(false), 100);}}
         ></input>
-        {showDropdown && (
+        {showOriginDropdown && (
           <div className="addressDropdown">
             {addressData && addressData.length > 0 && (
               <>
@@ -95,7 +80,10 @@ function GetRoute(props) {
                   <div
                     key={"address_" + index}
                     className="addressItem"
-                    onClick={() => setOrigin(address)}
+                    onClick={() => {
+                      setOrigin(address)
+                      setShowOriginDropdown(false)
+                      }}
                   >{address}</div>
                 ))}
               </>
@@ -103,13 +91,42 @@ function GetRoute(props) {
           </div>
         )}
       </div>
-      <input
+      <div className='fieldWrapper'>
+        <input
+          type='text'
+          id='dest'
+          placeholder='origin'
+          value={destination}
+          onChange={onDestinationChange}
+          onFocus={() => setShowDestDropdown(true)}
+          //onBlur={() => {setTimeout(() => setShowDestDropdown(false), 100);}}
+        ></input>
+        {showDestDropdown && (
+          <div className="addressDropdown">
+            {addressData && addressData.length > 0 && (
+              <>
+                {addressData.map((address, index) => (
+                  <div
+                    key={"address_" + index}
+                    className="addressItem"
+                    onClick={() => {
+                      setDestination(address)
+                      setShowDestDropdown(false)
+                    }}
+                  >{address}</div>
+                ))}
+              </>
+            )}
+          </div>
+        )}
+      </div>
+      {/* <input
         type='text'
         id='dest'
         placeholder='destination'
         value={destination}
         onChange={onDestinationChange}
-      ></input>
+      ></input> */}
       <b>Select type of Commute</b>
       <select id='mode' value={travelMode} onChange={onTravelModeChange}>
         <option value='DRIVING'>Driving</option>
