@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 
@@ -48,8 +47,8 @@ const AddressList = (props) => {
         <p>When you save addresses to your profile they will show up here. </p>
       ) : (
         <ul className='addressList'>
-          {props.addressData.map((address) => (
-            <li>{address}</li>
+          {props.addressData.map((address, index) => (
+            <li key ={'address_' + index}>{address}</li>
           ))}
         </ul>
       )}
