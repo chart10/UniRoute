@@ -80,13 +80,15 @@ def create_token():
     cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password,))
     user = cursor.fetchone()
     
-    # if the user name and pass are not in db, return wrong username and pass 
-    if user['username'] != username or user['password'] != password:
+    # if the user name and pass are not in db, return wrong username and pass
+    # case: if user comes as none ie, there are no usernames or passwords that match what you type in 
+    if (user is None) or (user['username'] != username or user['password'] != password):
         return {"msg": "Wrong username or password"}, 401
     # create accesstoken if succsesful
     access_token = create_access_token(identity=username)
     response = {"access_token":access_token}
     return response
+
 # this refreshes the jwt authentication so it does not randomly log you out
 @app.after_request
 def refresh_expiring_jwts(response):
@@ -105,7 +107,7 @@ def refresh_expiring_jwts(response):
         # case where there is not a valid JWT. Just return the original response
         return response
 
-# Api route for loggin out users
+# Api route for logging out users
 @app.route('/logout', methods=['POST'])
 def logout():
     response = jsonify({"msg": "logout successful"})
@@ -187,6 +189,12 @@ def get_google_route():
     # print(get_route().text)
     return get_route()
 
-@app.route('/schedule')
+@app.route('/get_schedule')
 def get_schedule():
-    return "PLACEHOLDER FOR MARTA TRAIN DATA"
+    return "PLACE HOLDER FOR GETTING USER SCHEDULE"
+
+# Will need to talk to see if we should store by day or be able to store the whole week if you choose to do so
+# Leaning towards imputing individual days / events similar to outlook & apple calendarss
+@app.route('/save_schedule')
+def save_schedule():
+    return "PLACE HOLDER FOR STORiNG SCHEDUKE"

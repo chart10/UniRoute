@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import useToken from '../UseToken';
-function Login(props) {
+import { useNavigate } from 'react-router-dom';
+
+
+
+function Login() {
+  const { setToken } = useToken()
+  const navigate = useNavigate()
+  const [errorMessage, setErrorMessage] = useState('');
   // create React hook for login data, and act of logging in
   const [loginForm, setloginForm] = useState({
     username: '',
     password: '',
   });
-
-  const { token, removetoken, setToken } = useToken();
-
   // Login function that uses axios to speak to backend
   function logMeIn(event) {
     axios({
@@ -23,9 +27,11 @@ function Login(props) {
       .then((response) => {
         // adds the login token authentication to the local storage
         setToken(response.data.access_token);
+        navigate("/Profile");
       })
       .catch((error) => {
         if (error.response) {
+          setErrorMessage('WRONG USERNAME OR PASSWORD')
           console.log(error.response);
           console.log(error.response.status);
           console.log(error.response.headers);
@@ -39,25 +45,7 @@ function Login(props) {
 
     event.preventDefault();
   }
-
-  // Logout function CHANGE LOCATION PLEASE
-  function logMeOut() {
-    // uses axios post request to logout on server side
-    axios({
-      method: 'POST',
-      url: '/logout',
-    })
-      .then((response) => {
-        // remove auth token so user cannot access data anymore
-        removetoken(response.access_token);
-      })
-      .catch((error) => {
-        console.log(error.response);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      });
-  }
-
+  
   // handles the chanages to the login form when typing
   function handleChange(event) {
     const { value, name } = event.target;
@@ -67,10 +55,10 @@ function Login(props) {
     }));
   }
 
-  // returns login form html
+  // render the login form if the user is not logged in
   return (
     <div>
-      <h2>LOG IN</h2>
+      <h2>Login</h2>
       <form className='login'>
         <input
           onChange={handleChange}
@@ -90,8 +78,9 @@ function Login(props) {
         />
         <button onClick={logMeIn}>Submit</button>
       </form>
-      <h2>LOG OUT</h2>
-      <button onClick={logMeOut}>Log out</button>
+      {errorMessage && (
+        <p className='error'> {errorMessage} </p>
+      )}
     </div>
   );
 }

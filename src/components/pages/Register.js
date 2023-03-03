@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import apiRegisterCall from './apiRegisterCall.js';
 import '../../App.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 /** Component: Registration
  * Contains the forms needed to create a new user account */
@@ -14,10 +15,12 @@ export const RegisterForm = (props) => {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-
+  const navigate = useNavigate();
+  
   // Once the form is submitted, this fuction will run
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     // Calls the fetch function from apiRegister.js
     apiRegisterCall.Register({
       username: username,
@@ -36,6 +39,8 @@ export const RegisterForm = (props) => {
     setFirstName('');
     setLastName('');
     // TODO: Send user to their profile page
+    navigate('/Login');
+
   };
 
   // Return JSX forms
