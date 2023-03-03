@@ -2,6 +2,10 @@ h2 {
   font-family: 'Rubik', sans-serif;
 }
 
+.error {
+  color: red;
+ }
+ 
 .fieldWrapper {
   position: relative;
   z-index: 1;
@@ -27,5 +31,3 @@ h2 {
 }
 .addressItem:hover {
     background-color: rgb(218, 226, 251);
-
-}
