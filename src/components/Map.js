@@ -29,6 +29,9 @@ const Map = (props) => {
     marginLeft: '50px',
     marginTop: '100px',
   };
+  if (!props.directions) {
+    panelStyle.display = 'none';
+  }
 
   // The location for the center of the map
   const atlanta = {
@@ -143,10 +146,10 @@ const Map = (props) => {
             callback={(e) => directionsCallback(e)}
           />
         )}
+        <div id='panel' style={panelStyle}></div>
 
         {props.directions !== null && (
           <>
-            <div id='panel' style={panelStyle}></div>
             <DirectionsRenderer
               directions={props.directions}
               //directions={transformDirections(directions)}
