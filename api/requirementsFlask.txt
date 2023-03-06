@@ -1,4 +1,5 @@
 flask
 flask-mysqldb
+flask-jwt-extended
 python-dotenv
 googlemaps
