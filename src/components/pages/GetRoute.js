@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import './pages.css';
 import axios from 'axios';
@@ -43,29 +43,6 @@ function GetRoute(props) {
         }
       });
   }, []);
-  // This is the backend API call for Google Maps
-  // const apiGetrouteCall = () => {
-  //   fetch('/get_route', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     // body: JSON.stringify(props),
-  //   })
-  //     .then((response) => {
-  //       console.log(response);
-  //       //console.log(response.json());
-  //       response.json().then((body) => {
-  //         setDirections(body);
-  //       });
-  //     })
-  //     // .then(console.log('fetched from api.py'))
-  //     .catch((error) => console.log(error));
-  //   // Organize inputs
-  //   // Send inputs to backend via .fetch('/get_route')
-  //   // Send response JSON to Map.js
-  //   return 'sent to backend';
-  // };
 
   // Functions to control input of route information into directionsRequest
   const onOriginChange = (event) => {
@@ -166,13 +143,6 @@ function GetRoute(props) {
           </div>
         )}
       </div>
-      {/* <input
-        type='text'
-        id='dest'
-        placeholder='destination'
-        value={destination}
-        onChange={onDestinationChange}
-      ></input> */}
       <b>Select type of Commute</b>
       <select id='mode' value={travelMode} onChange={onTravelModeChange}>
         <option value='DRIVING'>Driving</option>
