@@ -26,13 +26,14 @@ const Logout = () => {
       });
     }
 
-    return (
+    /*return (
         <div className="Logout">
             {localStorage.getItem('token') !== null &&
                 <button onClick={logMeOut}>Logout</button>
             }
         </div>
     );
+    */
 }
 
 
