@@ -4,6 +4,7 @@ import axios from 'axios';
 import useToken from '../UseToken';
 import AddressList from './AddressList';
 import './pages.css';
+import Schedule from './Schedule';
 
 // We need to fetch db data in flask
 // and show on screen
@@ -73,6 +74,7 @@ function Profile() {
           <p>Last Name: {profileData.lastName}</p>
           <p>University: {profileData.university}</p>
           <AddressList addressData={addressData} />
+          <Schedule />
         </>
       ) : (
         <>
