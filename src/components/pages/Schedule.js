@@ -5,7 +5,7 @@ import './pages.css';
 
 const Schedule = () => {
   const [addressData, setAddressData] = useOutletContext();
-  console.log(addressData);
+  //console.log(addressData);
   const [dayOfWeek, setDayOfWeek] = useState(new Array(7).fill(false));
   const [scheduledOrigin, setScheduledOrigin] = useState('');
   const [scheduledDestination, setScheduledDestination] = useState('');
@@ -21,6 +21,7 @@ const Schedule = () => {
   const onSubmitRoute = () => {
     console.log('scheduledOrigin: ' + scheduledOrigin);
     console.log('scheduledDestination: ' + scheduledDestination);
+    console.log('departArrive: ' + departArrive);
     console.log('scheduledTime: ' + scheduledTime);
     console.log('dayOfWeek: ' + dayOfWeek);
 
@@ -74,6 +75,18 @@ const Schedule = () => {
   };
   const onDepartArriveChange = (event) => {
     setDepartArrive(event.target.value);
+  };
+  const onScheduledTimeChange = (event) => {
+    let today = new Date();
+    let time = '';
+    console.log(event.target.value);
+    if (event.target.value !== '') {
+      // Update current date object with user entered arrivalTime
+      today.setHours(event.target.value.substring(0, 2));
+      today.setMinutes(event.target.value.substring(3, 5));
+      time = today;
+    }
+    setScheduledTime(time);
   };
 
   return (
@@ -234,11 +247,16 @@ const Schedule = () => {
         value={departArrive}
         onChange={onDepartArriveChange}
       >
+        <option value=''>-- </option>
         <option value='DEPART'>Departure </option>
         <option value='ARRIVE'>Arrival </option>
       </select>
       <label htmlFor='scheduleArrive'> Time </label>
-      <input type='time' id='scheduleArrive'></input>
+      <input
+        type='time'
+        id='scheduleArrive'
+        onChange={onScheduledTimeChange}
+      ></input>
       <button onClick={onSubmitRoute}>Save</button>
       {errorMessageRoute && <p className='error'> {errorMessageRoute} </p>}
     </section>
