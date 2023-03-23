@@ -20,11 +20,11 @@ api_key = os.getenv('REACT_APP_MAPS_API_KEY')
 #   Note: if no departure_time or arrival_time is specified
 #   departure_time defaults to now
 
-def get_route():
+def get_route(params):
     mode = '&mode=' + 'transit'
     key = '&key=' + api_key
-    # origin = 'origin=' + params.origin
-    # destination = '&destination=' + params.destination
+    origin = 'origin=' + params.origin
+    destination = '&destination=' + params.destination
 
     base_url = "https://maps.googleapis.com/maps/api/directions/json?origin=Norcross&destination=Atlanta"+mode+key
 

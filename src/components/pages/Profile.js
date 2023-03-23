@@ -53,7 +53,7 @@ function Profile() {
     })
       .then((response) => {
         setAddressData(response.data.address_list);
-        console.log(response.data.address_list);
+        //console.log(response.data.address_list);
       })
       // get the response data (user data) ad sets its
       .catch((error) => {

@@ -16,11 +16,11 @@ export const RegisterForm = (props) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const navigate = useNavigate();
-  
+
   // Once the form is submitted, this fuction will run
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Calls the fetch function from apiRegister.js
     apiRegisterCall.Register({
       username: username,
@@ -40,7 +40,6 @@ export const RegisterForm = (props) => {
     setLastName('');
     // TODO: Send user to their profile page
     navigate('/Login');
-
   };
 
   // Return JSX forms
