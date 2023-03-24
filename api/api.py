@@ -1,18 +1,21 @@
-import json 
-from flask import Flask, request, jsonify
+''' API for UniRoute.
+    Created by: Chandler Dugan, Christian Hart, and Eric Rivas
+'''
+import json
 from datetime import datetime, timedelta, timezone
+import os
+import logging
+from flask import Flask, request, jsonify
 from flask_jwt_extended import create_access_token, get_jwt, \
     get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 from flask_mysqldb import MySQL # Connects MySQL to Flask
 import MySQLdb.cursors
 from googleroutes import get_route
-import os
-import logging
 
 app = Flask(__name__)
 
 ## TOKEN CONFIG
-app.config["JWT_SECRET_KEY"] = "please-change-me"
+app.config["JWT_SECRET_KEY"] = "super-secret-thingy-that-is-not-best-practice(CHANGE!)"
 jwt = JWTManager(app)
 
 ## DATABASE CONFIGURATION
@@ -33,7 +36,9 @@ log.addHandler(fh)
 
 @app.route('/')
 def index():
-    
+    ''' Returns the get_route() method for backend use of google api.
+        Currently not working.
+    '''
     return get_route()
 
 ## ACCOUNT / SESSION MANAGEMENT
@@ -42,6 +47,9 @@ def index():
 # Basics on how to communicate with MySQL in 5 easy steps
 @app.route('/register', methods=['POST'])
 def add_user():
+    ''' Takes in user account input data from front end and adds it to db as a user's account
+        If user already exists, it does not add to db and returns an error msg. 
+    '''
     # 1) Create a cursor
     cursor = mysql.connection.cursor()
     # 2) Declare variables for input values, if needed
@@ -50,8 +58,8 @@ def add_user():
     password = request.json["password"]
     email = request.json["email"]
     university = request.json["university"]
-    firstName = request.json["firstName"]
-    lastName = request.json["lastName"]
+    first_name = request.json["firstName"]
+    last_name = request.json["lastName"]
     # Check if username is already in the database
     cursor.execute('SELECT username FROM users WHERE username = %s', [username])
     user = cursor.fetchone()
@@ -59,7 +67,7 @@ def add_user():
         return 'There is already an account with that username.'
     # 3) Use cursor.execute() to run a line of MySQL code
     cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s)''',
-                (username,password,email,university,firstName,lastName))
+                (username,password,email,university,first_name,last_name))
     # 4) Commit the change to the MySQL database
     mysql.connection.commit()
     # 5) Close the cursor
@@ -69,6 +77,11 @@ def add_user():
 # Api route for logging in users and creating token
 @app.route('/token', methods=["POST"])
 def create_token():
+    '''
+    Takes user login data and checks if thier user and pass is in db.
+    if in db, create a JWT Auth token and send to front end.
+    else, show an error messgage that the user credentials entered are incorrect.
+    '''
     # request json of username and pass from front end
     username = request.json.get("username", None)
     password = request.json.get("password", None)
@@ -77,11 +90,12 @@ def create_token():
     # DictCursor allows you to select colum  via user['column_name']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-    cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password,))
+    cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s',
+                   (username, password,))
     user = cursor.fetchone()
-    
+
     # if the user name and pass are not in db, return wrong username and pass
-    # case: if user comes as none ie, there are no usernames or passwords that match what you type in 
+    # case: if user comes as none
     if (user is None) or (user['username'] != username or user['password'] != password):
         return {"msg": "Wrong username or password"}, 401
     # create accesstoken if succsesful
@@ -92,14 +106,15 @@ def create_token():
 # this refreshes the jwt authentication so it does not randomly log you out
 @app.after_request
 def refresh_expiring_jwts(response):
-    try: 
+    ''' If a certain amount time passes, the JWT Auth token is refreshed'''
+    try:
         exp_timestamp = get_jwt()["expt"]
         now = datetime.now(timezone.utc)
         target_timestamp = datetime.timestamp(now + timedelta(minutes=30))
         if target_timestamp > exp_timestamp:
             access_token = create_access_token(identity=get_jwt_identity())
             data = response.get_json()
-            if type(data) is dict:
+            if isinstance(data) is dict:
                 data["access_token"] = access_token
                 response.data = json.dumps(data)
             return response
@@ -110,18 +125,20 @@ def refresh_expiring_jwts(response):
 # Api route for logging out users
 @app.route('/logout', methods=['POST'])
 def logout():
+    ''' Logs user out of session. Unsets the JWT Auth Token'''
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)
     return response
 
 # Api route to grab user data
 # jwt_required() means that you must be logged in (authenticated) to access it
-# return type: dict of user data {FirstName: '', 
-#                                 LastName: '', 
+# return type: dict of user data {FirstName: '',
+#                                 LastName: '',
 #                                 University: ''}
 @app.route('/profile', methods=['GET', 'POST'])
 @jwt_required()
 def get_profile():
+    '''Grabs current user data from db and sends to front end to display on profile page'''
     # Grabs the identity of jwt auth token
     # current_user = username of user
     current_user = get_jwt_identity()
@@ -129,7 +146,7 @@ def get_profile():
     # create mysql cursor
     # the DictCursor makes it possible to select the colums like user['firstName']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    
+
     # select user whree the username is equal to current_suer
     cursor.execute('SELECT * FROM users WHERE username = %s', (current_user,))
     user = cursor.fetchone()
@@ -146,6 +163,9 @@ def get_profile():
 @app.route('/save_address', methods=['POST'])
 @jwt_required()
 def save_address():
+    ''' Grabs user address input data from front end
+        Stores in current user section of db. 
+    '''
     # Grab current user so msql knows where to store it
     current_user = get_jwt_identity()
 
@@ -169,6 +189,7 @@ def save_address():
 @app.route('/get_address', methods=['GET', 'POST'])
 @jwt_required()
 def get_address():
+    ''' Grabs saved addresses of current user and sends to front end'''
     current_user = get_jwt_identity()
     cursor = mysql.connection.cursor()
     cursor.execute('SELECT address FROM addresses WHERE username = %s', (current_user,))
@@ -176,7 +197,6 @@ def get_address():
     address_list = []
     for address in address_result:
         address_list.append(address[0])
-    
     response = {'address_list': address_list}
     return response
 
@@ -185,16 +205,22 @@ def get_address():
 # Api route to grab google routing data
 @app.route('/get_route',methods=['GET', 'POST'])
 def get_google_route():
-    # Will call google routes from a handler file 
+    ''' API Route to call google maps api in backend. Currently not in use.'''
+    # Will call google routes from a handler file
     # print(get_route().text)
     return get_route()
 
 @app.route('/get_schedule')
 def get_schedule():
+    ''' Grabs current user's schedule for the week.
+        Currently not implemented    
+    '''
     return "PLACE HOLDER FOR GETTING USER SCHEDULE"
 
-# Will need to talk to see if we should store by day or be able to store the whole week if you choose to do so
-# Leaning towards imputing individual days / events similar to outlook & apple calendarss
+# Store By Day
 @app.route('/save_schedule')
 def save_schedule():
+    ''' Grabs schedule user imput data and stores in db.
+        Currently not implemented.
+    '''
     return "PLACE HOLDER FOR STORiNG SCHEDUKE"
