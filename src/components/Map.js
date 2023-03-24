@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import './Map.css';
 import {
   DirectionsRenderer,
@@ -91,6 +92,12 @@ const Map = (props) => {
       </GoogleMap>
     </LoadScript>
   );
+};
+
+Map.propTypes = {
+  directionsRequest: PropTypes.object,
+  directions: PropTypes.object,
+  setDirections: PropTypes.func,
 };
 
 export default Map;

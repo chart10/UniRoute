@@ -1,21 +1,20 @@
-import React from "react";
-import useToken from "./UseToken";
-import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import useToken from './UseToken';
+import axios from 'axios';
 
 const Logout = () => {
-    const { removetoken } = useToken();
-    const navigate = useNavigate();
-    // Logout function
-    function logMeOut() {
+  const { removetoken } = useToken();
+  // Logout function
+
+  // eslint-disable-next-line no-unused-vars
+  function logMeOut() {
     // uses axios post request to logout on server side
     axios({
       method: 'POST',
       url: '/logout',
     })
-      .then((response) => {
+      .then(() => {
         // remove auth token so user cannot access data anymore
-        removetoken()
+        removetoken();
         //navigate('/')
         window.location.reload(false);
       })
@@ -24,9 +23,9 @@ const Logout = () => {
         console.log(error.response.status);
         console.log(error.response.headers);
       });
-    }
+  }
 
-    /*return (
+  /*return (
         <div className="Logout">
             {localStorage.getItem('token') !== null &&
                 <button onClick={logMeOut}>Logout</button>
@@ -34,8 +33,6 @@ const Logout = () => {
         </div>
     );
     */
-}
-
-
+};
 
 export default Logout;

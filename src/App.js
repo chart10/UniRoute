@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './App.css';
 import Map from './components/Map';
 import Logout from './components/Logout';
 
 function App(props) {
-  //const [directions, setDirections] = useOutletContext();
   return (
     <div className='App'>
       <header className='App-header'></header>
@@ -15,9 +15,15 @@ function App(props) {
         directionsRequest={props.directionsRequest}
         setDirectionsRequest={props.setDirectionsRequest}
       />
-      
     </div>
   );
 }
+
+App.propTypes = {
+  directions: PropTypes.object,
+  setDirections: PropTypes.func,
+  directionsRequest: PropTypes.object,
+  setDirectionsRequest: PropTypes.func,
+};
 
 export default App;

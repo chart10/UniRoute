@@ -1,15 +1,9 @@
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-  Outlet,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Login from './components/pages/Login';
 import GetRoute from './components/pages/GetRoute';

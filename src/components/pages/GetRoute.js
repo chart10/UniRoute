@@ -5,14 +5,10 @@ import axios from 'axios';
 // Component: Route Finder
 // Contains the forms needed to run a route query
 
-function GetRoute(props) {
+function GetRoute() {
   // destructuring the outlet context from index.js
-  const {
-    addressData,
-    setAddressData,
-    directionsRequest,
-    setDirectionsRequest,
-  } = useOutletContext()[0];
+  const { addressData, setAddressData, setDirectionsRequest } =
+    useOutletContext()[0];
   const [origin, setOrigin] = useState('atlanta');
   const [destination, setDestination] = useState('norcross');
   const [travelMode, setTravelMode] = useState('TRANSIT');
