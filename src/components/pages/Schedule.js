@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
 import axios from 'axios';
 import './pages.css';
 
 const Schedule = () => {
-  const [addressData, setAddressData] = useOutletContext();
+  const [addressData] = useOutletContext();
   //console.log(addressData);
   const [dayOfWeek, setDayOfWeek] = useState(new Array(7).fill(false));
   const [scheduledOrigin, setScheduledOrigin] = useState('');
@@ -12,6 +13,7 @@ const Schedule = () => {
   const [scheduledTravelMode, setScheduledTravelMode] = useState('');
   const [departArrive, setDepartArrive] = useState('');
   const [scheduledTime, setScheduledTime] = useState('');
+  // eslint-disable-next-line no-unused-vars
   const [errorMessageRoute, setErrorMessageRoute] = useState('');
 
   // Autocomplete useStates and useRefs

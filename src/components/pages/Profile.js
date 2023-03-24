@@ -78,7 +78,7 @@ function Profile() {
         </>
       ) : (
         <>
-          <p>It looks like you aren`&apos;`t signed in right now.</p>
+          <p>It looks like you aren&apos;t signed in right now.</p>
           <Link to='../login'>
             <button>Login</button>
           </Link>

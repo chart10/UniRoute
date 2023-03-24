@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import { AiOutlineDeploymentUnit } from 'react-icons/ai';
@@ -6,8 +6,8 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { FaSearchLocation } from 'react-icons/fa';
 import { CgProfile } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
-import {BiExit} from 'react-icons/bi';
-import {TbLogin} from 'react-icons/tb'
+import { BiExit } from 'react-icons/bi';
+import { TbLogin } from 'react-icons/tb';
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -16,10 +16,10 @@ function Navbar() {
   const navigate = useNavigate();
   const logout = () => {
     localStorage.clear();
-    navigate('/Login', { replace: true }); 
-  }
+    navigate('/Login', { replace: true });
+  };
 
-  if (localStorage.getItem('token') == null){
+  if (localStorage.getItem('token') == null) {
     return (
       <>
         <IconContext.Provider value={{ color: '#fff' }}>
@@ -65,7 +65,10 @@ function Navbar() {
                   }
                 >
                   Register
-                  <CgProfile className='navbar-icon' onClick={closeMobileMenu} />
+                  <CgProfile
+                    className='navbar-icon'
+                    onClick={closeMobileMenu}
+                  />
                 </NavLink>
               </li>
             </ul>
@@ -108,22 +111,23 @@ function Navbar() {
                   }
                 >
                   Your Profile
-                  <CgProfile className='navbar-icon' onClick={closeMobileMenu} />
+                  <CgProfile
+                    className='navbar-icon'
+                    onClick={closeMobileMenu}
+                  />
                 </NavLink>
               </li>
               <li className='nav-logout'>
                 <div className='nav-links' onClick={logout}>
                   Log Out
-                <BiExit className='navbar-icon' onClick={closeMobileMenu} />
+                  <BiExit className='navbar-icon' onClick={closeMobileMenu} />
                 </div>
               </li>
-
             </ul>
           </nav>
         </IconContext.Provider>
       </>
     );
   }
-  
 }
 export default Navbar;

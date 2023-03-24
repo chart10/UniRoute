@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 const AddressList = (props) => {
   const [newAddress, setNewAddress] = useState('');
-  const [addressData, setAddressData] = useOutletContext();
   const [errorMessage, setErrorMessage] = useState('');
 
   const onAddressChange = (event) => {
     setNewAddress(event.target.value);
   };
 
-  const onSubmitAddress = (event) => {
+  const onSubmitAddress = () => {
     if (newAddress !== '') {
       //send newAddress string to backend with '/save_address'
       axios({
@@ -27,11 +26,11 @@ const AddressList = (props) => {
       })
         .then((response) => {
           console.log(response);
-          setErrorMessage("SUCCESSFULLY ADDED ADDRESS!!");
+          setErrorMessage('SUCCESSFULLY ADDED ADDRESS!!');
         })
         .catch((error) => {
           if (error.response) {
-            setErrorMessage("FAILED TO SAVE ADDRESS! TRY AGAIN.");
+            setErrorMessage('FAILED TO SAVE ADDRESS! TRY AGAIN.');
             console.log(error.response);
             console.log(error.response.status);
             console.log(error.response.headers);
@@ -48,7 +47,7 @@ const AddressList = (props) => {
       ) : (
         <ul className='addressList'>
           {props.addressData.map((address, index) => (
-            <li key ={'address_' + index}>{address}</li>
+            <li key={'address_' + index}>{address}</li>
           ))}
         </ul>
       )}
@@ -63,11 +62,13 @@ const AddressList = (props) => {
         onChange={onAddressChange}
       ></input>
       <button onClick={onSubmitAddress}>Save</button>
-      {errorMessage && (
-        <p className='error'> {errorMessage} </p>
-      )}
+      {errorMessage && <p className='error'> {errorMessage} </p>}
     </section>
   );
+};
+
+AddressList.propTypes = {
+  addressData: PropTypes.object,
 };
 
 export default AddressList;

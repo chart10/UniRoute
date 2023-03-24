@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import apiRegisterCall from './apiRegisterCall.js';
 import '../../App.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
 
 /** Component: Registration
  * Contains the forms needed to create a new user account */
 
 // Set up the hooks for registration input forms
-export const RegisterForm = (props) => {
+export const RegisterForm = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [university, setUniversity] = useState('');
