@@ -7,7 +7,7 @@ import Logout from './components/Logout';
 function App(props) {
   return (
     <div className='App'>
-      <header className='App-header'></header>
+      <header className='App-header'>foo</header>
       <Logout />
       <Map
         directions={props.directions}
