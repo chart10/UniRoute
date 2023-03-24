@@ -163,7 +163,7 @@ def save_address():
     # close the cursor
     cursor.close()
 
-    return "Successfully added address to db"
+    return "Successfully added Address to DataBase"
 
 # route to grab address from db
 @app.route('/get_address', methods=['GET', 'POST'])
@@ -193,8 +193,36 @@ def get_google_route():
 def get_schedule():
     return "PLACE HOLDER FOR GETTING USER SCHEDULE"
 
-# Will need to talk to see if we should store by day or be able to store the whole week if you choose to do so
-# Leaning towards imputing individual days / events similar to outlook & apple calendarss
-@app.route('/save_schedule')
-def save_schedule():
-    return "PLACE HOLDER FOR STORiNG SCHEDUKE"
+# Api Route to save scheduled direction parameters to user profile
+@app.route('/save_scheduled_directions', methods=['POST'])
+@jwt_required()
+def save_scheduled_directions():
+    current_user = get_jwt_identity()
+    cursor = mysql.connection.cursor()
+    
+    # Retrieve JSON input values
+    travelMode = request.json['scheduledTravelMode']
+    departArrive = request.json['departArrive']
+    timeOfDay = request.json['scheduledTime']
+    origin = request.json['scheduledOrigin']
+    destination = request.json['scheduledDestination']
+    dayOfWeek = request.json['dayOfWeek']
+    
+    # Input data into the scheduledRoutes table
+    cursor.execute('INSERT INTO scheduledRoutes (username, travelMode, departArrive, timeOfDay,'+
+                   'departAddress, arriveAddress) VALUES(%s,%s,%s,%s,%s,%s)',
+                   (current_user, travelMode, departArrive, timeOfDay, origin, destination,))
+    
+    # Retrieve routeID of the just-saved directions
+    routeID = cursor.lastrowid
+    
+    # Enter dayOfWeek into scheduledRoutesDayOfWeek for the just-saved directions
+    for (dayIndex, dayEnabled) in enumerate(dayOfWeek):
+        if (dayEnabled):
+            print(str(index) + ": added to table")
+            cursor.execute('INSERT INTO scheduledRoutesDayOfWeek (routeID, dayOfWeek)' +
+                           'VALUES(%s,%s)',(routeID, dayIndex))
+
+    cursor.connection.commit()
+    cursor.close()
+    return "Successfully added Scheduled Directions to DataBase"

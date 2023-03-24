@@ -21,42 +21,39 @@ const Schedule = () => {
   const [showDestDropdown, setShowDestDropdown] = useState(false);
 
   const onSubmitRoute = () => {
-    console.log('scheduledOrigin: ' + scheduledOrigin);
-    console.log('scheduledDestination: ' + scheduledDestination);
-    console.log('departArrive: ' + departArrive);
-    console.log('scheduledTime: ' + scheduledTime);
-    console.log('dayOfWeek: ' + dayOfWeek);
-
-    // axios({
-    //   method: 'POST',
-    //   url: '/save_address',
-    //   headers: {
-    //     // checks if user is authorized to set data
-    //     Authorization: 'Bearer ' + localStorage.getItem('token'),
-    //   },
-    //   data: {
-    //     origin: scheduledOrigin,
-    //     destination: scheduledDestination,
-    //     dayOfWeek: dayOfWeek,
-    //   },
-    // })
-    //   .then((response) => {
-    //     console.log(response);
-    //     setErrorMessageRoute('SUCCESSFULLY ADDED ROUTE TO SCHEDULE!');
-    //   })
-    //   .catch((error) => {
-    //     if (error.response) {
-    //       setErrorMessageRoute('FAILED TO SAVE ROUTE! TRY AGAIN.');
-    //       console.log(error.response);
-    //       console.log(error.response.status);
-    //       console.log(error.response.headers);
-    //     }
-    //   });
+    axios({
+      method: 'POST',
+      url: '/save_scheduled_directions',
+      headers: {
+        // checks if user is authorized to set data
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+      data: {
+        scheduledTravelMode: scheduledTravelMode,
+        departArrive: departArrive,
+        scheduledTime: scheduledTime,
+        scheduledOrigin: scheduledOrigin,
+        scheduledDestination: scheduledDestination,
+        dayOfWeek: dayOfWeek,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        setErrorMessageRoute('SUCCESSFULLY ADDED ROUTE TO SCHEDULE!');
+      })
+      .catch((error) => {
+        if (error.response) {
+          setErrorMessageRoute('FAILED TO SAVE ROUTE! TRY AGAIN.');
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
   };
 
   // The logic for the checkbox onChange function is weird but it works.
   // By nesting the onChange function inside the getOnChangeWithIndex function
-  // we can run the inner logic once on each click. If the logic isn't nested then
+  // we can run the inner logic ONCE on each click. If the logic isn't nested then
   // getOnChangeWithIndex will run on render and then rerender constantly
   const getOnChangeWithIndex = (day) => {
     const onChange = () => {
@@ -79,16 +76,7 @@ const Schedule = () => {
     setDepartArrive(event.target.value);
   };
   const onScheduledTimeChange = (event) => {
-    let today = new Date();
-    let time = '';
-    console.log(event.target.value);
-    if (event.target.value !== '') {
-      // Update current date object with user entered arrivalTime
-      today.setHours(event.target.value.substring(0, 2));
-      today.setMinutes(event.target.value.substring(3, 5));
-      time = today;
-    }
-    setScheduledTime(time);
+    setScheduledTime(event.target.value);
   };
 
   return (
