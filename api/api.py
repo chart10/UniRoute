@@ -130,6 +130,16 @@ def logout():
     unset_jwt_cookies(response)
     return response
 
+@app.route('/delete_user', methods=['POST'])
+def delete_user():
+    ''' deletes specified user '''
+    username = request.json['username']
+    cursor = mysql.connection.cursor()
+    cursor.execute('DELETE FROM users WHERE username = %s', [username])
+    mysql.connection.commit()
+    cursor.close()
+    return "Successfully Deleted User"
+
 # Api route to grab user data
 # jwt_required() means that you must be logged in (authenticated) to access it
 # return type: dict of user data {FirstName: '',
