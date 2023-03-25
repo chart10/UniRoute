@@ -68,7 +68,7 @@ const AddressList = (props) => {
 };
 
 AddressList.propTypes = {
-  addressData: PropTypes.object,
+  addressData: PropTypes.array,
 };
 
 export default AddressList;

@@ -33,8 +33,8 @@ CREATE TABLE addresses (
     addressType varchar(15),
     PRIMARY KEY (username, addressID),
     FOREIGN KEY (username) REFERENCES users(username)
-		ON DELETE CASCADE
-        ON UPDATE CASCADE
+		  ON DELETE CASCADE
+      ON UPDATE CASCADE
 );
 CREATE TABLE phoneNumbers (
 	username varchar(30) NOT NULL,
@@ -43,8 +43,8 @@ CREATE TABLE phoneNumbers (
     phoneType varchar(15),
     PRIMARY KEY (username, phoneID),
     FOREIGN KEY (username) REFERENCES users(username)
-		ON DELETE CASCADE
-        ON UPDATE CASCADE
+		  ON DELETE CASCADE
+      ON UPDATE CASCADE
 );
 CREATE TABLE recentRoutes (
 	username varchar(30) NOT NULL,
@@ -54,21 +54,27 @@ CREATE TABLE recentRoutes (
     PRIMARY KEY (username, routeID),
     dateTime datetime,
     FOREIGN KEY (username) REFERENCES users(username)
-		ON DELETE CASCADE
-        ON UPDATE CASCADE
+		  ON DELETE CASCADE
+      ON UPDATE CASCADE
 );
 CREATE TABLE scheduledRoutes (
 	username varchar(30) NOT NULL,
     routeID int UNIQUE AUTO_INCREMENT NOT NULL,
-    date date,
-    time time,
-    dayOfWeek enum('Monday', 'Tuesday', 'Wednesday',
-		'Thursday', 'Friday', 'Saturday', 'Sunday'),
+    departArrive enum('DEPART', 'ARRIVE'),
+    timeOfDay time,
     departAddress varchar(40),
     arriveAddress varchar(40) NOT NULL,
     PRIMARY KEY (username, routeID),
-    dateTime datetime,
     FOREIGN KEY (username) REFERENCES users(username)
+		  ON DELETE CASCADE
+      ON UPDATE CASCADE
+);
+CREATE TABLE scheduledRoutesDayOfWeek (
+	routeID int NOT NULL,
+    subID int UNIQUE AUTO_INCREMENT NOT NULL,
+    dayOfWeek tinyint NOT NULL,
+    PRIMARY KEY (routeID, subID),
+    FOREIGN KEY (routeID) REFERENCES scheduledRoutes(routeID)
 		ON DELETE CASCADE
         ON UPDATE CASCADE
 );
