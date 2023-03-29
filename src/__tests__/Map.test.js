@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import Map from '../components/Map';
 import axios from 'axios';
 
-jest.mock('axios');
+// jest.mock('axios');
 
 const dummyDirectionsRequest = {};
 
