@@ -220,12 +220,24 @@ def get_google_route():
     # print(get_route().text)
     return get_route()
 
-@app.route('/get_schedule')
+@app.route('/get_schedule', methods=['GET'])
+@jwt_required()
 def get_schedule():
-    ''' Grabs current user's schedule for the week.
-        Currently not implemented    
-    '''
-    return "PLACE HOLDER FOR GETTING USER SCHEDULE"
+    ''' Grabs current user's schedule for the week. '''
+    current_user = get_jwt_identity()
+    # current_user = "chart10"
+    cursor = mysql.connection.cursor()
+    cursor.execute('SELECT scheduledRoutes.routeID, dayOfWeek, travelMode, departArrive, timeOfDay, departAddress, arriveAddress FROM scheduledRoutes, scheduledRoutesDayOfWeek WHERE username = %s', (current_user,))
+    database_routes = cursor.fetchall()
+    schedule_result = []
+    for route in database_routes:
+        schedule_result.append(json.dumps(route,default=str))
+    # cursor.execute('SELECT dayOfWeek FROM scheduledRoutesDayOfWeek WHERE username = %s', (current_user,))
+    # routeDay_results = cursor.fetchall()
+    # print(routeDay_results)
+    # for route in 
+    response = {'schedule_result': schedule_result}
+    return response
 
 # Api Route to save scheduled direction parameters to user profile
 @app.route('/save_scheduled_directions', methods=['POST'])
