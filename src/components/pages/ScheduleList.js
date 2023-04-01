@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import './pages.css';
 
 const ScheduleList = () => {
   const [scheduledDirections, setScheduledDirecitons] = useState([]);
-  const [errorMessageSchedule, setErrorMessageSchedule] = useState('');
 
   // UseEffect that pulls user's scheduled directions from the database
   useEffect(() => {
@@ -19,12 +17,10 @@ const ScheduleList = () => {
     })
       .then((response) => {
         console.log(response);
-        setScheduledDirecitons(response.data.schedule_result);
-        setErrorMessageSchedule('SCHEDULE RETRIEVED!!');
+        setScheduledDirecitons(response.data);
       })
       .catch((error) => {
         if (error.response) {
-          setErrorMessageSchedule('FAILED TO RETRIEVE SCHEDULE! TRY AGAIN.');
           console.log(error.response);
           console.log(error.response.status);
           console.log(error.response.headers);
@@ -37,20 +33,112 @@ const ScheduleList = () => {
       {scheduledDirections === null ? (
         <p>You\'re weekly scheduled routes will appear here.</p>
       ) : (
-        <div>
-          <h2>SCHEDULE LIST GOES HERE</h2>
-          <h3>Monday</h3>
+        <div className='weeklySchedule'>
+          <h3 className='weekday'>Monday</h3>
           <ul>
-            {scheduledDirections.map((route, index) => (
-              <li key={'route_' + index}>{route}</li>
-            ))}
+            {scheduledDirections.map((route, index) =>
+              route[1] === 0 ? (
+                <li className='route' key={'route_' + index}>
+                  <p>Origin: {route[5]}</p>
+                  <p>Destination: {route[6]}</p>
+                  <p>
+                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                  </p>
+                  <br />
+                </li>
+              ) : null
+            )}
           </ul>
-          <h3>Tuesday</h3>
-          <h3>Wednesday</h3>
-          <h3>Thursday</h3>
-          <h3>Friday</h3>
+          <h3 className='weekday'>Tuesday</h3>
+          <ul>
+            {scheduledDirections.map((route, index) =>
+              route[1] === 1 ? (
+                <li className='route' key={'route_' + index}>
+                  <p>Origin: {route[5]}</p>
+                  <p>Destination: {route[6]}</p>
+                  <p>
+                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                  </p>
+                  <br />
+                </li>
+              ) : null
+            )}
+          </ul>
+          <h3 className='weekday'>Wednesday</h3>
+          <ul>
+            {scheduledDirections.map((route, index) =>
+              route[1] === 2 ? (
+                <li className='route' key={'route_' + index}>
+                  <p>Origin: {route[5]}</p>
+                  <p>Destination: {route[6]}</p>
+                  <p>
+                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                  </p>
+                  <br />
+                </li>
+              ) : null
+            )}
+          </ul>
+          <h3 className='weekday'>Thursday</h3>
+          <ul>
+            {scheduledDirections.map((route, index) =>
+              route[1] === 3 ? (
+                <li className='route' key={'route_' + index}>
+                  <p>Origin: {route[5]}</p>
+                  <p>Destination: {route[6]}</p>
+                  <p>
+                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                  </p>
+                  <br />
+                </li>
+              ) : null
+            )}
+          </ul>
+          <h3 className='weekday'>Friday</h3>
+          <ul>
+            {scheduledDirections.map((route, index) =>
+              route[1] === 4 ? (
+                <li className='route' key={'route_' + index}>
+                  <p>Origin: {route[5]}</p>
+                  <p>Destination: {route[6]}</p>
+                  <p>
+                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                  </p>
+                  <br />
+                </li>
+              ) : null
+            )}
+          </ul>
           <h3>Saturday</h3>
+          <ul>
+            {scheduledDirections.map((route, index) =>
+              route[1] === 5 ? (
+                <li className='route' key={'route_' + index}>
+                  <p>Origin: {route[5]}</p>
+                  <p>Destination: {route[6]}</p>
+                  <p>
+                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                  </p>
+                  <br />
+                </li>
+              ) : null
+            )}
+          </ul>
           <h3>Sunday</h3>
+          <ul>
+            {scheduledDirections.map((route, index) =>
+              route[1] === 6 ? (
+                <li className='route' key={'route_' + index}>
+                  <p>Origin: {route[5]}</p>
+                  <p>Destination: {route[6]}</p>
+                  <p>
+                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                  </p>
+                  <br />
+                </li>
+              ) : null
+            )}
+          </ul>
         </div>
       )}
     </>
