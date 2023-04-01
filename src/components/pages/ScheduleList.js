@@ -3,6 +3,9 @@ import axios from 'axios';
 import './pages.css';
 
 const ScheduleList = () => {
+  // scheduleDirections is an array of objects that represent saved routes
+  // route = { 'routeID': int, 'dayOfWeek': int, 'travelMode': string, 'departArrive': string,
+  // 'timeOfDay': hh:mm, 'origin': string, 'destination': string}
   const [scheduledDirections, setScheduledDirecitons] = useState([]);
 
   // UseEffect that pulls user's scheduled directions from the database
