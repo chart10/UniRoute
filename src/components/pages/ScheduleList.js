@@ -40,12 +40,12 @@ const ScheduleList = () => {
           <h3 className='weekday'>Monday</h3>
           <ul>
             {scheduledDirections.map((route, index) =>
-              route[1] === 0 ? (
+              route.dayOfWeek === 0 ? (
                 <li className='route' key={'route_' + index}>
-                  <p>Origin: {route[5]}</p>
-                  <p>Destination: {route[6]}</p>
+                  <p>Origin: {route.origin}</p>
+                  <p>Destination: {route.destination}</p>
                   <p>
-                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                    {route.departArrive} @ {route.timeOfDay}
                   </p>
                   <br />
                 </li>
@@ -55,12 +55,12 @@ const ScheduleList = () => {
           <h3 className='weekday'>Tuesday</h3>
           <ul>
             {scheduledDirections.map((route, index) =>
-              route[1] === 1 ? (
+              route.dayOfWeek === 1 ? (
                 <li className='route' key={'route_' + index}>
-                  <p>Origin: {route[5]}</p>
-                  <p>Destination: {route[6]}</p>
+                  <p>Origin: {route.origin}</p>
+                  <p>Destination: {route.destination}</p>
                   <p>
-                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                    {route.departArrive} @ {route.timeOfDay}
                   </p>
                   <br />
                 </li>
@@ -70,12 +70,12 @@ const ScheduleList = () => {
           <h3 className='weekday'>Wednesday</h3>
           <ul>
             {scheduledDirections.map((route, index) =>
-              route[1] === 2 ? (
+              route.dayOfWeek === 2 ? (
                 <li className='route' key={'route_' + index}>
-                  <p>Origin: {route[5]}</p>
-                  <p>Destination: {route[6]}</p>
+                  <p>Origin: {route.origin}</p>
+                  <p>Destination: {route.destination}</p>
                   <p>
-                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                    {route.departArrive} @ {route.timeOfDay}
                   </p>
                   <br />
                 </li>
@@ -85,12 +85,12 @@ const ScheduleList = () => {
           <h3 className='weekday'>Thursday</h3>
           <ul>
             {scheduledDirections.map((route, index) =>
-              route[1] === 3 ? (
+              route.dayOfWeek === 3 ? (
                 <li className='route' key={'route_' + index}>
-                  <p>Origin: {route[5]}</p>
-                  <p>Destination: {route[6]}</p>
+                  <p>Origin: {route.origin}</p>
+                  <p>Destination: {route.destination}</p>
                   <p>
-                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                    {route.departArrive} @ {route.timeOfDay}
                   </p>
                   <br />
                 </li>
@@ -100,12 +100,12 @@ const ScheduleList = () => {
           <h3 className='weekday'>Friday</h3>
           <ul>
             {scheduledDirections.map((route, index) =>
-              route[1] === 4 ? (
+              route.dayOfWeek === 4 ? (
                 <li className='route' key={'route_' + index}>
-                  <p>Origin: {route[5]}</p>
-                  <p>Destination: {route[6]}</p>
+                  <p>Origin: {route.origin}</p>
+                  <p>Destination: {route.destination}</p>
                   <p>
-                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                    {route.departArrive} @ {route.timeOfDay}
                   </p>
                   <br />
                 </li>
@@ -115,12 +115,12 @@ const ScheduleList = () => {
           <h3>Saturday</h3>
           <ul>
             {scheduledDirections.map((route, index) =>
-              route[1] === 5 ? (
+              route.dayOfWeek === 5 ? (
                 <li className='route' key={'route_' + index}>
-                  <p>Origin: {route[5]}</p>
-                  <p>Destination: {route[6]}</p>
+                  <p>Origin: {route.origin}</p>
+                  <p>Destination: {route.destination}</p>
                   <p>
-                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                    {route.departArrive} @ {route.timeOfDay}
                   </p>
                   <br />
                 </li>
@@ -130,12 +130,12 @@ const ScheduleList = () => {
           <h3>Sunday</h3>
           <ul>
             {scheduledDirections.map((route, index) =>
-              route[1] === 6 ? (
+              route.dayOfWeek === 6 ? (
                 <li className='route' key={'route_' + index}>
-                  <p>Origin: {route[5]}</p>
-                  <p>Destination: {route[6]}</p>
+                  <p>Origin: {route.origin}</p>
+                  <p>Destination: {route.destination}</p>
                   <p>
-                    {route[3]} @ {route[4].slice(0, route[4].length - 3)}
+                    {route.departArrive} @ {route.timeOfDay}
                   </p>
                   <br />
                 </li>
