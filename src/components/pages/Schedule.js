@@ -3,6 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import axios from 'axios';
 import './pages.css';
+import ScheduleList from './ScheduleList';
 
 const Schedule = () => {
   const [addressData] = useOutletContext();
@@ -82,6 +83,7 @@ const Schedule = () => {
   return (
     <section id='scheduleSection'>
       <h2>Weekly Schedule</h2>
+      <ScheduleList />
       <ul id='weeklySchedule'></ul>
       <p>Add a route to your weekly schedule:</p>
       <input

@@ -220,12 +220,53 @@ def get_google_route():
     # print(get_route().text)
     return get_route()
 
-@app.route('/get_schedule')
+@app.route('/get_schedule', methods=['GET'])
+@jwt_required()
 def get_schedule():
-    ''' Grabs current user's schedule for the week.
-        Currently not implemented    
-    '''
-    return "PLACE HOLDER FOR GETTING USER SCHEDULE"
+    # Grabs current user's schedule for the week
+    current_user = get_jwt_identity()
+    # current_user = "chart10"
+    
+    cursor = mysql.connection.cursor()
+    
+    # Pull user's weekly schedule from db by joining scheduledRoutes and scheduledRoutesDayOfWeek
+    cursor.execute('SELECT scheduledRoutes.routeID, dayOfWeek, travelMode, departArrive,' +
+                   'timeOfDay, origin, destination FROM scheduledRoutes INNER JOIN ' +
+                   'scheduledRoutesDayOfWeek ON ' +
+                   'scheduledRoutes.routeID=scheduledRoutesDayOfWeek.routeID ' +
+                   'WHERE username = %s', (current_user,))
+    
+    # Convert query results into a frontend-friendly array of dictionaries
+    # First, get the names of all the columns in the query. These will be the keys
+    description = cursor.description
+    column_names = [column[0] for column in description]
+    
+    # Next, zip column_names with each row in the query result to get an array of dictionaries!
+    schedule_result = [dict(zip(column_names,row)) for row in cursor]
+    
+    # Last step, we need to convert the datetime saved by the db to a string so that it can be
+    # converted to JSON and read by the frontend
+    for route in schedule_result:
+        for key, value in route.items():
+            if (key == "timeOfDay"):
+                route[key] = ':'.join(str(value).split(':')[:2]) # I shaved off the seconds, fyi
+
+
+    # database_routes = json.dumps(cursor.fetchall(),default=str)
+    
+    print(schedule_result)
+    # route_elements = ['routeID', 'dayOfWeek','travelMode', 'departArrive','timeOfDay',
+    #                   'departAddress', 'arriveAddress']
+    # This forloop will zip each array from database_routes with the keys from route_elements
+    # for route in database_routes:
+        # print(route)
+        # result_item = {}
+        # for key, value in zip(route_elements,route):
+        #     result_item[key] = value
+        #     print( result_item )
+            # schedule_result.append(result_item)
+    
+    return schedule_result
 
 # Api Route to save scheduled direction parameters to user profile
 @app.route('/save_scheduled_directions', methods=['POST'])
@@ -248,7 +289,7 @@ def save_scheduled_directions():
     
     # Input data into the scheduledRoutes table
     cursor.execute('INSERT INTO scheduledRoutes (username, travelMode, departArrive, timeOfDay,'+
-                   'departAddress, arriveAddress) VALUES(%s,%s,%s,%s,%s,%s)',
+                   'origin, destination) VALUES(%s,%s,%s,%s,%s,%s)',
                    (current_user, travelMode, departArrive, timeOfDay, origin, destination,))
     
     # Retrieve routeID of the just-saved directions
