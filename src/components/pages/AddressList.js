@@ -3,7 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-const AddressList = (props) => {
+const AddressList = () => {
   const { addressData, setAddressData } = useOutletContext()[0];
   const [newAddress, setNewAddress] = useState('');
   const [errorMessage, setErrorMessage] = useState('');

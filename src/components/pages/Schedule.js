@@ -6,7 +6,7 @@ import './pages.css';
 import ScheduleList from './ScheduleList';
 
 const Schedule = () => {
-  const [addressData] = useOutletContext();
+  const { addressData, setAddressData } = useOutletContext()[0];
   //console.log(addressData);
   const [dayOfWeek, setDayOfWeek] = useState(new Array(7).fill(false));
   const [scheduledOrigin, setScheduledOrigin] = useState('');
@@ -20,7 +20,7 @@ const Schedule = () => {
   const [scheduledDirections, setScheduledDirecitons] = useState([]);
 
   // Autocomplete useStates and useRefs
-  const [showOriginDropdown, setShowOriginDropdown] = useState(true);
+  const [showOriginDropdown, setShowOriginDropdown] = useState(false);
   const [showDestDropdown, setShowDestDropdown] = useState(false);
 
   const onSubmitRoute = () => {
@@ -232,7 +232,9 @@ const Schedule = () => {
         <option value='DRIVING'>Driving</option>
         <option value='WALKING'>Walking</option>
         <option value='BICYCLING'>Bicycling</option>
-        <option value='TRANSIT'>Transit</option>
+        <option value='TRANSIT' selected>
+          Transit
+        </option>
       </select>
       <br />
       <label htmlFor='scheduleTime'>Departure or Arrival Time? </label>
