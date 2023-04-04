@@ -52,6 +52,7 @@ const Schedule = () => {
           console.log(error.response.headers);
         }
       });
+    setScheduledDirecitons(scheduledDirections);
   };
 
   // The logic for the checkbox onChange function is weird but it works.

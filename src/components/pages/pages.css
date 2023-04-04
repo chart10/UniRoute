@@ -17,6 +17,7 @@ h3 {
 }
 .fieldWrapper .addressDropdown {
   position: absolute;
+  background-color: white;
   top: 30px;
   right: 0;
   left: 0;
