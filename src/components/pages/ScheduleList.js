@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import './pages.css';
 
@@ -31,14 +32,37 @@ const ScheduleList = () => {
       });
   }, []);
 
+  const removeScheduledDirections = (route) => {
+    axios({
+      method: 'POST',
+      url: '/remove_scheduled_directions',
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+      data: {
+        routeID: route.routeID,
+      },
+    }).catch((error) => {
+      if (error.response) {
+        console.log(error.response);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
+    });
+    const updatedSchedule = scheduledDirections.filter(
+      (item) => item !== route
+    );
+    setScheduledDirecitons(updatedSchedule);
+  };
+
   return (
     <>
       {scheduledDirections === null ? (
         <p>You\'re weekly scheduled routes will appear here.</p>
       ) : (
         <div className='weeklySchedule'>
-          <h3 className='weekday'>Monday</h3>
-          <ul>
+          <ul className='weekday'>
+            <h3>Monday</h3>
             {scheduledDirections.map((route, index) =>
               route.dayOfWeek === 0 ? (
                 <li className='route' key={'route_' + index}>
@@ -47,13 +71,16 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null
             )}
           </ul>
-          <h3 className='weekday'>Tuesday</h3>
-          <ul>
+          <ul className='weekday'>
+            <h3>Tuesday</h3>
             {scheduledDirections.map((route, index) =>
               route.dayOfWeek === 1 ? (
                 <li className='route' key={'route_' + index}>
@@ -62,13 +89,16 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null
             )}
           </ul>
-          <h3 className='weekday'>Wednesday</h3>
-          <ul>
+          <ul className='weekday'>
+            <h3>Wednesday</h3>
             {scheduledDirections.map((route, index) =>
               route.dayOfWeek === 2 ? (
                 <li className='route' key={'route_' + index}>
@@ -77,13 +107,16 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null
             )}
           </ul>
-          <h3 className='weekday'>Thursday</h3>
-          <ul>
+          <ul className='weekday'>
+            <h3>Thursday</h3>
             {scheduledDirections.map((route, index) =>
               route.dayOfWeek === 3 ? (
                 <li className='route' key={'route_' + index}>
@@ -92,13 +125,16 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null
             )}
           </ul>
-          <h3 className='weekday'>Friday</h3>
-          <ul>
+          <ul className='weekday'>
+            <h3>Friday</h3>
             {scheduledDirections.map((route, index) =>
               route.dayOfWeek === 4 ? (
                 <li className='route' key={'route_' + index}>
@@ -107,13 +143,16 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null
             )}
           </ul>
-          <h3>Saturday</h3>
-          <ul>
+          <ul className='weekday'>
+            <h3>Saturday</h3>
             {scheduledDirections.map((route, index) =>
               route.dayOfWeek === 5 ? (
                 <li className='route' key={'route_' + index}>
@@ -122,13 +161,16 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null
             )}
           </ul>
-          <h3>Sunday</h3>
-          <ul>
+          <ul className='weekday'>
+            <h3>Sunday</h3>
             {scheduledDirections.map((route, index) =>
               route.dayOfWeek === 6 ? (
                 <li className='route' key={'route_' + index}>
@@ -137,6 +179,9 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null

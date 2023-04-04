@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-const AddressList = (props) => {
+const AddressList = () => {
+  const { addressData, setAddressData } = useOutletContext()[0];
   const [newAddress, setNewAddress] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -25,7 +27,6 @@ const AddressList = (props) => {
         },
       })
         .then((response) => {
-          console.log(response);
           setErrorMessage('SUCCESSFULLY ADDED ADDRESS!!');
         })
         .catch((error) => {
@@ -36,23 +37,52 @@ const AddressList = (props) => {
             console.log(error.response.headers);
           }
         });
+      setAddressData([...addressData, newAddress]);
     }
   };
+
+  const removeAddress = (address) => {
+    axios({
+      method: 'POST',
+      url: '/remove_address',
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+      data: {
+        address: address,
+      },
+    })
+      .then((response) => {
+        setErrorMessage('SUCCESSFULLY REMOVED ADDRESS!!');
+      })
+      .catch((error) => {
+        if (error.response) {
+          setErrorMessage('FAILED TO REMOVE ADDRESS! TRY AGAIN.');
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+    const updatedList = addressData.filter((item) => item !== address);
+    setAddressData(updatedList);
+  };
+
   return (
     <section>
       <h2>Address Book</h2>
       <ul className='addressList'></ul>
-      {props.addressData === null ? (
+      {addressData === null ? (
         <p>When you save addresses to your profile they will show up here. </p>
       ) : (
         <ul className='addressList'>
-          {props.addressData.map((address, index) => (
-            <li key={'address_' + index}>{address}</li>
+          {addressData.map((address, index) => (
+            <li key={'address_' + index} className='userAddress'>
+              <p>{address}</p>
+              <button onClick={() => removeAddress(address)}>Remove</button>
+            </li>
           ))}
         </ul>
       )}
-      {/* {props.addressData !== null && <></>} */}
-
       <p>Add a location to your address book: </p>
       <input
         type='text'

@@ -186,7 +186,9 @@ function GetRoute() {
         <option value='DRIVING'>Driving</option>
         <option value='WALKING'>Walking</option>
         <option value='BICYCLING'>Bicycling</option>
-        <option value='TRANSIT'>Transit</option>
+        <option value='TRANSIT' selected>
+          Transit
+        </option>
       </select>
       <input
         type='button'

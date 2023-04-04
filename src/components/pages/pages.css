@@ -1,6 +1,9 @@
 h2 {
   font-family: 'Rubik', sans-serif;
 }
+h3 {
+  padding: 5px 0;
+}
 
 .error {
   color: red;
@@ -14,6 +17,7 @@ h2 {
 }
 .fieldWrapper .addressDropdown {
   position: absolute;
+  background-color: white;
   top: 30px;
   right: 0;
   left: 0;
@@ -30,4 +34,20 @@ h2 {
 }
 .addressItem:hover {
   background-color: rgb(218, 226, 251);
+}
+
+.userAddress {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 0.5rem 1rem;
+}
+.weeklySchedule {
+  overflow: auto;
+  white-space: nowrap;
+}
+.weekday {
+  display: inline-block;
+  padding: 1rem;
+  list-style-type: none;
+  vertical-align: top;
 }

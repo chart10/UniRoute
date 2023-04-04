@@ -183,17 +183,30 @@ def save_address():
     cursor = mysql.connection.cursor()
 
     # request json from front end and store in variables
-    addres_to_save = request.json['address']
+    address_to_save = request.json['address']
 
     # insert varables in to columns in mysql db
     cursor.execute('INSERT INTO addresses (username, address) VALUES(%s,%s)',
-                   (current_user,addres_to_save))
+                   (current_user,address_to_save))
     # commit the changes
     cursor.connection.commit()
     # close the cursor
     cursor.close()
 
     return "Successfully added Address to DataBase"
+
+@app.route('/remove_address', methods=['POST'])
+@jwt_required()
+def remove_address():
+    current_user = get_jwt_identity()
+    cursor = mysql.connection.cursor()
+    address_to_remove = request.json['address']
+    cursor.execute('DELETE FROM addresses WHERE (username=%s AND address=%s)',
+                   (current_user,address_to_remove))
+    cursor.connection.commit()
+    # close the cursor
+    cursor.close()
+    return "Address successfully removed"
 
 # route to grab address from db
 @app.route('/get_address', methods=['GET', 'POST'])
@@ -224,11 +237,9 @@ def get_google_route():
 @jwt_required()
 def get_schedule():
     # Grabs current user's schedule for the week
-    current_user = get_jwt_identity()
-    # current_user = "chart10"
-    
+    current_user = get_jwt_identity()    
     cursor = mysql.connection.cursor()
-    
+
     # Pull user's weekly schedule from db by joining scheduledRoutes and scheduledRoutesDayOfWeek
     cursor.execute('SELECT scheduledRoutes.routeID, dayOfWeek, travelMode, departArrive,' +
                    'timeOfDay, origin, destination FROM scheduledRoutes INNER JOIN ' +
@@ -251,21 +262,6 @@ def get_schedule():
             if (key == "timeOfDay"):
                 route[key] = ':'.join(str(value).split(':')[:2]) # I shaved off the seconds, fyi
 
-
-    # database_routes = json.dumps(cursor.fetchall(),default=str)
-    
-    print(schedule_result)
-    # route_elements = ['routeID', 'dayOfWeek','travelMode', 'departArrive','timeOfDay',
-    #                   'departAddress', 'arriveAddress']
-    # This forloop will zip each array from database_routes with the keys from route_elements
-    # for route in database_routes:
-        # print(route)
-        # result_item = {}
-        # for key, value in zip(route_elements,route):
-        #     result_item[key] = value
-        #     print( result_item )
-            # schedule_result.append(result_item)
-    
     return schedule_result
 
 # Api Route to save scheduled direction parameters to user profile
@@ -305,3 +301,17 @@ def save_scheduled_directions():
     cursor.connection.commit()
     cursor.close()
     return "Successfully added Scheduled Directions to DataBase"
+
+@app.route('/remove_scheduled_directions', methods=['POST'])
+@jwt_required()
+def remove_scheduled_directions():
+    cursor = mysql.connection.cursor()
+    routeID = request.json['routeID']
+    
+    cursor.execute('DELETE FROM scheduledRoutes ' +
+                   'WHERE (routeID=%s)', (routeID,))
+    
+    cursor.connection.commit()
+    # close the cursor
+    cursor.close()
+    return "Scheduled directions successfully removed"
