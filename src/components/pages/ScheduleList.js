@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import './pages.css';
 
@@ -31,6 +32,29 @@ const ScheduleList = () => {
       });
   }, []);
 
+  const removeScheduledDirections = (route) => {
+    axios({
+      method: 'POST',
+      url: '/remove_scheduled_directions',
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+      data: {
+        routeID: route.routeID,
+      },
+    }).catch((error) => {
+      if (error.response) {
+        console.log(error.response);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
+    });
+    const updatedSchedule = scheduledDirections.filter(
+      (item) => item !== route
+    );
+    setScheduledDirecitons(updatedSchedule);
+  };
+
   return (
     <>
       {scheduledDirections === null ? (
@@ -47,6 +71,9 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null
@@ -62,6 +89,9 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null
@@ -77,6 +107,9 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null
@@ -92,6 +125,9 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null
@@ -107,6 +143,9 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null
@@ -122,6 +161,9 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null
@@ -137,6 +179,9 @@ const ScheduleList = () => {
                   <p>
                     {route.departArrive} @ {route.timeOfDay}
                   </p>
+                  <button onClick={() => removeScheduledDirections(route)}>
+                    Remove
+                  </button>
                   <br />
                 </li>
               ) : null

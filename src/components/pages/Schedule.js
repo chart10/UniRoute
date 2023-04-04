@@ -17,6 +17,8 @@ const Schedule = () => {
   // eslint-disable-next-line no-unused-vars
   const [errorMessageRoute, setErrorMessageRoute] = useState('');
 
+  const [scheduledDirections, setScheduledDirecitons] = useState([]);
+
   // Autocomplete useStates and useRefs
   const [showOriginDropdown, setShowOriginDropdown] = useState(true);
   const [showDestDropdown, setShowDestDropdown] = useState(false);

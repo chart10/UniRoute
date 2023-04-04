@@ -237,11 +237,9 @@ def get_google_route():
 @jwt_required()
 def get_schedule():
     # Grabs current user's schedule for the week
-    current_user = get_jwt_identity()
-    # current_user = "chart10"
-    
+    current_user = get_jwt_identity()    
     cursor = mysql.connection.cursor()
-    
+
     # Pull user's weekly schedule from db by joining scheduledRoutes and scheduledRoutesDayOfWeek
     cursor.execute('SELECT scheduledRoutes.routeID, dayOfWeek, travelMode, departArrive,' +
                    'timeOfDay, origin, destination FROM scheduledRoutes INNER JOIN ' +
@@ -303,3 +301,17 @@ def save_scheduled_directions():
     cursor.connection.commit()
     cursor.close()
     return "Successfully added Scheduled Directions to DataBase"
+
+@app.route('/remove_scheduled_directions', methods=['POST'])
+@jwt_required()
+def remove_scheduled_directions():
+    cursor = mysql.connection.cursor()
+    routeID = request.json['routeID']
+    
+    cursor.execute('DELETE FROM scheduledRoutes ' +
+                   'WHERE (routeID=%s)', (routeID,))
+    
+    cursor.connection.commit()
+    # close the cursor
+    cursor.close()
+    return "Scheduled directions successfully removed"
