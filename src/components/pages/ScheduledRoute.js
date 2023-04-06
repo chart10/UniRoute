@@ -3,6 +3,7 @@ import axios from 'axios';
 import './pages.css';
 
 const ScheduledRoute = (props) => {
+  // This function deletes a given routeID from the database
   const removeScheduledDirections = (route) => {
     axios({
       method: 'POST',
@@ -26,6 +27,12 @@ const ScheduledRoute = (props) => {
     props.setScheduledDirecitons(updatedSchedule);
   };
 
+  const onRouteClicked = (route) => {
+    console.log(route.origin);
+    console.log(route.destination);
+    console.log(route.departArrive + ' @ ' + route.timeOfDay);
+  };
+
   return (
     <>
       <ul className='weekday'>
@@ -33,7 +40,7 @@ const ScheduledRoute = (props) => {
         {props.scheduledDirections.map((route, index) =>
           route.dayOfWeek === props.weekdayIndex ? (
             <li key={'route_' + index}>
-              <div className='route'>
+              <div className='route' onClick={() => onRouteClicked(route)}>
                 <p>Origin: {route.origin}</p>
                 <p>Destination: {route.destination}</p>
                 <p>
