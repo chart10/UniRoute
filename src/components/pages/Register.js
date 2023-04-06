@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import apiRegisterCall from './apiRegisterCall.js';
 import '../../App.css';
 import { Link, useNavigate } from 'react-router-dom';
+import './pages.css'
 
 /** Component: Registration
  * Contains the forms needed to create a new user account */
@@ -40,10 +41,16 @@ export const RegisterForm = () => {
     // TODO: Send user to their profile page
     navigate('/Login');
   };
+  function closeRegisterOverlay() {
+    const registerOverlay = document.querySelector('.register-overlay');
+    registerOverlay.style.display = 'none';
+  }
 
   // Return JSX forms
   return (
-    <div className='auth-form-container'>
+    <div className='register-overlay'>
+      <div className='register-box'>
+      <span className="close-button" onClick={closeRegisterOverlay}> &times;</span>
       <h2>Register</h2>
       <form className='register-form' onSubmit={handleSubmit}>
         <label htmlFor='username'>Username</label>
@@ -104,8 +111,9 @@ export const RegisterForm = () => {
         <button type='submit'>Submit Registration</button>
       </form>
       <Link to='../login'>
-        <button>Already have an account? Login here.</button>
+        <button className='submit-button'>Already have an account? Login here.</button>
       </Link>
+      </div>
     </div>
   );
 };

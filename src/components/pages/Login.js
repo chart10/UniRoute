@@ -52,12 +52,20 @@ function Login() {
       [name]: value,
     }));
   }
+  function closeLoginOverlay() {
+    const loginOverlay = document.querySelector('.login-overlay');
+    loginOverlay.style.display = 'none';
+  }
 
   // render the login form if the user is not logged in
   return (
-    <div>
+    <div class="login-overlay">
+      <div class="login-box">
+       <span className="close-button" onClick={closeLoginOverlay}> &times;</span>
       <h2>Login</h2>
-      <form className='login'>
+      <p>Please Enter Your Username & Password</p>
+      <form class="login-form">
+        <label for="username-input">Username</label>
         <input
           onChange={handleChange}
           type='username'
@@ -65,6 +73,7 @@ function Login() {
           placeholder='Username'
           value={loginForm.username}
         />
+        <label for="password-input">Password</label>
         <input
           onChange={handleChange}
           type='password'
@@ -76,6 +85,8 @@ function Login() {
       </form>
       {errorMessage && <p className='error'> {errorMessage} </p>}
     </div>
+</div>
+
   );
 }
 
