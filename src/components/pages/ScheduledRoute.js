@@ -28,9 +28,20 @@ const ScheduledRoute = (props) => {
   };
 
   const onRouteClicked = (route) => {
-    console.log(route.origin);
-    console.log(route.destination);
-    console.log(route.departArrive + ' @ ' + route.timeOfDay);
+    console.log(
+      route.origin +
+        ', ' +
+        route.destination +
+        ', ' +
+        route.departArrive +
+        ' @ ' +
+        route.timeOfDay
+    );
+    const origin = route.origin;
+    const destination = route.destination;
+    const travelMode = route.travelMode;
+    props.setDirectionsRequest({ origin, destination, travelMode });
+    console.log(props.directionsRequest);
   };
 
   return (
