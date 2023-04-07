@@ -21,7 +21,7 @@ function Landing() {
                         <h1 class="text-header">Get Directions to Wherever you Need!</h1>
                         <h3 class="text-description">Input your starting point, destination and arrival time to get where you need to go!</h3>
                     </div>
-                </div>
+                </div>i
                 
             </div>
         </div>
