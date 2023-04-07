@@ -68,9 +68,19 @@ const AddressList = () => {
   };
 
   return (
-    <section>
+    <div className='address-book'>
       <h2>Address Book</h2>
       <ul className='addressList'></ul>
+      <p>Add a location to your address book: </p>
+      <input
+        type='text'
+        id='addressField'
+        placeholder='enter an address'
+        value={newAddress}
+        onChange={onAddressChange}
+      ></input>
+      <button onClick={onSubmitAddress}>Save</button>
+      {errorMessage && <p className='error'> {errorMessage} </p>}
       {addressData === null ? (
         <p>When you save addresses to your profile they will show up here. </p>
       ) : (
@@ -83,17 +93,7 @@ const AddressList = () => {
           ))}
         </ul>
       )}
-      <p>Add a location to your address book: </p>
-      <input
-        type='text'
-        id='addressField'
-        placeholder='enter an address'
-        value={newAddress}
-        onChange={onAddressChange}
-      ></input>
-      <button onClick={onSubmitAddress}>Save</button>
-      {errorMessage && <p className='error'> {errorMessage} </p>}
-    </section>
+    </div>
   );
 };
 

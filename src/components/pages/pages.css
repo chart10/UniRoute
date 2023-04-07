@@ -1,10 +1,3 @@
-h2 {
-  font-family: 'Rubik', sans-serif;
-}
-h3 {
-  padding: 5px 0;
-}
-
 .error {
   color: red;
 }
@@ -38,8 +31,11 @@ h3 {
 
 .userAddress {
   display: flex;
-  flex-wrap: nowrap;
-  padding: 0.5rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 0.5rem 0;
+  border-bottom: 1px solid #88a5e2;
 }
 .weeklySchedule {
   overflow: auto;
@@ -237,5 +233,511 @@ h3 {
   background-color: #4c4cbe;
 }
 
+.profile-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+.profile-box{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 600px;
+  max-width: 600px;
+  overflow-x: hidden;
+  overflow-y: auto;  
+}
+
+.profile-box::-webkit-scrollbar {
+  width: 5px;
+}
+
+.profile-box::-webkit-scrollbar-track {
+  background-color: #a4adf0;
+}
+
+.profile-box::-webkit-scrollbar-thumb {
+  background-color: #535b8d;
+  border-radius: 2px;
+}
+
+.profile-box::-webkit-scrollbar-thumb:hover {
+  background-color: #3232b3;
+}
 
 
+.profile-box h1{
+  color: rgb(31, 31, 152);
+  margin-bottom: 20px;
+  text-align: center;
+}
+.address-book h2{
+  color: rgb(31, 31, 152);
+  margin-bottom: 20px;
+  text-align: center;
+}
+.address-book p{
+  color: rgb(36, 36, 77);
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align:left;
+  justify-content: space-between;
+}
+
+#addressField{
+  display: block;
+  width: 50%;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+#addressField:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.address-book button{
+  display: block;
+  width: 10%;
+  padding: 5px;
+  font-size: 15px;
+  background-color: rgb(31, 31, 152);
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.address-book button:hover {
+  background-color: #4c4cbe;
+}
+
+#scheduleSection h2{
+  color: rgb(31, 31, 152);
+  margin-bottom: 20px;
+  text-align: center;
+
+}
+
+#scheduleSection p{
+  color: rgb(36, 36, 77);
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align:left;
+  justify-content: space-between;
+}
+
+#scheduleSection input{
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 2px;
+  border: none;
+  justify-content: space-between;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); 
+}
+
+#scheduleSection input:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+#scheduleSection label{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align:left;
+  justify-content: space-between;
+}
+#scheduleSection input{
+  text-align:left;
+  justify-content: space-between;
+}
+
+
+
+@media screen and (max-width: 960px){
+  .error {
+    color: red;
+  }
+  
+  .fieldWrapper {
+    position: relative;
+    z-index: 1;
+    display: inline;
+    margin: 10px;
+  }
+  .fieldWrapper .addressDropdown {
+    position: absolute;
+    background-color: white;
+    top: 30px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    overflow-y: auto;
+    block-size: fit-content;
+    border-radius: 10px;
+  }
+  .addressItem {
+    background-color: white;
+    width: fit-content;
+    padding: 3px;
+  }
+  .addressItem:hover {
+    background-color: rgb(218, 226, 251);
+  }
+  
+  .userAddress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 0.5rem 0;
+    border-bottom: 1px solid #88a5e2;
+  }
+  .weeklySchedule {
+    overflow: auto;
+    white-space: nowrap;
+  }
+  .weekday {
+    display: inline-block;
+    padding: 1rem;
+    list-style-type: none;
+    vertical-align: top;
+  }
+  
+  .login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  
+  .login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(31, 31, 152);
+    cursor: pointer;
+  }
+  
+  .close-button:hover {
+    color: #4c4cbe;
+  }
+  .login-box h2 {
+    color: rgb(31, 31, 152);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .login-box p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    justify-content: space-between;
+  }
+  .login-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .login-form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+  .login-form input:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .login-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: rgb(31, 31, 152);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-form button:hover {
+    background-color: #4c4cbe;
+  }
+  
+  .error {
+    color: #f00;
+    margin-top: 10px;
+  }
+  
+  .register-overlay{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  .register-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .register-box h2 {
+    color: rgb(31, 31, 152);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .register-box p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    justify-content: space-between;
+  }
+  
+  .register-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .register-form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .register-form input:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .register-form button{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: rgb(31, 31, 152);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .register-form button:hover {
+    background-color: #4c4cbe;
+  }
+  
+  .error {
+    color: #f00;
+    margin-top: 10px;
+  }
+  .submit-button{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: rgb(31, 31, 152);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  .submit-button:hover{
+    background-color: #4c4cbe;
+  }
+  
+  .profile-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  .profile-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 600px;
+    max-width: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;  
+  }
+  
+  .profile-box::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  .profile-box::-webkit-scrollbar-track {
+    background-color: #a4adf0;
+  }
+  
+  .profile-box::-webkit-scrollbar-thumb {
+    background-color: #535b8d;
+    border-radius: 2px;
+  }
+  
+  .profile-box::-webkit-scrollbar-thumb:hover {
+    background-color: #3232b3;
+  }
+  
+  
+  .profile-box h1{
+    color: rgb(31, 31, 152);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .address-book h2{
+    color: rgb(31, 31, 152);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .address-book p{
+    color: rgb(36, 36, 77);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align:left;
+    justify-content: space-between;
+  }
+  
+  #addressField{
+    display: block;
+    width: 50%;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  #addressField:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .address-book button{
+    display: block;
+    width: 10%;
+    padding: 5px;
+    font-size: 15px;
+    background-color: rgb(31, 31, 152);
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  .address-book button:hover {
+    background-color: #4c4cbe;
+  }
+  
+  #scheduleSection h2{
+    color: rgb(31, 31, 152);
+    margin-bottom: 20px;
+    text-align: center;
+  
+  }
+  
+  #scheduleSection p{
+    color: rgb(36, 36, 77);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align:left;
+    justify-content: space-between;
+  }
+  
+  #scheduleSection input{
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 2px;
+    border: none;
+    justify-content: space-between;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); 
+  }
+  
+  #scheduleSection input:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  #scheduleSection label{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align:left;
+    justify-content: space-between;
+  }
+  #scheduleSection input{
+    text-align:left;
+    justify-content: space-between;
+  }  
+}

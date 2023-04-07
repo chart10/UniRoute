@@ -64,15 +64,20 @@ function Profile() {
         }
       });
   }, []);
+  function closeProfileOverlay() {
+    const profileOverlay = document.querySelector('.profile-overlay');
+    profileOverlay.style.display = 'none';
+  }
+
 
   return (
-    <div className='Profile'>
+    <div className='profile-overlay'>
+      <div className='profile-box'>
+      <span className="close-button" onClick={closeProfileOverlay}> &times;</span>
       {profileData ? (
         <>
-          <h2>Welcome back, {profileData.firstName}</h2>
-          <p>First Name: {profileData.firstName}</p>
-          <p>Last Name: {profileData.lastName}</p>
-          <p>University: {profileData.university}</p>
+          <h1>Welcome back! {profileData.firstName} {profileData.lastName}</h1>
+          {/** <p>University: {profileData.university}</p>*/}
           <AddressList addressData={addressData} />
           <Schedule />
         </>
@@ -87,6 +92,7 @@ function Profile() {
           </Link>
         </>
       )}
+      </div>
     </div>
   );
 }
