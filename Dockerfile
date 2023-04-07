@@ -9,10 +9,11 @@ RUN apt-get install -y default-libmysqlclient-dev
 
 WORKDIR /python-docker
 
-COPY requirements.txt requirements.txt
+COPY api/requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
-COPY . .
+COPY api .
+COPY .env .env
 
 # RUN python -m venv venv
 # RUN source venv/bin/activate
