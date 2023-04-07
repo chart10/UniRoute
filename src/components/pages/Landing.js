@@ -2,6 +2,7 @@ import React from "react";
 import "./Landing.css";
 import img from "./images/PeopleDriving.jpg";
 import img2 from "./images/Directions Example.PNG";
+import img3 from"./images/ProfileExample.png";
 
 function Landing() {
 
@@ -22,7 +23,14 @@ function Landing() {
                         <h3 class="text-description">Input your starting point, destination and arrival time to get where you need to go!</h3>
                     </div>
                 </div>
-                
+                <div class="profile-image-box">
+                    <div class="profile-image-text">
+                        <h1 class="text-header">Save and Edit your Profile to Quickly map your Routes!</h1>
+                        <h3 class="text-description">Save your frequent origins and destinations.</h3>
+                        <h3 class="text-description-two">Save your weekly schedule to have your routes mapped out for the week!</h3>
+                    </div>
+                    <img class='profile-image' src={img3}/>
+                </div>
             </div>
         </div>
     )
