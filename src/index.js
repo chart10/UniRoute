@@ -9,6 +9,7 @@ import Login from './components/pages/Login';
 import GetRoute from './components/pages/GetRoute';
 import Profile from './components/pages/Profile';
 import Register from './components/pages/Register';
+import Landing from './components/pages/Landing';
 
 const AppLayout = () => {
   const [directions, setDirections] = useState(null);
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register />,
+      },
+      {
+        path: '/landing',
+        element: <Landing />
       },
     ],
   },
