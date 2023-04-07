@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start-api": "cd api && venv/bin/flask run --no-debugger",
-    "build": "react-scripts build",
+    "build": "react-scripts build && mv -v build/index.html api/templates && mv -fv build/static api/static",
     "test": "react-scripts test",
     "test-api": "cd api && venv/bin/flask test",
     "eject": "react-scripts eject"
