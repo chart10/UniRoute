@@ -4,7 +4,7 @@ import axios from 'axios';
 import './pages.css';
 import ScheduledRoute from './ScheduledRoute';
 
-const ScheduleList = () => {
+const ScheduleList = (props) => {
   // scheduleDirections is an array of objects that represent saved routes
   // route = { 'routeID': int, 'dayOfWeek': int, 'travelMode': string, 'departArrive': string,
   // 'timeOfDay': hh:mm, 'origin': string, 'destination': string}
@@ -77,6 +77,8 @@ const ScheduleList = () => {
               weekdayIndex={index}
               scheduledDirections={scheduledDirections}
               setScheduledDirecitons={setScheduledDirecitons}
+              directionsRequest={props.directionsRequest}
+              setDirectionsRequest={props.setDirectionsRequest}
             />
           ))}
         </div>

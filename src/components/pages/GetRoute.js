@@ -7,8 +7,12 @@ import axios from 'axios';
 
 function GetRoute() {
   // destructuring the outlet context from index.js
-  const { addressData, setAddressData, setDirectionsRequest } =
-    useOutletContext()[0];
+  const {
+    addressData,
+    setAddressData,
+    directionsRequest,
+    setDirectionsRequest,
+  } = useOutletContext()[0];
   const [origin, setOrigin] = useState('atlanta');
   const [destination, setDestination] = useState('norcross');
   const [travelMode, setTravelMode] = useState('TRANSIT');
@@ -92,6 +96,7 @@ function GetRoute() {
         travelMode,
         transitOptions,
       });
+      console.log(directionsRequest);
     }
   };
 

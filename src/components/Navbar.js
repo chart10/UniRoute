@@ -71,7 +71,7 @@ function Navbar() {
                   />
                 </NavLink>
               </li>
-              <li className='nav-landing'>
+              <li className='nav-info'>
                 <NavLink
                   to='/Landing'
                   className={({ isActive }) =>
@@ -136,6 +136,20 @@ function Navbar() {
                   Log Out
                   <BiExit className='navbar-icon' onClick={closeMobileMenu} />
                 </div>
+              </li>
+              <li className='nav-info'>
+                <NavLink
+                  to='/Landing'
+                  className={({ isActive }) =>
+                  'nav-links' + (isActive ? ' activated' : '')
+                }
+              >
+                Info
+                <CgInfo
+                  className='navbar-icon'
+                  onClick={closeMobileMenu}
+                />
+                </NavLink>
               </li>
             </ul>
           </nav>
