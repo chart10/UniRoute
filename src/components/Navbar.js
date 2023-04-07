@@ -75,14 +75,11 @@ function Navbar() {
                 <NavLink
                   to='/Landing'
                   className={({ isActive }) =>
-                  'nav-links' + (isActive ? ' activated' : '')
-                }
-              >
-                Info
-                <CgInfo
-                  className='navbar-icon'
-                  onClick={closeMobileMenu}
-                />
+                    'nav-links' + (isActive ? ' activated' : '')
+                  }
+                >
+                  Info
+                  <CgInfo className='navbar-icon' onClick={closeMobileMenu} />
                 </NavLink>
               </li>
             </ul>
@@ -139,16 +136,13 @@ function Navbar() {
               </li>
               <li className='nav-info'>
                 <NavLink
-                  to='/Landing'
+                  to='/landing'
                   className={({ isActive }) =>
-                  'nav-links' + (isActive ? ' activated' : '')
-                }
-              >
-                Info
-                <CgInfo
-                  className='navbar-icon'
-                  onClick={closeMobileMenu}
-                />
+                    'nav-links' + (isActive ? ' activated' : '')
+                  }
+                >
+                  Info
+                  <CgInfo className='navbar-icon' onClick={closeMobileMenu} />
                 </NavLink>
               </li>
             </ul>
