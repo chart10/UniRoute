@@ -305,6 +305,9 @@ def save_scheduled_directions():
 @app.route('/remove_scheduled_directions', methods=['POST'])
 @jwt_required()
 def remove_scheduled_directions():
+    '''
+        Removes a specified scheduled Route.
+    '''
     cursor = mysql.connection.cursor()
     routeID = request.json['routeID']
     

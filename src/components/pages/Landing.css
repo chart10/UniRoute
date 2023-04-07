@@ -40,6 +40,14 @@
     border-radius: 25px;
 }
 
+.profile-image {
+    flex-basis: 40%;
+    width: 60%;
+    height: 100%;
+    margin: 15px;
+    border-radius: 25px;
+}
+
 .text-box {
     position: absolute;
     top: 0px;
@@ -60,6 +68,18 @@
     margin-top: 70px;
 }
 
+.profile-image-text {
+    position: relative;
+    background: rgb(244,175,133);
+    background: linear-gradient(90deg, rgba(244,175,133,1) 0%, rgba(250,117,103,1) 69%);
+    width: 35%;
+    height: 70%;
+    padding: 50px;
+    border-radius: 25px;
+    margin: 15px;
+    margin-top: 150px;
+}
+
 .textbox-text {
     text-align: center;
     z-index: 200;
@@ -78,7 +98,19 @@
     line-height: 1.5em;
 }
 
+.text-description-two {
+    font-size: 25px;
+    line-height: 1.5em;
+}
+
 .direction-image-box {
+    display: flex;
+    flex-direction: row;
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(240,237,237,1) 100%);
+}
+
+.profile-image-box {
     display: flex;
     flex-direction: row;
     background: rgb(255,255,255);
