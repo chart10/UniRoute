@@ -137,6 +137,20 @@ function Navbar() {
                   <BiExit className='navbar-icon' onClick={closeMobileMenu} />
                 </div>
               </li>
+              <li className='nav-info'>
+                <NavLink
+                  to='/Landing'
+                  className={({ isActive }) =>
+                  'nav-links' + (isActive ? ' activated' : '')
+                }
+              >
+                Info
+                <CgInfo
+                  className='navbar-icon'
+                  onClick={closeMobileMenu}
+                />
+                </NavLink>
+              </li>
             </ul>
           </nav>
         </IconContext.Provider>
