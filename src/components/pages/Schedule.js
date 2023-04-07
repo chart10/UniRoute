@@ -86,7 +86,6 @@ const Schedule = () => {
   return (
     <section id='scheduleSection'>
       <h2>Weekly Schedule</h2>
-      <ScheduleList />
       <ul id='weeklySchedule'></ul>
       <p>Add a route to your weekly schedule:</p>
       <input
@@ -256,6 +255,7 @@ const Schedule = () => {
       ></input>
       <button onClick={onSubmitRoute}>Save</button>
       {errorMessageRoute && <p className='error'> {errorMessageRoute} </p>}
+      <ScheduleList />
     </section>
   );
 };
