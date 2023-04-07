@@ -5,6 +5,7 @@ import useToken from '../UseToken';
 import AddressList from './AddressList';
 import './pages.css';
 import Schedule from './Schedule';
+import EditProfile from './EditProfile';
 
 // We need to fetch db data in flask
 // and show on screen
@@ -13,8 +14,10 @@ function Profile() {
   const { addressData, setAddressData } = useOutletContext()[0];
 
   const { setToken } = useToken();
-  // function that is called to grab data from server
 
+  const [showEditProfile, setShowEditProfile] = useState(false);
+
+  // function that is called to grab data from server
   useEffect(() => {
     // axios is used to send the https request
     axios({
@@ -70,6 +73,14 @@ function Profile() {
   }
 
 
+  const handleEditProfileClick = () => {
+    setShowEditProfile(true);
+  };
+
+  const handleEditProfileClose = () => {
+    setShowEditProfile(false);
+  };
+
   return (
     <div className='profile-overlay'>
       <div className='profile-box'>
@@ -78,6 +89,8 @@ function Profile() {
         <>
           <h1>Welcome back! {profileData.firstName} {profileData.lastName}</h1>
           {/** <p>University: {profileData.university}</p>*/}
+          <button onClick={handleEditProfileClick}>Edit Profile</button>
+          {showEditProfile && <EditProfile onClose={handleEditProfileClose}/>}
           <AddressList addressData={addressData} />
           <Schedule />
         </>
