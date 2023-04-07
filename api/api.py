@@ -5,7 +5,7 @@ import json
 from datetime import datetime, timedelta, timezone
 import os
 import logging
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_jwt_extended import create_access_token, get_jwt, \
     get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 from flask_mysqldb import MySQL # Connects MySQL to Flask
@@ -36,10 +36,7 @@ log.addHandler(fh)
 
 @app.route('/')
 def index():
-    ''' Returns the get_route() method for backend use of google api.
-        Currently not working.
-    '''
-    return get_route()
+    return render_template('index.html')
 
 ## ACCOUNT / SESSION MANAGEMENT
 
