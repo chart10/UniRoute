@@ -305,6 +305,9 @@ def save_scheduled_directions():
 @app.route('/remove_scheduled_directions', methods=['POST'])
 @jwt_required()
 def remove_scheduled_directions():
+    '''
+        Removes a specified scheduled Route.
+    '''
     cursor = mysql.connection.cursor()
     routeID = request.json['routeID']
     
@@ -315,3 +318,21 @@ def remove_scheduled_directions():
     # close the cursor
     cursor.close()
     return "Scheduled directions successfully removed"
+
+@app.route('/update_info', methods=['POST'])
+@jwt_required()
+def update_info():
+    '''
+        Updates user info
+    '''
+    current_user = get_jwt_identity()
+    cursor = mysql.connection.cursor()
+
+    first_name = request.json['firstName']
+    last_name = request.json['lastName']
+    university = request.json['university']
+
+    cursor.execute('UPDATE users SET firstname = %s,lastname = %s, university = %s WHERE username = %s', 
+                   (first_name, last_name, university, current_user))
+    
+    return "Sucessfully Updated Info!"
