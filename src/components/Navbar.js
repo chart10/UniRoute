@@ -4,7 +4,7 @@ import './Navbar.css';
 import { AiOutlineDeploymentUnit } from 'react-icons/ai';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { FaSearchLocation } from 'react-icons/fa';
-import { CgProfile } from 'react-icons/cg';
+import { CgInfo, CgProfile } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
 import { BiExit } from 'react-icons/bi';
 import { TbLogin } from 'react-icons/tb';
@@ -69,6 +69,20 @@ function Navbar() {
                     className='navbar-icon'
                     onClick={closeMobileMenu}
                   />
+                </NavLink>
+              </li>
+              <li className='nav-info'>
+                <NavLink
+                  to='/Landing'
+                  className={({ isActive }) =>
+                  'nav-links' + (isActive ? ' activated' : '')
+                }
+              >
+                Info
+                <CgInfo
+                  className='navbar-icon'
+                  onClick={closeMobileMenu}
+                />
                 </NavLink>
               </li>
             </ul>

@@ -6,12 +6,17 @@ import './pages.css';
 import ScheduleList from './ScheduleList';
 
 const Schedule = () => {
-  const { addressData, setAddressData } = useOutletContext()[0];
+  const {
+    addressData,
+    setAddressData,
+    directionsRequest,
+    setDirectionsRequest,
+  } = useOutletContext()[0];
   //console.log(addressData);
   const [dayOfWeek, setDayOfWeek] = useState(new Array(7).fill(false));
   const [scheduledOrigin, setScheduledOrigin] = useState('');
   const [scheduledDestination, setScheduledDestination] = useState('');
-  const [scheduledTravelMode, setScheduledTravelMode] = useState('');
+  const [scheduledTravelMode, setScheduledTravelMode] = useState('TRANSIT');
   const [departArrive, setDepartArrive] = useState('');
   const [scheduledTime, setScheduledTime] = useState('');
   // eslint-disable-next-line no-unused-vars
@@ -24,35 +29,48 @@ const Schedule = () => {
   const [showDestDropdown, setShowDestDropdown] = useState(false);
 
   const onSubmitRoute = () => {
-    axios({
-      method: 'POST',
-      url: '/save_scheduled_directions',
-      headers: {
-        // checks if user is authorized to set data
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      },
-      data: {
-        scheduledTravelMode: scheduledTravelMode,
-        departArrive: departArrive,
-        scheduledTime: scheduledTime,
-        scheduledOrigin: scheduledOrigin,
-        scheduledDestination: scheduledDestination,
-        dayOfWeek: dayOfWeek,
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        setErrorMessageRoute('SUCCESSFULLY ADDED ROUTE TO SCHEDULE!');
-      })
-      .catch((error) => {
-        if (error.response) {
-          setErrorMessageRoute('FAILED TO SAVE ROUTE! TRY AGAIN.');
-          console.log(error.response);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-      });
-    setScheduledDirecitons(scheduledDirections);
+    // Make sure valid days are chosen. If no days are chosen return error
+    let validDays = false;
+    dayOfWeek.map((day) => {
+      if (day === true) validDays = true;
+    });
+    if (validDays) {
+      if (scheduledOrigin && scheduledDestination) {
+        axios({
+          method: 'POST',
+          url: '/save_scheduled_directions',
+          headers: {
+            // checks if user is authorized to set data
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+          },
+          data: {
+            scheduledTravelMode: scheduledTravelMode,
+            departArrive: departArrive,
+            scheduledTime: scheduledTime,
+            scheduledOrigin: scheduledOrigin,
+            scheduledDestination: scheduledDestination,
+            dayOfWeek: dayOfWeek,
+          },
+        })
+          .then((response) => {
+            console.log(response);
+            setErrorMessageRoute('SUCCESSFULLY ADDED ROUTE TO SCHEDULE!');
+          })
+          .catch((error) => {
+            if (error.response) {
+              setErrorMessageRoute('FAILED TO SAVE ROUTE! TRY AGAIN.');
+              console.log(error.response);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            }
+          });
+        setScheduledDirecitons(scheduledDirections);
+      } else {
+        setErrorMessageRoute('BE SURE TO CHOOSE AN ORIGIN AND A DESTINATION!');
+      }
+    } else {
+      setErrorMessageRoute('BE SURE TO ADD YOUR ROUTE TO A DAY OF THE WEEK!');
+    }
   };
 
   // The logic for the checkbox onChange function is weird but it works.
@@ -255,8 +273,11 @@ const Schedule = () => {
       ></input>
       <button onClick={onSubmitRoute}>Save</button>
       {errorMessageRoute && <p className='error'> {errorMessageRoute} </p>}
-      <ScheduleList />
-    </section>
+      <ScheduleList
+        directionsRequest={directionsRequest}
+        setDirectionsRequest={setDirectionsRequest}
+      />
+      </section>
   );
 };
 export default Schedule;
