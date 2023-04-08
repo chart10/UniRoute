@@ -1,4 +1,0 @@
-flask
-flask-mysqldb
-python-dotenv
-googlemaps

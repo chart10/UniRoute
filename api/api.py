@@ -5,7 +5,7 @@ import json
 from datetime import datetime, timedelta, timezone
 import os
 import logging
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_jwt_extended import create_access_token, get_jwt, \
     get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 from flask_mysqldb import MySQL # Connects MySQL to Flask
@@ -36,16 +36,26 @@ log.addHandler(fh)
 
 @app.route('/')
 def index():
-    ''' Returns the get_route() method for backend use of google api.
-        Currently not working.
-    '''
-    return get_route()
+    return render_template('index.html')
+@app.route('/landing')
+def landing():
+    return render_template('index.html')
+@app.route('/login')
+def login():
+    return render_template('index.html')
+@app.route('/profile')
+def profile():
+    return render_template('index.html')
+@app.route('/register')
+def register():
+    return render_template('index.html')
+
 
 ## ACCOUNT / SESSION MANAGEMENT
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
-@app.route('/register', methods=['POST'])
+@app.route('/post_register', methods=['POST'])
 def add_user():
     ''' Takes in user account input data from front end and adds it to db as a user's account
         If user already exists, it does not add to db and returns an error msg. 
@@ -145,7 +155,7 @@ def delete_user():
 # return type: dict of user data {FirstName: '',
 #                                 LastName: '',
 #                                 University: ''}
-@app.route('/profile', methods=['GET', 'POST'])
+@app.route('/get_profile', methods=['GET', 'POST'])
 @jwt_required()
 def get_profile():
     '''Grabs current user data from db and sends to front end to display on profile page'''
@@ -318,24 +328,3 @@ def remove_scheduled_directions():
     # close the cursor
     cursor.close()
     return "Scheduled directions successfully removed"
-
-@app.route('/edit_profile', methods=['POST'])
-@jwt_required()
-def update_info():
-    '''
-        Updates user info
-    '''
-    current_user = get_jwt_identity()
-    cursor = mysql.connection.cursor()
-
-    first_name = request.json.get('firstName', None)
-    last_name = request.json.get('lastName', None)
-    university = request.json.get('university',None)
-
-    cursor.execute('UPDATE users SET firstname = %s,lastname = %s, university = %s WHERE username = %s', 
-                   (first_name, last_name, university, current_user))
-    
-    cursor.connection.commit()
-    cursor.close()
-    
-    return "Sucessfully Updated Info!"

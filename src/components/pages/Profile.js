@@ -22,7 +22,7 @@ function Profile() {
     // axios is used to send the https request
     axios({
       method: 'GET',
-      url: '/profile',
+      url: '/get_profile',
       headers: {
         // checks if user is authorized to get data
         Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -72,7 +72,6 @@ function Profile() {
     profileOverlay.style.display = 'none';
   }
 
-
   const handleEditProfileClick = () => {
     setShowEditProfile(true);
   };
@@ -87,7 +86,7 @@ function Profile() {
       <span className="close-button" onClick={closeProfileOverlay}> &times;</span>
       {profileData ? (
         <>
-          <h1>Welcome back! {profileData.firstName} {profileData.lastName}</h1>
+          <h1>Welcome back {profileData.firstName} {profileData.lastName}!</h1>
           {/** <p>University: {profileData.university}</p>*/}
           <button className='edit-profile' onClick={handleEditProfileClick}>Edit Profile</button>
           {showEditProfile && <EditProfile onClose={handleEditProfileClose}/>}
