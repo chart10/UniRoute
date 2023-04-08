@@ -255,7 +255,7 @@
   flex-direction: column;
   justify-content: space-between;
   max-height: 600px;
-  max-width: 600px;
+  max-width: 660px;
   overflow-x: hidden;
   overflow-y: auto;  
 }
@@ -283,6 +283,22 @@
   margin-bottom: 20px;
   text-align: center;
 }
+
+.edit-profile{
+  width: 20%;
+  padding: 5px;
+  font-size: 15px;
+  background-color: rgb(31, 31, 152);
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.edit-profile:hover{
+  background-color: #4c4cbe;
+}
+
 .address-book h2{
   color: rgb(31, 31, 152);
   margin-bottom: 20px;
@@ -316,7 +332,7 @@
   display: block;
   width: 10%;
   padding: 5px;
-  font-size: 15px;
+  font-size: 13px;
   background-color: rgb(31, 31, 152);
   color: #fff;
   border: none;
@@ -367,7 +383,27 @@
   text-align:left;
   justify-content: space-between;
 }
+#scheduleSection #save{
+  display: inline-block;
+  width: 10%;
+  padding: 5px;
+  margin: 20px;
+  font-size: 14px;
+  background-color: rgb(31, 31, 152);
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
 
+#scheduleSection #save:hover {
+    background-color: #4c4cbe;
+}
+
+.commute{
+  display: inline-block;
+  margin: 10px;
+}
 
 
 @media screen and (max-width: 960px){
@@ -627,8 +663,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-height: 600px;
-    max-width: 600px;
+    max-height: 700px;
+    max-width: 700px;
     overflow-x: hidden;
     overflow-y: auto;  
   }
@@ -656,6 +692,22 @@
     margin-bottom: 20px;
     text-align: center;
   }
+
+  .edit-profile{
+    width: 20%;
+    padding: 5px;
+    font-size: 15px;
+    background-color: rgb(31, 31, 152);
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  .edit-profile:hover{
+    background-color: #4c4cbe;
+  }
+
   .address-book h2{
     color: rgb(31, 31, 152);
     margin-bottom: 20px;
@@ -740,4 +792,26 @@
     text-align:left;
     justify-content: space-between;
   }  
+
+  #scheduleSection #save{
+    display: inline-block;
+    width: 10%;
+    padding: 5px;
+    margin: 20px;
+    font-size: 14px;
+    background-color: rgb(31, 31, 152);
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  #scheduleSection #save:hover {
+      background-color: #4c4cbe;
+  }
+  
+  .commute{
+    display: inline-block;
+    margin: 10px;
+  }
 }
