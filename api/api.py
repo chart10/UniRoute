@@ -40,12 +40,22 @@ def index():
 @app.route('/landing')
 def landing():
     return render_template('index.html')
+@app.route('/login')
+def login():
+    return render_template('index.html')
+@app.route('/profile')
+def profile():
+    return render_template('index.html')
+@app.route('/register')
+def register():
+    return render_template('index.html')
+
 
 ## ACCOUNT / SESSION MANAGEMENT
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
-@app.route('/register', methods=['POST'])
+@app.route('/post_register', methods=['POST'])
 def add_user():
     ''' Takes in user account input data from front end and adds it to db as a user's account
         If user already exists, it does not add to db and returns an error msg. 
@@ -145,7 +155,7 @@ def delete_user():
 # return type: dict of user data {FirstName: '',
 #                                 LastName: '',
 #                                 University: ''}
-@app.route('/profile', methods=['GET', 'POST'])
+@app.route('/get_profile', methods=['GET', 'POST'])
 @jwt_required()
 def get_profile():
     '''Grabs current user data from db and sends to front end to display on profile page'''

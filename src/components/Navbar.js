@@ -16,7 +16,7 @@ function Navbar() {
   const navigate = useNavigate();
   const logout = () => {
     localStorage.clear();
-    navigate('/Login', { replace: true });
+    navigate('/login', { replace: true });
   };
 
   if (localStorage.getItem('token') == null) {
@@ -48,7 +48,7 @@ function Navbar() {
               </li>
               <li className='nav-login'>
                 <NavLink
-                  to='/Login'
+                  to='/login'
                   className={({ isActive }) =>
                     'nav-links' + (isActive ? ' activated' : '')
                   }
@@ -59,7 +59,7 @@ function Navbar() {
               </li>
               <li className='nav-register'>
                 <NavLink
-                  to='/Register'
+                  to='/register'
                   className={({ isActive }) =>
                     'nav-links' + (isActive ? ' activated' : '')
                   }
@@ -73,7 +73,7 @@ function Navbar() {
               </li>
               <li className='nav-info'>
                 <NavLink
-                  to='/Landing'
+                  to='/landing'
                   className={({ isActive }) =>
                     'nav-links' + (isActive ? ' activated' : '')
                   }
@@ -116,7 +116,7 @@ function Navbar() {
               </li>
               <li className='nav-profile'>
                 <NavLink
-                  to='/Profile'
+                  to='/profile'
                   className={({ isActive }) =>
                     'nav-links' + (isActive ? ' activated' : '')
                   }
