@@ -34,3 +34,11 @@ From the main page you can enter any address or location into the origin and des
 For a quick example of the feature set we have implemented so far, select 'Login' and enter 'student' and 'uniroute' as your username and password. This will allow you to use the addresses already saved to this account to create a new route.
 
 But to use the full features of the app, we encourage you to register your own account and log in. This will allow you to save addresses to your profile and use them to generate new routes.
+
+## Deployment
+
+- Run npm run build to get a production build of the frontend
+
+- Docker to create an image of the Flask server with frontend build in Flask directory
+
+- used `fly launch` to deplay

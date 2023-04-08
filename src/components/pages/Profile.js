@@ -22,7 +22,7 @@ function Profile() {
     // axios is used to send the https request
     axios({
       method: 'GET',
-      url: '/profile',
+      url: '/get_profile',
       headers: {
         // checks if user is authorized to get data
         Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -72,7 +72,6 @@ function Profile() {
     profileOverlay.style.display = 'none';
   }
 
-
   const handleEditProfileClick = () => {
     setShowEditProfile(true);
   };
@@ -84,27 +83,34 @@ function Profile() {
   return (
     <div className='profile-overlay'>
       <div className='profile-box'>
-      <span className="close-button" onClick={closeProfileOverlay}> &times;</span>
-      {profileData ? (
-        <>
-          <h1>Welcome back! {profileData.firstName} {profileData.lastName}</h1>
-          {/** <p>University: {profileData.university}</p>*/}
-          <button onClick={handleEditProfileClick}>Edit Profile</button>
-          {showEditProfile && <EditProfile onClose={handleEditProfileClose}/>}
-          <AddressList addressData={addressData} />
-          <Schedule />
-        </>
-      ) : (
-        <>
-          <p>It looks like you aren&apos;t signed in right now.</p>
-          <Link to='../login'>
-            <button>Login</button>
-          </Link>
-          <Link to='../register'>
-            <button>Register</button>
-          </Link>
-        </>
-      )}
+        <span className='close-button' onClick={closeProfileOverlay}>
+          {' '}
+          &times;
+        </span>
+        {profileData ? (
+          <>
+            <h1>
+              Welcome back! {profileData.firstName} {profileData.lastName}
+            </h1>
+            {/** <p>University: {profileData.university}</p>*/}
+            <button onClick={handleEditProfileClick}>Edit Profile</button>
+            {showEditProfile && (
+              <EditProfile onClose={handleEditProfileClose} />
+            )}
+            <AddressList addressData={addressData} />
+            <Schedule />
+          </>
+        ) : (
+          <>
+            <p>It looks like you aren&apos;t signed in right now.</p>
+            <Link to='../login'>
+              <button>Login</button>
+            </Link>
+            <Link to='../register'>
+              <button>Register</button>
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

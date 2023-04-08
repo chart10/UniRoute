@@ -3,7 +3,7 @@
 
 export default class apiRegisterCall {
   static Register(body) {
-    return fetch('/register', {
+    return fetch('/post_register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -12,6 +12,6 @@ export default class apiRegisterCall {
     })
       .then((response) => response.json())
       .then(console.log('Sent to backend:', body))
-      .catch((error) => console.log(error))
+      .catch((error) => console.log(error));
   }
 }
