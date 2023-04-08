@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import './pages.css';
 import axios from 'axios';
+import './GetRoute.css';
 // Component: Route Finder
 // Contains the forms needed to run a route query
 

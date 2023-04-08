@@ -241,7 +241,7 @@ const Schedule = () => {
           </div>
         )}
       </div>
-      <b>Select Type of Commute </b>
+      <b className='commute'>Select Type of Commute </b>
       <select
         id='mode'
         value={scheduledTravelMode}
@@ -271,7 +271,7 @@ const Schedule = () => {
         id='scheduleArrive'
         onChange={onScheduledTimeChange}
       ></input>
-      <button onClick={onSubmitRoute}>Save</button>
+      <button id='save' onClick={onSubmitRoute}>Save</button>
       {errorMessageRoute && <p className='error'> {errorMessageRoute} </p>}
       <ScheduleList
         directionsRequest={directionsRequest}

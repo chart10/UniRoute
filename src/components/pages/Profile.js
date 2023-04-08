@@ -89,7 +89,7 @@ function Profile() {
         <>
           <h1>Welcome back! {profileData.firstName} {profileData.lastName}</h1>
           {/** <p>University: {profileData.university}</p>*/}
-          <button onClick={handleEditProfileClick}>Edit Profile</button>
+          <button className='edit-profile' onClick={handleEditProfileClick}>Edit Profile</button>
           {showEditProfile && <EditProfile onClose={handleEditProfileClose}/>}
           <AddressList addressData={addressData} />
           <Schedule />
