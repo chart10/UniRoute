@@ -102,9 +102,9 @@ function GetRoute() {
   };
 
   return (
-    <div className='routeForms'>
+    <div className='routeForms-overlay'>
+      <div className='fieldWrapper-box'>
       <h2>FIND A ROUTE</h2>
-      <div className='fieldWrapper'>
         <label htmlFor='from'>Origin </label>
         <input
           type='text'
@@ -142,7 +142,7 @@ function GetRoute() {
             )}
           </div>
         )}
-      </div>
+      
       <div className='fieldWrapper'>
         <label htmlFor='dest'>Destination </label>
         <input
@@ -201,6 +201,7 @@ function GetRoute() {
         value='Get Route'
         onClick={onSubmitDirections}
       ></input>
+      </div>
     </div>
   );
 }
