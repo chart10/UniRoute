@@ -1,118 +1,38 @@
-.landing-overlay {
-    position: absolute;
-    top: 100;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 100;
+article {
+  background-image: url(./images/PeopleDriving.jpg);
+  background-position: center;
+  background-attachment: fixed;
+  z-index: 100;
+}
+section {
+  display: flex;
+  flex-flow: row nowrap;
+}
+#landing-page1 {
 }
 
-.landing-box {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: #ffff;
+#text-box {
+  text-align: center;
 }
 
-.landing-text-header {
-    font-size: 50px;
+#landing-page2 {
 }
 
-.landing-text-description {
-    font-size: 17px;
+#landing-page3 {
 }
 
-.landing-image {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-}
-
-.landing-direction-image {
-    flex-basis: 40%;
-    width: 65%;
-    height: 100%;
-    margin: 15px;
-    border-radius: 25px;
-}
-
-.profile-image {
-    flex-basis: 40%;
-    width: 60%;
-    height: 100%;
-    margin: 15px;
-    border-radius: 25px;
-}
-
-.text-box {
-    position: absolute;
-    top: 0px;
-    text-align: center;
-    width: 100%;
-    z-index: 999;
-}
-
-.direction-image-text {
-    position: relative;
-    background: rgb(244,175,133);
-    background: linear-gradient(90deg, rgba(244,175,133,1) 0%, rgba(250,117,103,1) 69%);
-    width: 35%;
-    height: 80%;
-    padding: 50px;
-    border-radius: 25px;
-    margin: 15px;
-    margin-top: 70px;
-}
-
-.profile-image-text {
-    position: relative;
-    background: rgb(244,175,133);
-    background: linear-gradient(90deg, rgba(244,175,133,1) 0%, rgba(250,117,103,1) 69%);
-    width: 35%;
-    height: 70%;
-    padding: 50px;
-    border-radius: 25px;
-    margin: 15px;
-    margin-top: 150px;
-}
-
-.textbox-text {
-    text-align: center;
-    z-index: 200;
-    position: relative;
-    font-size: 50px;
-}
-
-.text-header {
-    font-size: 45px;
-    font-weight: 500;
-}
-
-.text-description {
-    font-size: 25px;
-    margin-top: 35px;
-    line-height: 1.5em;
-}
-
-.text-description-two {
-    font-size: 25px;
-    line-height: 1.5em;
-}
-
-.direction-image-box {
-    display: flex;
-    flex-direction: row;
-    background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(240,237,237,1) 100%);
-}
-
-.profile-image-box {
-    display: flex;
-    flex-direction: row;
-    background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(240,237,237,1) 100%);
+.text-container {
+  order: 2;
+  background: rgb(244, 175, 133);
+  background: linear-gradient(
+    90deg,
+    rgba(244, 175, 133, 1) 0%,
+    rgba(250, 117, 103, 1) 69%
+  );
+  width: 35%;
+  height: 70%;
+  padding: 50px;
+  border-radius: 25px;
+  margin: 15px;
+  margin-top: 150px;
 }
