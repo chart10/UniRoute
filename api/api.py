@@ -57,7 +57,7 @@ def register():
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
-@app.route('/post_register', methods=['POST'])
+@app.route('/register', methods=['POST'])
 def add_user():
     ''' Takes in user account input data from front end and adds it to db as a user's account
         If user already exists, it does not add to db and returns an error msg. 
@@ -104,8 +104,8 @@ def create_token():
     # DictCursor allows you to select colum  via user['column_name']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-    cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s',
-                   (username, password,))
+    cursor.execute('SELECT * FROM users WHERE username = %s',
+                   (username,))
     user = cursor.fetchone()
 
     # if the user name and pass are not in db, return wrong username and pass
