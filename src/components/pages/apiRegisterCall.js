@@ -3,7 +3,7 @@
 
 export default class apiRegisterCall {
   static Register(body) {
-    return fetch('/post_register', {
+    return fetch('/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
