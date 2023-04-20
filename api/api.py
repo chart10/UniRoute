@@ -11,8 +11,10 @@ from flask_jwt_extended import create_access_token, get_jwt, \
 from flask_mysqldb import MySQL # Connects MySQL to Flask
 import MySQLdb.cursors
 from googleroutes import get_route
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 
 ## TOKEN CONFIG
 app.config["JWT_SECRET_KEY"] = "super-secret-thingy-that-is-not-best-practice(CHANGE!)"
@@ -75,9 +77,11 @@ def add_user():
     user = cursor.fetchone()
     if user:
         return 'There is already an account with that username.'
+    # Hash the user's password
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     # 3) Use cursor.execute() to run a line of MySQL code
     cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s)''',
-                (username,password,email,university,first_name,last_name))
+                (username,hashed_password,email,university,first_name,last_name))
     # 4) Commit the change to the MySQL database
     mysql.connection.commit()
     # 5) Close the cursor
@@ -106,7 +110,7 @@ def create_token():
 
     # if the user name and pass are not in db, return wrong username and pass
     # case: if user comes as none
-    if (user is None) or (user['username'] != username or user['password'] != password):
+    if user is None or not bcrypt.check_password_hash(user['password'], password):
         return {"msg": "Wrong username or password"}, 401
     # create accesstoken if succsesful
     access_token = create_access_token(identity=username)
