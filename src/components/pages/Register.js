@@ -41,16 +41,16 @@ export const RegisterForm = () => {
     // TODO: Send user to their profile page
     navigate('/login');
   };
-  function closeRegisterOverlay() {
-    const registerOverlay = document.querySelector('.register-overlay');
-    registerOverlay.style.display = 'none';
+
+  function closeComp() {
+    navigate('/');
   }
 
   // Return JSX forms
   return (
     <div className='register-overlay'>
       <div className='register-box'>
-        <span className='close-button' onClick={closeRegisterOverlay}>
+        <span className='close-button' onClick={closeComp}>
           {' '}
           &times;
         </span>

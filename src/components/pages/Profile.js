@@ -6,6 +6,7 @@ import AddressList from './AddressList';
 import './pages.css';
 import Schedule from './Schedule';
 import EditProfile from './EditProfile';
+import { useNavigate } from 'react-router-dom';
 
 // We need to fetch db data in flask
 // and show on screen
@@ -14,6 +15,7 @@ function Profile() {
   const { addressData, setAddressData } = useOutletContext()[0];
 
   const { setToken } = useToken();
+  const navigate = useNavigate();
 
   const [showEditProfile, setShowEditProfile] = useState(false);
 
@@ -67,10 +69,6 @@ function Profile() {
         }
       });
   }, []);
-  function closeProfileOverlay() {
-    const profileOverlay = document.querySelector('.profile-overlay');
-    profileOverlay.style.display = 'none';
-  }
 
   const handleEditProfileClick = () => {
     setShowEditProfile(true);
@@ -80,10 +78,14 @@ function Profile() {
     setShowEditProfile(false);
   };
 
+  function closeComp() {
+    navigate('/');
+  }
+
   return (
     <div className='profile-overlay'>
       <div className='profile-box'>
-      <span className="close-button" onClick={closeProfileOverlay}> &times;</span>
+      <span className="close-button" onClick={closeComp}> &times;</span>
       {profileData ? (
         <>
           <h1>Welcome back {profileData.firstName} {profileData.lastName}!</h1>

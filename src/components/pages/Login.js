@@ -52,16 +52,16 @@ function Login() {
       [name]: value,
     }));
   }
-  function closeLoginOverlay() {
-    const loginOverlay = document.querySelector('.login-overlay');
-    loginOverlay.style.display = 'none';
+
+  function closeComp() {
+    navigate('/');
   }
 
   // render the login form if the user is not logged in
   return (
     <div class="login-overlay">
       <div class="login-box">
-       <span className="close-button" onClick={closeLoginOverlay}> &times;</span>
+       <span className="close-button" onClick={closeComp}> &times;</span>
       <h2>Login</h2>
       <p>Please Enter Your Username & Password</p>
       <form class="login-form">
