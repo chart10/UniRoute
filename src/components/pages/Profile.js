@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 // We need to fetch db data in flask
 // and show on screen
 function Profile() {
-  const [profileData, setProfileData] = useState(null);
+  const [profileData, setProfileData] = useState({});
   const { addressData, setAddressData } = useOutletContext()[0];
 
   const { setToken } = useToken();
@@ -39,6 +39,7 @@ function Profile() {
           firstName: res.firstName,
           lastName: res.lastName,
           university: res.university,
+          confirmed: res.confirmed
         });
       })
       .catch((error) => {
@@ -86,7 +87,7 @@ function Profile() {
     <div className='profile-overlay'>
       <div className='profile-box'>
       <span className="close-button" onClick={closeComp}> &times;</span>
-      {profileData ? (
+      {profileData.confirmed == 1 ? (
         <>
           <h1>Welcome back {profileData.firstName} {profileData.lastName}!</h1>
           {/** <p>University: {profileData.university}</p>*/}
@@ -97,13 +98,7 @@ function Profile() {
         </>
       ) : (
         <>
-          <p>It looks like you aren&apos;t signed in right now.</p>
-          <Link to='../login'>
-            <button>Login</button>
-          </Link>
-          <Link to='../register'>
-            <button>Register</button>
-          </Link>
+          <p>Plase confirm your email to access your profile.</p>
         </>
       )}
       </div>
