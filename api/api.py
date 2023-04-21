@@ -72,6 +72,8 @@ def add_user():
     university = request.json["university"]
     first_name = request.json["firstName"]
     last_name = request.json["lastName"]
+    confirmed = 0
+    date = None
     # Check if username is already in the database
     cursor.execute('SELECT username FROM users WHERE username = %s', [username])
     user = cursor.fetchone()
