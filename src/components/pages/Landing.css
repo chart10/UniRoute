@@ -1,26 +1,45 @@
 article {
+  position: relative;
   background-image: url(./images/PeopleDriving.jpg);
   background-position: center;
   background-attachment: fixed;
-  display: flex; /* add this */
-  flex-direction: column; /* add this */
-  justify-content: center; /* add this */
-  align-items: center; /* add this */
-  background-image: url(./images/PeopleDriving.jpg);
-  background-position: center;
-  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+article::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 15%;
+  background: linear-gradient(to bottom, rgba(31, 31, 152, 0), #1f1f98);
+  z-index: 2;
 }
 section {
   display: flex;
   flex-flow: row nowrap;
 }
-/* #blue-gradient {
-  height: 40%;
+#top-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25%;
   width: 100%;
   background: linear-gradient(#1f1f98, rgba(31, 31, 152, 0));
   z-index: 2;
+}
+/* #bottom-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 50%;
+  width: 100%;
+  background: linear-gradient(rgba(31, 31, 152, 0, #1f1f98, #1f1f90));
+  z-index: 2;
 } */
-
 h1 {
   font-size: 50px;
   font-weight: 900;
@@ -28,7 +47,11 @@ h1 {
 h3 {
   font-size: 36px;
 }
+#text-box {
+  color: white;
+}
 #landing-page1 {
+  position: relative;
   margin-top: 3%;
   margin-right: auto;
   margin-bottom: 120%;
@@ -55,6 +78,7 @@ h3 {
 
 #landing-page3 {
   margin-top: 20%;
+  z-index: 3;
 }
 #landing-page3 .text-container {
   order: 2;
@@ -93,6 +117,52 @@ h3 {
 
 #credits {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column;
   align-items: center;
+  margin-top: 20%;
+  margin-bottom: 3%;
+  z-index: 3;
+}
+#credits h1 {
+  font-size: 50px;
+  font-weight: 900;
+  margin-bottom: 30px;
+  color: white;
+}
+#designers {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.designer {
+  margin: 0 50px;
+}
+
+.designer img {
+  margin: 1rem;
+  height: 300px;
+  width: 300px;
+  border-radius: 100%;
+}
+.designer h3 {
+  text-align: center;
+  color: white;
+}
+
+article::-webkit-scrollbar {
+  width: 5px;
+}
+
+article::-webkit-scrollbar-track {
+  background-color: #a4adf0;
+}
+
+article::-webkit-scrollbar-thumb {
+  background-color: #535b8d;
+  border-radius: 2px;
+}
+
+article::-webkit-scrollbar-thumb:hover {
+  background-color: #3232b3;
 }

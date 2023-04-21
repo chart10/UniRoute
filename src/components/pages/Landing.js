@@ -3,11 +3,14 @@ import './Landing.css';
 import img from './images/PeopleDriving.jpg';
 import img2 from './images/Directions Example.PNG';
 import img3 from './images/ProfileExample.png';
+import chandler from './images/ssbsk.jpg';
+import eric from './images/suavearabic.jpg';
+import christian from './images/christian.jpg';
 
 function Landing() {
   return (
     <article>
-      <div id='blue-gradient'></div>
+      <div id='top-gradient'></div>
       <section id='landing-page1'>
         <div id='text-box'>
           <h1 id='landing-text-title'>Welcome to UniRoute!</h1>
@@ -39,15 +42,23 @@ function Landing() {
         <img id='profile-img' src={img3} />
       </section>
       <section id='credits'>
-        <div className='designer'>
-          <img src='./images/suavearabic.jpg' alt='Pic of Eric Rivas' />
-          <h3>Eric Rivas</h3>
-          <img src='./images/ssbsk.jpg' alt='Pic of Eric Rivas' />
-          <h3>Chandler Dugan</h3>
-          <img src='./images/suavearabic.jpg' alt='Pic of Eric Rivas' />
-          <h3>Eric Rivas</h3>
+        <h1>Credits</h1>
+        <div id='designers'>
+          <div className='designer'>
+            <img src={eric} alt='Pic of Eric Rivas' />
+            <h3>Eric Rivas</h3>
+          </div>
+          <div className='designer'>
+            <img src={christian} alt='Pic of Christian Hart' />
+            <h3>Christian Hart</h3>
+          </div>
+          <div className='designer'>
+            <img src={chandler} alt='Pic of Chandler Dugan' />
+            <h3>Chandler Dugan</h3>
+          </div>
         </div>
       </section>
+      <div id='bottom-gradient'></div>
     </article>
   );
 }
