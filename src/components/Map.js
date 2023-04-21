@@ -25,8 +25,8 @@ const Map = (props) => {
     overflow: 'scroll',
     backgroundColor: 'white',
     position: 'relative',
-    marginLeft: '50px',
-    marginTop: '100px',
+    marginLeft: '17%',
+    marginTop: '65px',
   };
   if (!props.directions) {
     panelStyle.display = 'none';
