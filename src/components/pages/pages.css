@@ -257,13 +257,13 @@
   flex-direction: column;
   justify-content: space-between;
   max-height: 600px;
-  max-width: 610px;
+  max-width: 620px;
   overflow-x: hidden;
   overflow-y: auto;
   pointer-events: auto; /* enable clicks on the overlay */
 }
 
-/* .profile-box::-webkit-scrollbar {
+.profile-box::-webkit-scrollbar {
   width: 5px;
 }
 
@@ -278,7 +278,7 @@
 
 .profile-box::-webkit-scrollbar-thumb:hover {
   background-color: #3232b3;
-} */
+}
 
 .profile-box h1 {
   color: rgb(31, 31, 152);
@@ -334,7 +334,7 @@
   display: block;
   width: 10%;
   padding: 5px;
-  font-size: 13px;
+  font-size: 12px;
   background-color: rgb(31, 31, 152);
   color: #fff;
   border: none;
@@ -411,8 +411,10 @@
 
 .route:hover {
   cursor: pointer;
-  color: rgb(0, 174, 255);
+  background-color: rgb(218, 226, 251);
+  /* color: rgb(0, 174, 255); */
   text-decoration: underline;
+  border-radius: 4px;
 }
 
 @media screen and (max-width: 960px) {

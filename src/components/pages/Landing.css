@@ -87,12 +87,15 @@ h3 {
   border-radius: 25px;
   box-shadow: 4px 4px 8px black;
   align-self: center;
+  max-width: 900px;
+  height: auto;
 }
-
 #profile-img {
   border-radius: 25px;
   box-shadow: 4px 4px 8px black;
   order: 2;
+  max-width: 900px;
+  height: auto;
 }
 .text-container {
   order: 1;
