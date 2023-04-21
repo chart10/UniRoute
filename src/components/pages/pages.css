@@ -239,14 +239,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
+  pointer-events: none; /* allow clicks to pass through */
 }
 .profile-box{
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 55%;
+  right: 1%;
+  transform: translateY(-50%); /* remove translateX, and translate only on Y-axis */
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
@@ -255,9 +255,10 @@
   flex-direction: column;
   justify-content: space-between;
   max-height: 600px;
-  max-width: 660px;
+  max-width: 610px;
   overflow-x: hidden;
-  overflow-y: auto;  
+  overflow-y: auto; 
+  pointer-events: auto; /* enable clicks on the overlay */ 
 }
 
 .profile-box::-webkit-scrollbar {
@@ -404,6 +405,16 @@
   display: inline-block;
   margin: 10px;
 }
+.route p {
+  cursor: pointer;
+}
+
+.route:hover {
+  cursor: pointer;
+  color: rgb(0, 174, 255);
+  text-decoration: underline;
+}
+
 
 
 @media screen and (max-width: 960px){
@@ -648,14 +659,14 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
+    pointer-events: none; /* allow clicks to pass through */
   }
   .profile-box{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 55%;
+    right: 1%;
+    transform: translateY(-50%); /* remove translateX, and translate only on Y-axis */
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
@@ -663,10 +674,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-height: 700px;
-    max-width: 700px;
+    max-height: 600px;
+    max-width: 610px;
     overflow-x: hidden;
-    overflow-y: auto;  
+    overflow-y: auto; 
+    pointer-events: auto; /* enable clicks on the overlay */ 
   }
   
   .profile-box::-webkit-scrollbar {
@@ -813,5 +825,14 @@
   .commute{
     display: inline-block;
     margin: 10px;
+  }
+  .route p {
+    cursor: pointer;
+  }
+  
+  .route:hover {
+    cursor: pointer;
+    color: rgb(0, 174, 255);
+    text-decoration: underline;
   }
 }
