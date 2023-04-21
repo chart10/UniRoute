@@ -11,8 +11,10 @@ from flask_jwt_extended import create_access_token, get_jwt, \
 from flask_mysqldb import MySQL # Connects MySQL to Flask
 import MySQLdb.cursors
 from googleroutes import get_route
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 
 ## TOKEN CONFIG
 app.config["JWT_SECRET_KEY"] = "super-secret-thingy-that-is-not-best-practice(CHANGE!)"
@@ -55,7 +57,7 @@ def register():
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
-@app.route('/post_register', methods=['POST'])
+@app.route('/register', methods=['POST'])
 def add_user():
     ''' Takes in user account input data from front end and adds it to db as a user's account
         If user already exists, it does not add to db and returns an error msg. 
@@ -77,9 +79,11 @@ def add_user():
     user = cursor.fetchone()
     if user:
         return 'There is already an account with that username.'
+    # Hash the user's password
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     # 3) Use cursor.execute() to run a line of MySQL code
-    cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s,%s,%s)''',
-                (username,hashed_password,confirmed,date,email,university,first_name,last_name,))
+    cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s)''',
+                (username,hashed_password,email,university,first_name,last_name))
     # 4) Commit the change to the MySQL database
     mysql.connection.commit()
     # 5) Close the cursor
@@ -102,13 +106,13 @@ def create_token():
     # DictCursor allows you to select colum  via user['column_name']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-    cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s',
-                   (username, password,))
+    cursor.execute('SELECT * FROM users WHERE username = %s',
+                   (username,))
     user = cursor.fetchone()
 
     # if the user name and pass are not in db, return wrong username and pass
     # case: if user comes as none
-    if (user is None) or (user['username'] != username or user['password'] != password):
+    if user is None or not bcrypt.check_password_hash(user['password'], password):
         return {"msg": "Wrong username or password"}, 401
     # create accesstoken if succsesful
     access_token = create_access_token(identity=username)
