@@ -2,7 +2,7 @@ import React from 'react';
 import './Landing.css';
 import img from './images/PeopleDriving.jpg';
 import img2 from './images/Directions Example.PNG';
-import img3 from './images/ProfileExample.png';
+import img3 from './images/profileExample.png';
 import chandler from './images/ssbsk.jpg';
 import eric from './images/suavearabic.jpg';
 import christian from './images/christian.jpg';
@@ -15,7 +15,7 @@ function Landing() {
         <div id='text-box'>
           <h1 id='landing-text-title'>Welcome to UniRoute!</h1>
           <h3 id='landing-text-description'>
-            A one-page application for Univerity commuters
+            A one-page application for University commuters
           </h3>
         </div>
       </section>
