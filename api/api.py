@@ -12,11 +12,18 @@ from flask_mysqldb import MySQL  # Connects MySQL to Flask
 import MySQLdb.cursors
 from googleroutes import get_route
 from flask_bcrypt import Bcrypt
+from itsdangerous import URLSafeTimedSerializer
+from flask import flash
+from flask_mail import Message
+from flask_mail import Mail
+from flask import url_for
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 
-# TOKEN CONFIG
+
+## TOKEN CONFIG
+
 app.config["JWT_SECRET_KEY"] = "super-secret-thingy-that-is-not-best-practice(CHANGE!)"
 jwt = JWTManager(app)
 
@@ -25,6 +32,17 @@ app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
 app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')
 app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
 app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SECURITY_PASSWORD_SALT'] = os.getenv('SECURITY_PASSWORD_SALT')
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER')
+app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
+app.config['MAIL_PORT'] = os.getenv('MAIL_PORT')
+app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS')
+#app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL')
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+
+mail = Mail(app)
 mysql = MySQL(app)
 
 # LOGGING CONFIGURATION
@@ -63,7 +81,33 @@ def register():
     return render_template('index.html')
 
 
-# ACCOUNT / SESSION MANAGEMENT
+## EMAIL VARIFICATION FUNCS
+def generate_confirmation_token(email):
+    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    return serializer.dumps(email, salt=app.config['SECURITY_PASSWORD_SALT'])
+
+def confirm_token(token, expiration=3600):
+    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    try:
+        email = serializer.loads(
+            token,
+            salt=app.config['SECURITY_PASSWORD_SALT'],
+            max_age=expiration
+        )
+    except:
+        return False
+    return email
+
+def send_email(to, subject, template):
+    msg = Message(
+        subject,
+        recipients=[to],
+        html=template,
+        sender=app.config['MAIL_DEFAULT_SENDER']
+    )
+    mail.send(msg)
+
+## ACCOUNT / SESSION MANAGEMENT
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
@@ -93,13 +137,48 @@ def add_user():
     # Hash the user's password
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     # 3) Use cursor.execute() to run a line of MySQL code
-    cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s,False,NULL)''',
-                   (username, hashed_password, email, university, first_name, last_name))
+    cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s,%s,%s)''',
+                (username,hashed_password,confirmed,date,email,university,first_name,last_name,))
+
     # 4) Commit the change to the MySQL database
     mysql.connection.commit()
     # 5) Close the cursor
     cursor.close()
+
+    token = generate_confirmation_token(email)
+    confirm_url = url_for('confirm_email', token=token, _external=True)
+    print(confirm_url)
+    html = render_template('active.html', confirm_url=confirm_url)
+    subject = "Please confirm your Email"
+    send_email(email, subject, html)
+    flash('A confirmation email has been sent via email.')
+
     return 'successfully added user to database'
+
+@app.route("/confirm/<token>")
+def confirm_email(token):
+    try:
+        email = confirm_token(token)
+    except:
+        flash('The confirmation link is invalid or has expired.', 'danger')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * from users WHERE email = %s',
+                   (email,))
+    user = cursor.fetchone()
+
+    cursor.close()
+
+    if user['confirmed']:
+        flash('Account already confirmed. Please login.', 'success')
+    else:
+        username = user['username']
+        cursor = mysql.connection.cursor()
+        cursor.execute('UPDATE users SET confirmed = true WHERE username = %s',
+                       (username,))
+        mysql.connection.commit()
+        cursor.close()
+        flash('You have confirmed your account. Thanks!', 'success')
+    return 'You have successfully confirmed your email!'
 
 # Api route for logging in users and creating token
 
@@ -201,7 +280,8 @@ def get_profile():
     profile_data = {
         'firstName': user['firstName'],
         'lastName': user['lastName'],
-        'university': user['university']
+        'university': user['university'],
+        'confirmed': user['confirmed']
     }
     return profile_data
 
