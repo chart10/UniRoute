@@ -43,7 +43,7 @@ const ScheduledRoute = (props) => {
     props.setDirectionsRequest({ origin, destination, travelMode });
     console.log(props.directionsRequest);
   };
-
+  console.log(props.scheduledDirections);
   return (
     <>
       <ul className='weekday'>

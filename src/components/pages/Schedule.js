@@ -102,7 +102,7 @@ const Schedule = () => {
   };
 
   return (
-    <section id='scheduleSection'>
+    <div id='scheduleSection'>
       <h2>Weekly Schedule</h2>
       <ul id='weeklySchedule'></ul>
       <p>Add a route to your weekly schedule:</p>
@@ -271,13 +271,15 @@ const Schedule = () => {
         id='scheduleArrive'
         onChange={onScheduledTimeChange}
       ></input>
-      <button id='save' onClick={onSubmitRoute}>Save</button>
+      <button id='save' onClick={onSubmitRoute}>
+        Save
+      </button>
       {errorMessageRoute && <p className='error'> {errorMessageRoute} </p>}
       <ScheduleList
         directionsRequest={directionsRequest}
         setDirectionsRequest={setDirectionsRequest}
       />
-      </section>
+    </div>
   );
 };
 export default Schedule;

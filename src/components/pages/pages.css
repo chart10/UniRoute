@@ -137,7 +137,7 @@
   margin-top: 10px;
 }
 
-.register-overlay{
+.register-overlay {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -149,7 +149,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
 }
-.register-box{
+.register-box {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -197,7 +197,7 @@
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
 
-.register-form button{
+.register-form button {
   display: block;
   width: 100%;
   padding: 10px;
@@ -217,7 +217,7 @@
   color: #f00;
   margin-top: 10px;
 }
-.submit-button{
+.submit-button {
   display: block;
   width: 100%;
   padding: 10px;
@@ -229,11 +229,11 @@
   margin-top: 20px;
   cursor: pointer;
 }
-.submit-button:hover{
+.submit-button:hover {
   background-color: #4c4cbe;
 }
 
-.profile-overlay{
+.profile-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -242,11 +242,13 @@
   z-index: 9999;
   pointer-events: none; /* allow clicks to pass through */
 }
-.profile-box{
+.profile-box {
   position: absolute;
   top: 55%;
   right: 1%;
-  transform: translateY(-50%); /* remove translateX, and translate only on Y-axis */
+  transform: translateY(
+    -50%
+  ); /* remove translateX, and translate only on Y-axis */
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
@@ -257,11 +259,11 @@
   max-height: 600px;
   max-width: 610px;
   overflow-x: hidden;
-  overflow-y: auto; 
-  pointer-events: auto; /* enable clicks on the overlay */ 
+  overflow-y: auto;
+  pointer-events: auto; /* enable clicks on the overlay */
 }
 
-.profile-box::-webkit-scrollbar {
+/* .profile-box::-webkit-scrollbar {
   width: 5px;
 }
 
@@ -276,16 +278,15 @@
 
 .profile-box::-webkit-scrollbar-thumb:hover {
   background-color: #3232b3;
-}
+} */
 
-
-.profile-box h1{
+.profile-box h1 {
   color: rgb(31, 31, 152);
   margin-bottom: 20px;
   text-align: center;
 }
 
-.edit-profile{
+.edit-profile {
   width: 20%;
   padding: 5px;
   font-size: 15px;
@@ -296,24 +297,24 @@
   cursor: pointer;
 }
 
-.edit-profile:hover{
+.edit-profile:hover {
   background-color: #4c4cbe;
 }
 
-.address-book h2{
+.address-book h2 {
   color: rgb(31, 31, 152);
   margin-bottom: 20px;
   text-align: center;
 }
-.address-book p{
+.address-book p {
   color: rgb(36, 36, 77);
   margin-top: 5px;
   margin-bottom: 5px;
-  text-align:left;
+  text-align: left;
   justify-content: space-between;
 }
 
-#addressField{
+#addressField {
   display: block;
   width: 50%;
   margin-bottom: 15px;
@@ -329,7 +330,7 @@
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
 
-.address-book button{
+.address-book button {
   display: block;
   width: 10%;
   padding: 5px;
@@ -345,28 +346,27 @@
   background-color: #4c4cbe;
 }
 
-#scheduleSection h2{
+#scheduleSection h2 {
   color: rgb(31, 31, 152);
   margin-bottom: 20px;
   text-align: center;
-
 }
 
-#scheduleSection p{
+#scheduleSection p {
   color: rgb(36, 36, 77);
   margin-top: 5px;
   margin-bottom: 5px;
-  text-align:left;
+  text-align: left;
   justify-content: space-between;
 }
 
-#scheduleSection input{
+#scheduleSection input {
   margin-bottom: 10px;
   padding: 5px;
   border-radius: 2px;
   border: none;
   justify-content: space-between;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
 #scheduleSection input:hover {
@@ -374,17 +374,17 @@
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
 
-#scheduleSection label{
+#scheduleSection label {
   margin-top: 5px;
   margin-bottom: 5px;
-  text-align:left;
+  text-align: left;
   justify-content: space-between;
 }
-#scheduleSection input{
-  text-align:left;
+#scheduleSection input {
+  text-align: left;
   justify-content: space-between;
 }
-#scheduleSection #save{
+#scheduleSection #save {
   display: inline-block;
   width: 10%;
   padding: 5px;
@@ -398,10 +398,10 @@
 }
 
 #scheduleSection #save:hover {
-    background-color: #4c4cbe;
+  background-color: #4c4cbe;
 }
 
-.commute{
+.commute {
   display: inline-block;
   margin: 10px;
 }
@@ -415,13 +415,11 @@
   text-decoration: underline;
 }
 
-
-
-@media screen and (max-width: 960px){
+@media screen and (max-width: 960px) {
   .error {
     color: red;
   }
-  
+
   .fieldWrapper {
     position: relative;
     z-index: 1;
@@ -448,7 +446,7 @@
   .addressItem:hover {
     background-color: rgb(218, 226, 251);
   }
-  
+
   .userAddress {
     display: flex;
     align-items: center;
@@ -467,7 +465,7 @@
     list-style-type: none;
     vertical-align: top;
   }
-  
+
   .login-overlay {
     position: fixed;
     top: 0;
@@ -477,7 +475,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
   }
-  
+
   .login-box {
     position: absolute;
     top: 50%;
@@ -500,7 +498,7 @@
     color: rgb(31, 31, 152);
     cursor: pointer;
   }
-  
+
   .close-button:hover {
     color: #4c4cbe;
   }
@@ -520,7 +518,7 @@
     margin-bottom: 10px;
     font-weight: bold;
   }
-  
+
   .login-form input {
     display: block;
     width: 100%;
@@ -535,7 +533,7 @@
     background-color: #f0f0f0;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
   }
-  
+
   .login-form button {
     display: block;
     width: 100%;
@@ -547,17 +545,17 @@
     border-radius: 5px;
     cursor: pointer;
   }
-  
+
   .login-form button:hover {
     background-color: #4c4cbe;
   }
-  
+
   .error {
     color: #f00;
     margin-top: 10px;
   }
-  
-  .register-overlay{
+
+  .register-overlay {
     position: fixed;
     display: flex;
     justify-content: center;
@@ -569,7 +567,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
   }
-  .register-box{
+  .register-box {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -587,20 +585,20 @@
     margin-bottom: 20px;
     text-align: center;
   }
-  
+
   .register-box p {
     margin-top: 5px;
     margin-bottom: 5px;
     text-align: center;
     justify-content: space-between;
   }
-  
+
   .register-form label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
   }
-  
+
   .register-form input {
     display: block;
     width: 100%;
@@ -611,13 +609,13 @@
     border: none;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   }
-  
+
   .register-form input:hover {
     background-color: #f0f0f0;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
   }
-  
-  .register-form button{
+
+  .register-form button {
     display: block;
     width: 100%;
     padding: 10px;
@@ -628,16 +626,16 @@
     border-radius: 5px;
     cursor: pointer;
   }
-  
+
   .register-form button:hover {
     background-color: #4c4cbe;
   }
-  
+
   .error {
     color: #f00;
     margin-top: 10px;
   }
-  .submit-button{
+  .submit-button {
     display: block;
     width: 100%;
     padding: 10px;
@@ -649,11 +647,11 @@
     margin-top: 20px;
     cursor: pointer;
   }
-  .submit-button:hover{
+  .submit-button:hover {
     background-color: #4c4cbe;
   }
-  
-  .profile-overlay{
+
+  .profile-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -662,11 +660,13 @@
     z-index: 9999;
     pointer-events: none; /* allow clicks to pass through */
   }
-  .profile-box{
+  .profile-box {
     position: absolute;
     top: 55%;
     right: 1%;
-    transform: translateY(-50%); /* remove translateX, and translate only on Y-axis */
+    transform: translateY(
+      -50%
+    ); /* remove translateX, and translate only on Y-axis */
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
@@ -677,35 +677,34 @@
     max-height: 600px;
     max-width: 610px;
     overflow-x: hidden;
-    overflow-y: auto; 
-    pointer-events: auto; /* enable clicks on the overlay */ 
+    overflow-y: auto;
+    pointer-events: auto; /* enable clicks on the overlay */
   }
-  
+
   .profile-box::-webkit-scrollbar {
     width: 5px;
   }
-  
+
   .profile-box::-webkit-scrollbar-track {
     background-color: #a4adf0;
   }
-  
+
   .profile-box::-webkit-scrollbar-thumb {
     background-color: #535b8d;
     border-radius: 2px;
   }
-  
+
   .profile-box::-webkit-scrollbar-thumb:hover {
     background-color: #3232b3;
   }
-  
-  
-  .profile-box h1{
+
+  .profile-box h1 {
     color: rgb(31, 31, 152);
     margin-bottom: 20px;
     text-align: center;
   }
 
-  .edit-profile{
+  .edit-profile {
     width: 20%;
     padding: 5px;
     font-size: 15px;
@@ -715,25 +714,25 @@
     border-radius: 2px;
     cursor: pointer;
   }
-  
-  .edit-profile:hover{
+
+  .edit-profile:hover {
     background-color: #4c4cbe;
   }
 
-  .address-book h2{
+  .address-book h2 {
     color: rgb(31, 31, 152);
     margin-bottom: 20px;
     text-align: center;
   }
-  .address-book p{
+  .address-book p {
     color: rgb(36, 36, 77);
     margin-top: 5px;
     margin-bottom: 5px;
-    text-align:left;
+    text-align: left;
     justify-content: space-between;
   }
-  
-  #addressField{
+
+  #addressField {
     display: block;
     width: 50%;
     margin-bottom: 15px;
@@ -743,13 +742,13 @@
     border: none;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   }
-  
+
   #addressField:hover {
     background-color: #f0f0f0;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
   }
-  
-  .address-book button{
+
+  .address-book button {
     display: block;
     width: 10%;
     padding: 5px;
@@ -760,52 +759,51 @@
     border-radius: 2px;
     cursor: pointer;
   }
-  
+
   .address-book button:hover {
     background-color: #4c4cbe;
   }
-  
-  #scheduleSection h2{
+
+  #scheduleSection h2 {
     color: rgb(31, 31, 152);
     margin-bottom: 20px;
     text-align: center;
-  
   }
-  
-  #scheduleSection p{
+
+  #scheduleSection p {
     color: rgb(36, 36, 77);
     margin-top: 5px;
     margin-bottom: 5px;
-    text-align:left;
+    text-align: left;
     justify-content: space-between;
   }
-  
-  #scheduleSection input{
+
+  #scheduleSection input {
     margin-bottom: 10px;
     padding: 5px;
     border-radius: 2px;
     border: none;
     justify-content: space-between;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   }
-  
+
   #scheduleSection input:hover {
     background-color: #f0f0f0;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
   }
-  
-  #scheduleSection label{
+
+  #scheduleSection label {
     margin-top: 5px;
     margin-bottom: 5px;
-    text-align:left;
+    text-align: left;
     justify-content: space-between;
   }
-  #scheduleSection input{
-    text-align:left;
+  #scheduleSection input {
+    text-align: left;
     justify-content: space-between;
-  }  
+  }
 
-  #scheduleSection #save{
+  #scheduleSection #save {
     display: inline-block;
     width: 10%;
     padding: 5px;
@@ -817,19 +815,19 @@
     border-radius: 2px;
     cursor: pointer;
   }
-  
+
   #scheduleSection #save:hover {
-      background-color: #4c4cbe;
+    background-color: #4c4cbe;
   }
-  
-  .commute{
+
+  .commute {
     display: inline-block;
     margin: 10px;
   }
   .route p {
     cursor: pointer;
   }
-  
+
   .route:hover {
     cursor: pointer;
     color: rgb(0, 174, 255);
