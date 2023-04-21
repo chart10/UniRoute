@@ -8,7 +8,7 @@ import logging
 from flask import Flask, request, jsonify, render_template
 from flask_jwt_extended import create_access_token, get_jwt, \
     get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
-from flask_mysqldb import MySQL # Connects MySQL to Flask
+from flask_mysqldb import MySQL  # Connects MySQL to Flask
 import MySQLdb.cursors
 from googleroutes import get_route
 from flask_bcrypt import Bcrypt
@@ -23,10 +23,11 @@ bcrypt = Bcrypt(app)
 
 
 ## TOKEN CONFIG
+
 app.config["JWT_SECRET_KEY"] = "super-secret-thingy-that-is-not-best-practice(CHANGE!)"
 jwt = JWTManager(app)
 
-## DATABASE CONFIGURATION
+# DATABASE CONFIGURATION
 app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
 app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')
 app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
@@ -44,27 +45,37 @@ app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 mail = Mail(app)
 mysql = MySQL(app)
 
-## LOGGING CONFIGURATION
+# LOGGING CONFIGURATION
 log = logging.getLogger("writing-logger")
-#logging.basicConfig(level=os.environ.get)()
+# logging.basicConfig(level=os.environ.get)()
 log.setLevel(logging.INFO)
 fh = logging.FileHandler("./mylog.log")
-formatting = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatting = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fh.setFormatter(formatting)
 log.addHandler(fh)
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
 @app.route('/landing')
 def landing():
     return render_template('index.html')
+
+
 @app.route('/login')
 def login():
     return render_template('index.html')
+
+
 @app.route('/profile')
 def profile():
     return render_template('index.html')
+
+
 @app.route('/register')
 def register():
     return render_template('index.html')
@@ -118,7 +129,8 @@ def add_user():
     confirmed = 0
     date = None
     # Check if username is already in the database
-    cursor.execute('SELECT username FROM users WHERE username = %s', [username])
+    cursor.execute(
+        'SELECT username FROM users WHERE username = %s', [username])
     user = cursor.fetchone()
     if user:
         return 'There is already an account with that username.'
@@ -127,6 +139,7 @@ def add_user():
     # 3) Use cursor.execute() to run a line of MySQL code
     cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s,%s,%s)''',
                 (username,hashed_password,confirmed,date,email,university,first_name,last_name,))
+
     # 4) Commit the change to the MySQL database
     mysql.connection.commit()
     # 5) Close the cursor
@@ -168,6 +181,8 @@ def confirm_email(token):
     return 'You have successfully confirmed your email!'
 
 # Api route for logging in users and creating token
+
+
 @app.route('/token', methods=["POST"])
 def create_token():
     '''
@@ -193,10 +208,12 @@ def create_token():
         return {"msg": "Wrong username or password"}, 401
     # create accesstoken if succsesful
     access_token = create_access_token(identity=username)
-    response = {"access_token":access_token}
+    response = {"access_token": access_token}
     return response
 
 # this refreshes the jwt authentication so it does not randomly log you out
+
+
 @app.after_request
 def refresh_expiring_jwts(response):
     ''' If a certain amount time passes, the JWT Auth token is refreshed'''
@@ -216,12 +233,15 @@ def refresh_expiring_jwts(response):
         return response
 
 # Api route for logging out users
+
+
 @app.route('/logout', methods=['POST'])
 def logout():
     ''' Logs user out of session. Unsets the JWT Auth Token'''
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)
     return response
+
 
 @app.route('/delete_user', methods=['POST'])
 def delete_user():
@@ -238,6 +258,8 @@ def delete_user():
 # return type: dict of user data {FirstName: '',
 #                                 LastName: '',
 #                                 University: ''}
+
+
 @app.route('/get_profile', methods=['GET', 'POST'])
 @jwt_required()
 def get_profile():
@@ -255,7 +277,7 @@ def get_profile():
     user = cursor.fetchone()
 
     # set profile data
-    profile_data={
+    profile_data = {
         'firstName': user['firstName'],
         'lastName': user['lastName'],
         'university': user['university'],
@@ -264,6 +286,8 @@ def get_profile():
     return profile_data
 
 # route to save addresses to db
+
+
 @app.route('/save_address', methods=['POST'])
 @jwt_required()
 def save_address():
@@ -273,7 +297,7 @@ def save_address():
     # Grab current user so msql knows where to store it
     current_user = get_jwt_identity()
 
-    #initialize cursor
+    # initialize cursor
     cursor = mysql.connection.cursor()
 
     # request json from front end and store in variables
@@ -281,13 +305,14 @@ def save_address():
 
     # insert varables in to columns in mysql db
     cursor.execute('INSERT INTO addresses (username, address) VALUES(%s,%s)',
-                   (current_user,address_to_save))
+                   (current_user, address_to_save))
     # commit the changes
     cursor.connection.commit()
     # close the cursor
     cursor.close()
 
     return "Successfully added Address to DataBase"
+
 
 @app.route('/remove_address', methods=['POST'])
 @jwt_required()
@@ -296,20 +321,23 @@ def remove_address():
     cursor = mysql.connection.cursor()
     address_to_remove = request.json['address']
     cursor.execute('DELETE FROM addresses WHERE (username=%s AND address=%s)',
-                   (current_user,address_to_remove))
+                   (current_user, address_to_remove))
     cursor.connection.commit()
     # close the cursor
     cursor.close()
     return "Address successfully removed"
 
 # route to grab address from db
+
+
 @app.route('/get_address', methods=['GET', 'POST'])
 @jwt_required()
 def get_address():
     ''' Grabs saved addresses of current user and sends to front end'''
     current_user = get_jwt_identity()
     cursor = mysql.connection.cursor()
-    cursor.execute('SELECT address FROM addresses WHERE username = %s', (current_user,))
+    cursor.execute(
+        'SELECT address FROM addresses WHERE username = %s', (current_user,))
     address_result = cursor.fetchall()
     address_list = []
     for address in address_result:
@@ -317,21 +345,24 @@ def get_address():
     response = {'address_list': address_list}
     return response
 
-## ROUTING MANAGEMENT
+# ROUTING MANAGEMENT
 
 # Api route to grab google routing data
-@app.route('/get_route',methods=['GET', 'POST'])
+
+
+@app.route('/get_route', methods=['GET', 'POST'])
 def get_google_route():
     ''' API Route to call google maps api in backend. Currently not in use.'''
     # Will call google routes from a handler file
     # print(get_route().text)
     return get_route()
 
+
 @app.route('/get_schedule', methods=['GET'])
 @jwt_required()
 def get_schedule():
     # Grabs current user's schedule for the week
-    current_user = get_jwt_identity()    
+    current_user = get_jwt_identity()
     cursor = mysql.connection.cursor()
 
     # Pull user's weekly schedule from db by joining scheduledRoutes and scheduledRoutesDayOfWeek
@@ -340,25 +371,28 @@ def get_schedule():
                    'scheduledRoutesDayOfWeek ON ' +
                    'scheduledRoutes.routeID=scheduledRoutesDayOfWeek.routeID ' +
                    'WHERE username = %s', (current_user,))
-    
+
     # Convert query results into a frontend-friendly array of dictionaries
     # First, get the names of all the columns in the query. These will be the keys
     description = cursor.description
     column_names = [column[0] for column in description]
-    
+
     # Next, zip column_names with each row in the query result to get an array of dictionaries!
-    schedule_result = [dict(zip(column_names,row)) for row in cursor]
-    
+    schedule_result = [dict(zip(column_names, row)) for row in cursor]
+
     # Last step, we need to convert the datetime saved by the db to a string so that it can be
     # converted to JSON and read by the frontend
     for route in schedule_result:
         for key, value in route.items():
             if (key == "timeOfDay"):
-                route[key] = ':'.join(str(value).split(':')[:2]) # I shaved off the seconds, fyi
+                # I shaved off the seconds, fyi
+                route[key] = ':'.join(str(value).split(':')[:2])
 
     return schedule_result
 
 # Api Route to save scheduled direction parameters to user profile
+
+
 @app.route('/save_scheduled_directions', methods=['POST'])
 @jwt_required()
 def save_scheduled_directions():
@@ -368,7 +402,7 @@ def save_scheduled_directions():
     '''
     current_user = get_jwt_identity()
     cursor = mysql.connection.cursor()
-    
+
     # Retrieve JSON input values
     travelMode = request.json['scheduledTravelMode']
     departArrive = request.json['departArrive']
@@ -376,25 +410,26 @@ def save_scheduled_directions():
     origin = request.json['scheduledOrigin']
     destination = request.json['scheduledDestination']
     dayOfWeek = request.json['dayOfWeek']
-    
+
     # Input data into the scheduledRoutes table
-    cursor.execute('INSERT INTO scheduledRoutes (username, travelMode, departArrive, timeOfDay,'+
+    cursor.execute('INSERT INTO scheduledRoutes (username, travelMode, departArrive, timeOfDay,' +
                    'origin, destination) VALUES(%s,%s,%s,%s,%s,%s)',
                    (current_user, travelMode, departArrive, timeOfDay, origin, destination,))
-    
+
     # Retrieve routeID of the just-saved directions
     routeID = cursor.lastrowid
-    
+
     # Enter dayOfWeek into scheduledRoutesDayOfWeek for the just-saved directions
     for (dayIndex, dayEnabled) in enumerate(dayOfWeek):
         if (dayEnabled):
             print(str(index) + ": added to table")
             cursor.execute('INSERT INTO scheduledRoutesDayOfWeek (routeID, dayOfWeek)' +
-                           'VALUES(%s,%s)',(routeID, dayIndex))
+                           'VALUES(%s,%s)', (routeID, dayIndex))
 
     cursor.connection.commit()
     cursor.close()
     return "Successfully added Scheduled Directions to DataBase"
+
 
 @app.route('/remove_scheduled_directions', methods=['POST'])
 @jwt_required()
@@ -404,10 +439,10 @@ def remove_scheduled_directions():
     '''
     cursor = mysql.connection.cursor()
     routeID = request.json['routeID']
-    
+
     cursor.execute('DELETE FROM scheduledRoutes ' +
                    'WHERE (routeID=%s)', (routeID,))
-    
+
     cursor.connection.commit()
     # close the cursor
     cursor.close()
