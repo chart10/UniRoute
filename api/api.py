@@ -447,3 +447,25 @@ def remove_scheduled_directions():
     # close the cursor
     cursor.close()
     return "Scheduled directions successfully removed"
+
+@app.route("/edit_profile", methods=["POST"])
+@jwt_required()
+def edit_profile():
+    '''
+        Edits the user's information.
+    '''
+    cursor = mysql.connection.cursor()
+
+    current_user = get_jwt_identity()
+
+    first_name = request.json['firstName']
+    last_name = request.json['lastName']
+    university = request.json['university']
+
+    cursor.execute('UPDATE users SET firstName = %s, lastName = %s, university = %s WHERE username = %s',
+                    (first_name, last_name, university, current_user))
+    
+    cursor.connection.commit()
+    cursor.close()
+
+    return "Succesfully updated profile information"
