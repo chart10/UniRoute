@@ -7,15 +7,16 @@ import img3 from './images/ProfileExample.png';
 function Landing() {
   return (
     <article>
-      <img id='landing-image' src={img} />
+      <div id='blue-gradient'></div>
       <section id='landing-page1'>
         <div id='text-box'>
-          <h1>Welcome to UniRoute!</h1>
+          <h1 id='landing-text-title'>Welcome to UniRoute!</h1>
           <h3 id='landing-text-description'>
             A one-page application for Univerity commuters
           </h3>
         </div>
       </section>
+
       <section id='landing-page2'>
         <img id='directions-img' src={img2} />
         <div class='text-container'>
@@ -36,6 +37,16 @@ function Landing() {
           </h3>
         </div>
         <img id='profile-img' src={img3} />
+      </section>
+      <section id='credits'>
+        <div className='designer'>
+          <img src='./images/suavearabic.jpg' alt='Pic of Eric Rivas' />
+          <h3>Eric Rivas</h3>
+          <img src='./images/ssbsk.jpg' alt='Pic of Eric Rivas' />
+          <h3>Chandler Dugan</h3>
+          <img src='./images/suavearabic.jpg' alt='Pic of Eric Rivas' />
+          <h3>Eric Rivas</h3>
+        </div>
       </section>
     </article>
   );

@@ -2,37 +2,97 @@ article {
   background-image: url(./images/PeopleDriving.jpg);
   background-position: center;
   background-attachment: fixed;
-  z-index: 100;
+  display: flex; /* add this */
+  flex-direction: column; /* add this */
+  justify-content: center; /* add this */
+  align-items: center; /* add this */
+  background-image: url(./images/PeopleDriving.jpg);
+  background-position: center;
+  background-attachment: fixed;
 }
 section {
   display: flex;
   flex-flow: row nowrap;
 }
+/* #blue-gradient {
+  height: 40%;
+  width: 100%;
+  background: linear-gradient(#1f1f98, rgba(31, 31, 152, 0));
+  z-index: 2;
+} */
+
+h1 {
+  font-size: 50px;
+  font-weight: 900;
+}
+h3 {
+  font-size: 36px;
+}
 #landing-page1 {
+  margin-top: 3%;
+  margin-right: auto;
+  margin-bottom: 120%;
+  margin-left: auto;
+  z-index: 3;
 }
 
-#text-box {
+#landing-page1 #landing-text-title {
   text-align: center;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 900;
+  font-size: 50px;
+}
+#landing-page1 #landing-text-description {
+  text-align: center;
+  font-size: 36px;
 }
 
 #landing-page2 {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 }
 
 #landing-page3 {
+  margin-top: 20%;
+}
+#landing-page3 .text-container {
+  order: 2;
+}
+#directions-img {
+  border-radius: 25px;
+  box-shadow: 4px 4px 8px black;
+  align-self: center;
 }
 
-.text-container {
+#profile-img {
+  border-radius: 25px;
+  box-shadow: 4px 4px 8px black;
   order: 2;
+}
+.text-container {
+  order: 1;
   background: rgb(244, 175, 133);
   background: linear-gradient(
     90deg,
     rgba(244, 175, 133, 1) 0%,
     rgba(250, 117, 103, 1) 69%
   );
-  width: 35%;
-  height: 70%;
+  box-shadow: 4px 4px 8px black;
+  /* width: 35%;
+  height: 70%; */
   padding: 50px;
   border-radius: 25px;
   margin: 15px;
   margin-top: 150px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  align-self: center;
+}
+
+#credits {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 }
